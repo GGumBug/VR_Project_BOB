@@ -4,15 +4,39 @@ using UnityEngine;
 
 public class SheetManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Singletone
+
+    private static SheetManager instance = null;
+
+    public static SheetManager GetInstance()
     {
-        
+        if (instance == null)
+        {
+            GameObject go = new GameObject("@SheetManager");
+            instance = go.AddComponent<SheetManager>();
+
+            DontDestroyOnLoad(go);
+        }
+        return instance;
+
+    }
+    #endregion
+
+    TextAsset sourceFile;
+    public string musicRoute = "Test";
+
+    private void Awake()
+    {
+        Init(musicRoute);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Init(string musicRoute)
     {
-        
+        sourceFile = Resources.Load<TextAsset>($"Sheet/{musicRoute}/{musicRoute}");
+    }
+
+    public TextAsset GetSourceFile()
+    {
+        return sourceFile;
     }
 }
