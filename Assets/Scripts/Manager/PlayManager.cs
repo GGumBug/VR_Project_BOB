@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayManager : MonoBehaviour
 {
-    // Å¸°Ù Á¡¼ö ÆÇÁ¤
+    // íƒ€ê²Ÿ ì ìˆ˜ íŒì •
     bool isPerfecthit;
     bool isGoodhit;
     bool isBadhit;
     bool isMisshit;
     bool isTargethit;
 
-    // Á¡¼ö °ü·Ã º¯¼ö
+    // ì ìˆ˜ ê´€ë ¨ ë³€ìˆ˜
     int curScore;
     int bestScore;
     float TimingLate;

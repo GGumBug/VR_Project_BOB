@@ -30,7 +30,7 @@ public class ScenesManager : MonoBehaviour
     public Scenes currentScene;
     public void ChangeScene(Scenes scene)
     {
-        UIManager.GetInstance().ClearList(); // ¾ÀÀÌ ¹Ù²ğ¶§¸¶´Ù UI¸Å´ÏÀú¸¦ Å¬¸®¾îÇØÁÖ°Ú´Ù.
+        UIManager.GetInstance().ClearList(); // ì”¬ì´ ë°”ë€”ë•Œë§ˆë‹¤ UIë§¤ë‹ˆì €ë¥¼ í´ë¦¬ì–´í•´ì£¼ê² ë‹¤.
                                              // PrevScene = currentScene;
         currentScene = scene;
         SceneManager.LoadScene(scene.ToString());
