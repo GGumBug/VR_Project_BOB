@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 3850823336148026375}
   - component: {fileID: 6277269390788761646}
   - component: {fileID: 7642881008051140708}
+  - component: {fileID: 4236548768325144078}
   m_Layer: 0
   m_Name: GUN
   m_TagString: Untagged
@@ -491,6 +492,19 @@ MonoBehaviour:
   m_ForceGravityOnDetach: 0
   m_RetainTransformParent: 1
   m_AttachPointCompatibilityMode: 0
+--- !u!114 &4236548768325144078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463331024907469046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f54a1bcdee9d3248b9904c9bd7267ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hand: {fileID: 0}
 --- !u!1 &7366622879826364433
 GameObject:
   m_ObjectHideFlags: 0
