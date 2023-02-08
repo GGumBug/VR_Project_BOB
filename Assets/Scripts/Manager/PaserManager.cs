@@ -123,14 +123,14 @@ public class PaserManager : MonoBehaviour
 
     public void GetClip(string title)
     {
-        title = SheetManager.GetInstance().musicRoute;
+        title = SheetManager.GetInstance().title;
         clip = Resources.Load<AudioClip>($"Sheet/{title}/{title}");
         clip.name = title;
     }
 
     public void GetImg(string title)
     {
-        title = SheetManager.GetInstance().musicRoute;
+        title = SheetManager.GetInstance().title;
         img = Resources.Load<Sprite>($"Sheet/{title}/{title}");
         img.name = title;
     }
