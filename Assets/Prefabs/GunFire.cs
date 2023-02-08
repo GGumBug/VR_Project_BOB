@@ -21,11 +21,11 @@ public class GunFire : MonoBehaviour
         // 레이 디버그
         //Debug.DrawRay(fireTransform.position,fireTransform.forward* 10f,Color.green);
 
-        ShotRay();
+        
     }
+     
 
-
-    void ShotRay()
+    public void ShotRay()
     {
         
         if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hitTarget))
@@ -33,6 +33,11 @@ public class GunFire : MonoBehaviour
             
             Debug.Log(hitTarget.collider.gameObject.name);
 
+            if (hitTarget.collider.gameObject != null)
+            {
+                Destroy(hitTarget.collider.gameObject);
+            }
+            
             
         }
 
