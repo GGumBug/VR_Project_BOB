@@ -23,7 +23,10 @@ public class SheetManager : MonoBehaviour
     #endregion
 
     TextAsset sourceFile;
+
     public string musicRoute = "Test";
+
+    public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
 
     private void Awake()
     {
@@ -38,5 +41,10 @@ public class SheetManager : MonoBehaviour
     public TextAsset GetSourceFile()
     {
         return sourceFile;
+    }
+
+    public void AddSheet(string key, Sheet sheet)
+    {
+        sheets.Add(key, sheet);
     }
 }
