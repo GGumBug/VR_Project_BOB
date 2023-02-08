@@ -117,6 +117,8 @@ public class PaserManager : MonoBehaviour
         sheet.clip = clip;
         sheet.img = img;
 
+        SheetManager.GetInstance().AddSheet(title, sheet);
+
     }
 
     public void GetClip(string title)
