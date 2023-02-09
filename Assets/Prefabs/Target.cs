@@ -4,25 +4,18 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-
+    [SerializeField] GameObject targetNote;
 
 
     void Start()
     {
-        
+        targetNote = GameObject.FindGameObjectWithTag("_Note");
     }
 
     // Update is called once per frame
     void Update()
     {
-        RayshotTargetDestroy();
-    }
-
-    public void RayshotTargetDestroy()
-    {
-       // Raycasthit 됬을때 Destroy됨
-
-
 
     }
+
 }

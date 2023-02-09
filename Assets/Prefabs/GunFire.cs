@@ -7,31 +7,45 @@ public class GunFire : MonoBehaviour
     [SerializeField] RaycastHit hitTarget;
     [SerializeField] Transform fireTransform;
     [SerializeField] GameObject Target;
-
-
+    [SerializeField] GameObject gunAim;
+    [SerializeField] Target target;
 
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
-    {
-        // 레이 디버그
-        //Debug.DrawRay(fireTransform.position,fireTransform.forward* 10f,Color.green);
+    {        
+        Debug.DrawRay(fireTransform.position,fireTransform.forward* 10f,Color.green);
 
         
     }
-     
 
-    public void ShotRay()
-    {
-        
+    //public void AimRay()
+    //{
+
+
+    //    if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hitTarget))
+    //    {
+    //        Debug.Log(hitTarget.collider.gameObject.name);
+
+    //        GameObject aimPos;
+    //       // aimPos = amiPos.hitTarget.collider.gameObject.Transform.Position;
+
+    //    }
+    //}
+
+     public void ShotRay()
+     {      
+
         if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hitTarget))
         {
-            
-            Debug.Log(hitTarget.collider.gameObject.name);
+
+            //if (hitTarget.collider.gameObject == target.CompareTag("_Note"))
+            //{
+            //    Destroy(hitTarget.collider.gameObject);
+            //}
 
             if (hitTarget.collider.gameObject != null)
             {
@@ -41,7 +55,7 @@ public class GunFire : MonoBehaviour
             
         }
 
-    }
+     }
 
 
 }

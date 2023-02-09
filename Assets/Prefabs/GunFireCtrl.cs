@@ -19,7 +19,7 @@ public class GunFireCtrl : MonoBehaviour
 
     void Bang()
     {
-        if (Vector3.Distance(transform.position, handgun.transform.position) < 1f)
+        if (Vector3.Distance(transform.position, handgun.transform.position) < 2f)
         {
             if (Input.GetMouseButtonDown(0))
             {
