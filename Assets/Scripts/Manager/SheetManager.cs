@@ -24,13 +24,26 @@ public class SheetManager : MonoBehaviour
 
     TextAsset sourceFile;
 
-    public string musicRoute = "Test";
+    public string title = "Test";
+
+    float speed = 1.0f;
+    public float Speed
+    {
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = Mathf.Clamp(value, 1.0f, 5.0f);
+        }
+    }
 
     public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
 
     private void Awake()
     {
-        Init(musicRoute);
+        Init(title);
     }
 
     public void Init(string musicRoute)

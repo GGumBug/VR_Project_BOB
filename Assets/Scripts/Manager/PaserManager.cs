@@ -36,13 +36,6 @@ public class PaserManager : MonoBehaviour
     public AudioClip clip;
     public Sprite img;
 
-    private void Start()
-    {
-        Paser(SheetManager.GetInstance().GetSourceFile().text);
-        Debug.Log(sheet.title);
-        Debug.Log(sheet.artist);
-    }
-
     public void Paser(string title)
     {
         sheet = new Sheet();
@@ -123,14 +116,14 @@ public class PaserManager : MonoBehaviour
 
     public void GetClip(string title)
     {
-        title = SheetManager.GetInstance().musicRoute;
+        title = SheetManager.GetInstance().title;
         clip = Resources.Load<AudioClip>($"Sheet/{title}/{title}");
         clip.name = title;
     }
 
     public void GetImg(string title)
     {
-        title = SheetManager.GetInstance().musicRoute;
+        title = SheetManager.GetInstance().title;
         img = Resources.Load<Sprite>($"Sheet/{title}/{title}");
         img.name = title;
     }
