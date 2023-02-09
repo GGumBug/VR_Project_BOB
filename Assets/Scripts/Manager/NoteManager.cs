@@ -64,8 +64,6 @@ public class NoteManager : MonoBehaviour
 
     void Gen(string title)
     {
-        Debug.Log($"curNoteTime = {curNoteTime}");
-        Debug.Log($"GetMilliSec = {AudioManager.GetInstance().GetMilliSec()}");
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
             NoteObject note = ObjectPoolManager.GetInstance().GetObject();
