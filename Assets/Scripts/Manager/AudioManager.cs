@@ -5,26 +5,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-
-[System.Serializable]
-public class Sound
+public enum State
 {
-
-    public string name;
-    public AudioClip clip;
-
-    public float volume;
-    public bool loop = true;
-
-
-    public Sound(string _name, AudioClip _clip, bool _loop)
-    {
-        name = _name;
-        clip = _clip;
-        volume = 0.1f;
-        loop = _loop;
-    }
-
+    Playing,
+    Paused,
+    Unpaused,
+    Stop,
 }
 
 public class AudioManager : MonoBehaviour
@@ -45,73 +31,35 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
+    public State state = State.Stop;
+
     public AudioSource BgmPlayer;
-    public AudioSource SfxPlayer;
-    public Dictionary<string, Sound> bgms = new Dictionary<string, Sound>();
-    public Dictionary<string, Sound> sfxs = new Dictionary<string, Sound>();
-    public AudioMixer audioMixer;
 
-    UIManager uiManager;
-
-    void Awake()
+    public void InitClip(string title)
     {
-        uiManager = UIManager.GetInstance();
-        var ob1 = new GameObject();
-        ob1.name = "@BgmPlayer";
-        var ob2 = new GameObject();
-        ob2.name = "@SfxPlayer";
-        ob1.transform.SetParent(gameObject.transform);
-        ob2.transform.SetParent(gameObject.transform);
-        ob1.AddComponent<AudioSource>();
-        ob2.AddComponent<AudioSource>();
-        BgmPlayer = ob1.GetComponent<AudioSource>();
-        SfxPlayer = ob2.GetComponent<AudioSource>();
-        InitSounds();
-
+        BgmPlayer = gameObject.AddComponent<AudioSource>();
+        BgmPlayer.clip = SheetManager.GetInstance().sheets[title].clip;
     }
-
-    public void InitSounds()
+    public void Play()
     {
-        AudioClip[] bgm = Resources.LoadAll<AudioClip>($"Sound/Bgm");
-        AudioClip[] sfx = Resources.LoadAll<AudioClip>($"Sound/SFX");
-
-        for (int i = 0; i < bgm.Length; i++)
-        {
-            bgms.Add(bgm[i].name, new Sound(bgm[i].name, bgm[i], false));
-        }
-
-        for (int j = 0; j < sfx.Length; j++)
-        {
-            sfxs.Add(sfx[j].name, new Sound(sfx[j].name, sfx[j], false));
-        }
-
-
-    }
-
-    public void PlayBgm(string name)
-    {
-
-
-        Debug.Log("isPlaying : " + SfxPlayer.isPlaying);
-        var bgm = bgms[name];
-        bgm.loop = true;
-        BgmPlayer.clip = bgm.clip;
-        BgmPlayer.volume = bgm.volume = 0.1f;
-        BgmPlayer.loop = bgm.loop;
+        state = State.Playing;
         BgmPlayer.Play();
     }
 
-    public void PlaySfx(string name)
+    public float progressTime
     {
-        var sfx = sfxs[name];
-        SfxPlayer.clip = sfx.clip;
-        SfxPlayer.volume = sfx.volume = 0.3f;
-        SfxPlayer.loop = sfx.loop;
-        SfxPlayer.Play();
-
-        /*uiOption = uiManager.GetUI("UIOption").GetComponent<UIOption>();
-        uiOption.SetSFXVolme(sfx.volume);*/
-
+        get
+        {
+            float time = 0f;
+            if (BgmPlayer.clip != null)
+                time = BgmPlayer.time;
+            return time;
+        }
+        set
+        {
+            if (BgmPlayer.clip != null)
+                BgmPlayer.time = value;
+        }
     }
 
     public float GetMilliSec()

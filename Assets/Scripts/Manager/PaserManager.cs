@@ -36,13 +36,6 @@ public class PaserManager : MonoBehaviour
     public AudioClip clip;
     public Sprite img;
 
-    private void Start()
-    {
-        Paser(SheetManager.GetInstance().GetSourceFile().text);
-        Debug.Log(sheet.title);
-        Debug.Log(sheet.artist);
-    }
-
     public void Paser(string title)
     {
         sheet = new Sheet();

@@ -34,7 +34,7 @@ public class NoteObject : MonoBehaviour
 
     public IEnumerator IETimeOver()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         life = false;
     }
 }

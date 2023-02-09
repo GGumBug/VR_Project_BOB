@@ -39,7 +39,7 @@ public class NoteManager : MonoBehaviour
     readonly float defaultInterval = 0.005f;
     public float Interval { get; private set; }
 
-    int currentBar = 3; // 최초 플레이 시 3마디 먼저 생성
+    int currentBar = 0;
     int next = 0;
     int prev = 0;
     public List<NoteObject> toReleaseList = new List<NoteObject>();
@@ -48,20 +48,26 @@ public class NoteManager : MonoBehaviour
     Coroutine coReleaseTimer;
     Coroutine coInterpolate;
 
+    private void Start()
+    {
+        notePrefab = Resources.Load<GameObject>("Objects/Note");
+    }
+
     public IObjectPool<NoteObject> PoolNoteObject
     {
         get
         {
             if (poolNote == null)
             {
-                poolNote = new ObjectPool<NoteObject>(CreateNoteObject, defaultCapacity: 256);
+                poolNote = new ObjectPool<NoteObject>(CreateNoteObject, defaultCapacity: 100);
             }
-            return PoolNoteObject;
+            return poolNote;
         }
     }
 
     NoteObject CreateNoteObject()
     {
+        notePrefab = Resources.Load<GameObject>("Objects/Note");
         GameObject note = Instantiate(notePrefab);
         return note.GetComponent<NoteObject>();
     }
@@ -90,7 +96,7 @@ public class NoteManager : MonoBehaviour
         //Editor.Instance.objects.transform.position = Vector3.zero;
 
         toReleaseList.Clear();
-        currentBar = 3;
+        currentBar = 0;
         next = 0;
         prev = 0;
     }
@@ -102,7 +108,7 @@ public class NoteManager : MonoBehaviour
 
         for (; next < notes.Count; next++)
         {
-            if (notes[next].time > currentBar * SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].BarPerMilliSec)
+            if (notes[next].time > currentBar * SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].BarPerMilliSec / 64f) // 한마디의 1/8 마다 생성 체크
             {
                 break;
             }
@@ -137,7 +143,7 @@ public class NoteManager : MonoBehaviour
         while (true)
         {
             Gen();
-            yield return new WaitForSeconds(interval);
+            yield return new WaitForSeconds(interval / 64f); // 한마디의 1/8 마다 생성 체크
             currentBar++;
         }
     }
@@ -174,12 +180,12 @@ public class NoteManager : MonoBehaviour
 
     void ReleaseCompleted() //분석
     {
-        foreach (NoteObject note in toReleaseList)
+        foreach (NoteObject note in toReleaseList) // in = 리스트 안에서 조건을 만족하는 애들을 꺼내오겠다
         {
             note.gameObject.SetActive(false);
 
-            if (note is NoteObject)
-                PoolNoteObject.Release(note as NoteObject);
+            if (note is NoteObject) // is 노트중에서 이 성질을 가져오겠다.
+                PoolNoteObject.Release(note as NoteObject); // as 가져온 성질을 사용하겠다.
         }
     }
 }
