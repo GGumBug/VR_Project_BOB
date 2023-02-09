@@ -15,26 +15,9 @@ public class NoteObject : MonoBehaviour
         transform.position = pos;
     }
 
-    public void SetCollider()
-    {
-        if (GameManager.GetInstance().state == GameState.Game)
-        {
-            GetComponent<SphereCollider>().enabled = true;
-        }
-        //else
-        //{
-        //    StartCoroutine(IECheckCollier());
-        //}
-    }
-
     public void TimeOver()
     {
-        StartCoroutine("IETimeOver");
-    }
-
-    public IEnumerator IETimeOver()
-    {
-        yield return new WaitForSeconds(1f);
         life = false;
+        ObjectPoolManager.GetInstance().ReturnObject(this);
     }
 }

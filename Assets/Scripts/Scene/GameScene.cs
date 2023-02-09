@@ -14,6 +14,7 @@ public class GameScene : MonoBehaviour
         AudioManager.GetInstance().progressTime = 0f;
         AudioManager.GetInstance().Play();
 
-        NoteManager.GetInstance().StartGen();
+        ObjectPoolManager.GetInstance();
+        NoteManager.GetInstance();
     }
 }
