@@ -1,14 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GunFire : MonoBehaviour
 {
-    [SerializeField] RaycastHit hitTarget;
-    [SerializeField] Transform fireTransform;
-    [SerializeField] GameObject Target;
-    [SerializeField] GameObject gunAim;
-    [SerializeField] Target target;
+    [Header("Raycast")]
+    [SerializeField] Transform gunraycastOrigin;
+    [SerializeField] LayerMask targetLayer;
+
+    [Space(10f)]
+    [Header("Audio")]
+    AudioSource gunAudioSource;
+    [SerializeField] AudioClip gunAudioClip;
+
+    private void Awake()
+    {
+        if (TryGetComponent(out AudioSource audio))
+        {
+            gunAudioSource = audio;
+        }
+        else
+        {
+            gunAudioSource = gameObject.AddComponent(typeof(AudioSource)) as AudioSource;
+        }
+    }
 
     void Start()
     {
@@ -17,45 +34,27 @@ public class GunFire : MonoBehaviour
 
     void Update()
     {        
-        Debug.DrawRay(fireTransform.position,fireTransform.forward* 10f,Color.green);
-
-        
+       
     }
 
-    //public void AimRay()
-    //{
-
-
-    //    if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hitTarget))
-    //    {
-    //        Debug.Log(hitTarget.collider.gameObject.name);
-
-    //        GameObject aimPos;
-    //       // aimPos = amiPos.hitTarget.collider.gameObject.Transform.Position;
-
-    //    }
-    //}
-
-     public void ShotRay()
-     {      
-
-        if (Physics.Raycast(fireTransform.position, fireTransform.forward, out hitTarget))
+    public void ShotRay()
+     {
+        RaycastHit hit;
+       
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
-
-            //if (hitTarget.collider.gameObject == target.CompareTag("_Note"))
-            //{
-            //    Destroy(hitTarget.collider.gameObject);
-            //}
-
-            if (hitTarget.collider.gameObject != null)
+            if (hit.transform.GetComponent<ITargetInteface>() != null)
             {
-                Destroy(hitTarget.collider.gameObject);
+                hit.transform.GetComponent<ITargetInteface>().TargetShot();
+
+                Debug.Log($"<color=green> hit target {hit.transform.name}</color>");
             }
-            
-            
+            else
+            { Debug.Log("그걸 못맞추네...."); }
+
         }
 
+        gunAudioSource.PlayOneShot(gunAudioClip);
+      
      }
-
-
 }
