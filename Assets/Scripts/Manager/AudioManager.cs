@@ -113,4 +113,9 @@ public class AudioManager : MonoBehaviour
         uiOption.SetSFXVolme(sfx.volume);*/
 
     }
+
+    public float GetMilliSec()
+    {
+        return BgmPlayer.time * 1000;
+    }
 }
