@@ -4893,6 +4893,7 @@ GameObject:
   - component: {fileID: 3686487327561853679}
   - component: {fileID: 3595931528131589581}
   - component: {fileID: 3594749019309693419}
+  - component: {fileID: 2833231856158509552}
   m_Layer: 0
   m_Name: SpinAuraBlue
   m_TagString: Untagged
@@ -4927,7 +4928,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 0.8
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 3
   cullingMode: 3
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -9784,6 +9785,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2833231856158509552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3684733679146687975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c4792c50d2807345b586a462fcf1208, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3685044942263383271
 GameObject:
   m_ObjectHideFlags: 0
