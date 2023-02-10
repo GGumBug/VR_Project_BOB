@@ -47,6 +47,7 @@ public class GunFire : MonoBehaviour
             {
                 hit.transform.GetComponent<ITargetInteface>().TargetShot();
 
+
                 Debug.Log($"<color=green> hit target {hit.transform.name}</color>");
             }
             else
