@@ -5,6 +5,4 @@ public interface ITargetInteface
 
     void PlayAnimation();
 
-    void PlayAudio();
-
 }
