@@ -24,19 +24,31 @@ public class ObjectPoolManager : MonoBehaviour
 
     [SerializeField]
     private GameObject notePrefab;
+    private GameObject GuidePrefab;
 
     Queue<NoteObject> PoolNoteObject = new Queue<NoteObject>();
 
+    Queue<GameObject> Guide = new Queue<GameObject>();
+
     private void Awake()
     {
-        Initialize(10);
+        InitializeNote(20);
+        InitializeGuide(10);
     }
 
-    private void Initialize(int initCount)
+    private void InitializeNote(int initCount)
     {
         for (int i = 0; i < initCount; i++)
         {
             PoolNoteObject.Enqueue(CreateNewObject());
+        }
+    }
+
+    private void InitializeGuide(int initCount)
+    {
+        for (int i = 0; i < initCount; i++)
+        {
+            Guide.Enqueue(CreateNewGuide());
         }
     }
 
@@ -48,7 +60,15 @@ public class ObjectPoolManager : MonoBehaviour
         return note.GetComponent<NoteObject>();
     }
 
-    public NoteObject GetObject()
+    private GameObject CreateNewGuide()
+    {
+        GuidePrefab = Resources.Load<GameObject>("Particle/Guide");
+        GameObject guidePrefab = Instantiate(GuidePrefab);
+        guidePrefab.gameObject.SetActive(false);
+        return guidePrefab;
+    }
+
+    public NoteObject GetNote()
     {
         if (PoolNoteObject.Count > 0)
         {
@@ -66,10 +86,35 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
+    public GameObject GetGuide()
+    {
+        if (Guide.Count > 0)
+        {
+            var obj = Guide.Dequeue();
+            obj.transform.SetParent(null);
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            var newObj = CreateNewGuide();
+            newObj.gameObject.SetActive(true);
+            newObj.transform.SetParent(null);
+            return newObj;
+        }
+    }
+
     public void ReturnObject(NoteObject obj)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(transform);
         PoolNoteObject.Enqueue(obj);
+    }
+
+    public void ReturnGuide(GameObject obj)
+    {
+        obj.gameObject.SetActive(false);
+        obj.transform.SetParent(transform);
+        Guide.Enqueue(obj);
     }
 }

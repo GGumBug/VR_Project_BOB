@@ -25,6 +25,7 @@ public class NoteManager : MonoBehaviour
     int curNoteTime;
 
     public List<NoteObject> notes = new List<NoteObject>();
+    public List<GameObject> guides = new List<GameObject>();
 
     public readonly Vector3[] linpos =
     {
@@ -71,7 +72,7 @@ public class NoteManager : MonoBehaviour
     {
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
-            NoteObject note = ObjectPoolManager.GetInstance().GetObject();
+            NoteObject note = ObjectPoolManager.GetInstance().GetNote();
             note.SetPosition(linpos[SheetManager.GetInstance().sheets[title].notes[next].line]);
             note.life = true;
             notes.Add(note);
@@ -90,14 +91,17 @@ public class NoteManager : MonoBehaviour
         yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
         note.gameObject.SetActive(true);
         yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
-        note.life = false;
-        ObjectPoolManager.GetInstance().ReturnObject(note);
+        if (note != null)
+        {
+            note.life = false;
+            ObjectPoolManager.GetInstance().ReturnObject(note);
+        }
     }
 
     void CreateGuide(NoteObject noteObject)
     {
-        GameObject go = Resources.Load<GameObject>($"Particle/Guide");
-        go = Instantiate(go);
+        GameObject go = ObjectPoolManager.GetInstance().GetGuide();
         go.transform.position = noteObject.transform.position;
+        guides.Add(go);
     }
 }
