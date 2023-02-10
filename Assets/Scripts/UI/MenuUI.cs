@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 using DG.Tweening;
 using UnityEngine.SceneManagement;
 
 public class MenuUI : MonoBehaviour
 {
     [Header("Main")]
-    [SerializeField] RawImage videoimg;
     [SerializeField] Button SelectMusicBtn;
-    [SerializeField] Image MusicPanel;
     [SerializeField] Camera MainCam;
     [SerializeField] Button MainMenuZoomBtn;
     [SerializeField] Button OptionBtn;
@@ -34,9 +33,16 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button MainBackBtn;
     [SerializeField] Slider Bgm;
     [SerializeField] Slider Sfx;
-   
-    AudioManager audioManager;
-    List<Song> songList = new List<Song>();
+
+    // 음악선택관련 버튼
+    [SerializeField] TMP_Text txtSongName;
+    [SerializeField] TMP_Text txtSongArtist;
+    [SerializeField] TMP_Text txtBPM;
+    [SerializeField] Image ImgDisk;
+    [SerializeField] TMP_Text txtNoteCount;
+    [SerializeField] TMP_Text txtBestScore;
+
+    public List<Sheet> sheetList = new List<Sheet>();
 
     Vector3 dest;
     Vector3 rot;
@@ -44,14 +50,11 @@ public class MenuUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MainCam = Camera.main;
         OnclickSetting();
+        SetSheetList(SheetManager.GetInstance().curMusic);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        MainCam = Camera.main;
-    }
     void OnclickSetting()
     {
         MainMenuZoomBtn.onClick.AddListener(MainMenuOn);
@@ -63,6 +66,8 @@ public class MenuUI : MonoBehaviour
         SoundBtn.onClick.AddListener(SoundOn);
         SoundBackBtn.onClick.AddListener(SoundBack);
         MainBackBtn.onClick.AddListener(MainBack);
+        ListUpBtn.onClick.AddListener(NextSheet);
+        ListDownBtn.onClick.AddListener(PriorSheet);
     }
 
     void OptionOn()
@@ -107,7 +112,6 @@ public class MenuUI : MonoBehaviour
         Application.Quit(); // 어플리케이션 종료
 #endif
     }
-
 
     void MainMenuOn()
     {
@@ -172,6 +176,33 @@ public class MenuUI : MonoBehaviour
     void CameraRotate(Vector3 rot)
     {
         MainCam.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);  
+    }
+
+    void SetSheetList(int curMusic)
+    {
+        string title = SheetManager.GetInstance().title[curMusic];
+        txtSongName.text = SheetManager.GetInstance().sheets[title].title;
+        txtSongArtist.text = SheetManager.GetInstance().sheets[title].artist;
+        txtBPM.text = SheetManager.GetInstance().sheets[title].bpm.ToString();
+        ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
+        txtNoteCount.text = SheetManager.GetInstance().sheets[title].notes.Count.ToString();
+        /*txtBestScore.text = sheetList[curMusic].*/
+    }
+
+    void NextSheet()
+    {
+        
+        if (++SheetManager.GetInstance().curMusic > SheetManager.GetInstance().sheets.Count - 1)
+            SheetManager.GetInstance().curMusic = 0;
+        SetSheetList(SheetManager.GetInstance().curMusic);
+
+    }
+
+    void PriorSheet()
+    {
+        if (--SheetManager.GetInstance().curMusic < 0)
+            SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count- 1;
+        SetSheetList(SheetManager.GetInstance().curMusic);
     }
 
     

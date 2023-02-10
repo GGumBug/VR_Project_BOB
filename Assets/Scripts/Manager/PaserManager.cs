@@ -104,8 +104,8 @@ public class PaserManager : MonoBehaviour
 
         }
 
-        GetClip(title);
-        GetImg(title);
+        GetClip(sheet.title);
+        GetImg(sheet.title);
 
         sheet.clip = clip;
         sheet.img = img;
@@ -116,14 +116,12 @@ public class PaserManager : MonoBehaviour
 
     public void GetClip(string title)
     {
-        title = SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic];
         clip = Resources.Load<AudioClip>($"Sheet/{title}/{title}");
         clip.name = title;
     }
 
     public void GetImg(string title)
     {
-        title = SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic];
         img = Resources.Load<Sprite>($"Sheet/{title}/{title}");
         img.name = title;
     }

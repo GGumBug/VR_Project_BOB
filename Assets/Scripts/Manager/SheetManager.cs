@@ -24,7 +24,7 @@ public class SheetManager : MonoBehaviour
 
     TextAsset sourceFile;
 
-    public int curMusic = 1;
+    public int curMusic = 0;
 
     public string[] title = {"Test", "Bones"};
 

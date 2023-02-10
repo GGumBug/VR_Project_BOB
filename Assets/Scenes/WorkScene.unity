@@ -1070,9 +1070,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5437a05f13f19fa448f3ab86902d8dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  videoimg: {fileID: 0}
   SelectMusicBtn: {fileID: 1381570201}
-  MusicPanel: {fileID: 0}
   MainCam: {fileID: 1141900636}
   MainMenuZoomBtn: {fileID: 1898112116}
   OptionBtn: {fileID: 1781190492}
@@ -1088,6 +1086,12 @@ MonoBehaviour:
   MainBackBtn: {fileID: 1485030904}
   Bgm: {fileID: 447450691}
   Sfx: {fileID: 1101938143}
+  txtSongName: {fileID: 509976535}
+  txtSongArtist: {fileID: 1565360112}
+  txtBPM: {fileID: 1787230992}
+  ImgDisk: {fileID: 1683799294}
+  txtNoteCount: {fileID: 1276634798}
+  txtBestScore: {fileID: 381479009}
 --- !u!1 &300827018
 GameObject:
   m_ObjectHideFlags: 0
@@ -1857,7 +1861,7 @@ GameObject:
   - component: {fileID: 509976536}
   - component: {fileID: 509976535}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: SongName
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2628,6 +2632,7 @@ GameObject:
   - component: {fileID: 856089041}
   - component: {fileID: 856089040}
   - component: {fileID: 856089039}
+  - component: {fileID: 856089043}
   m_Layer: 0
   m_Name: Cube2
   m_TagString: Untagged
@@ -2714,6 +2719,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &856089043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856089038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dfe86e62346819458514b726f6eab9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &894189758
 GameObject:
   m_ObjectHideFlags: 0
