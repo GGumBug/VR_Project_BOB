@@ -65,7 +65,7 @@ public class GunFire : MonoBehaviour
                 // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
             }
             else
-            { Debug.Log("NOPE"); }
+            { Debug.Log("NOPE"); } 
 
         }
 
