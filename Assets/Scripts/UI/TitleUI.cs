@@ -16,6 +16,6 @@ public class TitleUI : MonoBehaviour
     }
     void OnClickStart()
     {
-        SceneManager.LoadScene("WorkScene");
+        SceneManager.LoadScene("MenuScene");
     }
 }
