@@ -24,7 +24,9 @@ public class SheetManager : MonoBehaviour
 
     TextAsset sourceFile;
 
-    public string title = "Test";
+    public int curMusic = 1;
+
+    public string[] title = {"Test", "Bones"};
 
     float speed = 1.0f;
     public float Speed
@@ -41,14 +43,9 @@ public class SheetManager : MonoBehaviour
 
     public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
 
-    private void Awake()
+    public void Init(string title)
     {
-        Init(title);
-    }
-
-    public void Init(string musicRoute)
-    {
-        sourceFile = Resources.Load<TextAsset>($"Sheet/{musicRoute}/{musicRoute}");
+        sourceFile = Resources.Load<TextAsset>($"Sheet/{title}/{title}");
     }
 
     public TextAsset GetSourceFile()

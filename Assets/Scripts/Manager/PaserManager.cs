@@ -89,7 +89,7 @@ public class PaserManager : MonoBehaviour
                             break;
 
                         string[] s = readLine.Split(',');
-                        int time = int.Parse(s[0].Trim());
+                        int time = int.Parse(s[0].Trim()) - sheet.offset;
                         int type = int.Parse(s[1].Trim());
                         int line = int.Parse(s[2].Trim());
                         int tail = -1;
@@ -116,14 +116,14 @@ public class PaserManager : MonoBehaviour
 
     public void GetClip(string title)
     {
-        title = SheetManager.GetInstance().title;
+        title = SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic];
         clip = Resources.Load<AudioClip>($"Sheet/{title}/{title}");
         clip.name = title;
     }
 
     public void GetImg(string title)
     {
-        title = SheetManager.GetInstance().title;
+        title = SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic];
         img = Resources.Load<Sprite>($"Sheet/{title}/{title}");
         img.name = title;
     }

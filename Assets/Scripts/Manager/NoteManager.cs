@@ -40,12 +40,17 @@ public class NoteManager : MonoBehaviour
 
     private void Start()
     {
-        SetCreateTime(SheetManager.GetInstance().title, next);
-        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].BarPerMilliSec * 0.001f));
+        SetCreateTime(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic], next);
+        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f));
     }
 
     void SetCreateTime(string title, int a)
     {
+        if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].notes.Count)
+        {
+            Debug.Log("노트 없음");
+            return;
+        }
         curNoteTime = SheetManager.GetInstance().sheets[title].notes[a].time;
     }
 
@@ -53,11 +58,11 @@ public class NoteManager : MonoBehaviour
     {
         while (true)
         {
-            if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].notes.Count)
+            if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].notes.Count)
             {
                 break;
             }
-            Gen(SheetManager.GetInstance().title);
+            Gen(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]);
             yield return new WaitForSeconds(interval / 64);
         }
     }
@@ -79,12 +84,20 @@ public class NoteManager : MonoBehaviour
     IEnumerator Jugement()
     {
         NoteObject note = notes[prev];
+        CreateGuide(note);
         prev = next;
         note.gameObject.SetActive(false);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].BarPerMilliSec * 0.001f * 0.5f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
         note.gameObject.SetActive(true);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title].BarPerMilliSec * 0.001f * 0.5f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
         note.life = false;
         ObjectPoolManager.GetInstance().ReturnObject(note);
+    }
+
+    void CreateGuide(NoteObject noteObject)
+    {
+        GameObject go = Resources.Load<GameObject>($"Particle/Guide");
+        go = Instantiate(go);
+        go.transform.position = noteObject.transform.position;
     }
 }
