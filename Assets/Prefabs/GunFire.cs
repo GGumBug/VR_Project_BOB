@@ -35,11 +35,6 @@ public class GunFire : MonoBehaviour
         shootPS.Stop();
     }
 
-    void Update()
-    {        
-       
-    }
-
     public void ShotRay()
      {
         RaycastHit hit;
@@ -58,8 +53,7 @@ public class GunFire : MonoBehaviour
                 {
                     NoteObject note = hitTarget.GetComponent<NoteObject>();
                     ObjectPoolManager.GetInstance().ReturnObject(note);
-
-                    Debug.Log("HITT");
+                    GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 }
 
                 // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
