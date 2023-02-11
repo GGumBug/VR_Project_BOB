@@ -74,6 +74,7 @@ public class NoteManager : MonoBehaviour
         {
             NoteObject note = ObjectPoolManager.GetInstance().GetNote();
             note.SetPosition(linpos[SheetManager.GetInstance().sheets[title].notes[next].line]);
+            note.transform.localScale = new Vector3(0f, 0f, 0f);
             note.life = true;
             notes.Add(note);
             next++;
@@ -86,15 +87,22 @@ public class NoteManager : MonoBehaviour
     {
         NoteObject note = notes[prev];
         CreateGuide(note);
+        StartCoroutine(GrowBigNote(note));
         prev = next;
-        note.gameObject.SetActive(false);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
-        note.gameObject.SetActive(true);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f);
         if (note != null)
         {
             note.life = false;
             ObjectPoolManager.GetInstance().ReturnObject(note);
+        }
+    }
+
+    IEnumerator GrowBigNote(NoteObject note)
+    {
+        while (note.transform.lossyScale.x < 1)
+        {
+            note.transform.localScale += new Vector3(0.002f, 0.002f, 0.002f);
+            yield return null;
         }
     }
 
