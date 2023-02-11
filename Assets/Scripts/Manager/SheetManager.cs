@@ -23,20 +23,38 @@ public class SheetManager : MonoBehaviour
     #endregion
 
     TextAsset sourceFile;
-    public string musicRoute = "Test";
 
-    private void Awake()
+    public int curMusic = 0;
+
+    public string[] title = {"Test", "Bones", "Welcome To Hell", "Lalalalalalalalalala", "Lucky Strike" };
+
+    float speed = 1.0f;
+    public float Speed
     {
-        Init(musicRoute);
+        get
+        {
+            return speed;
+        }
+        set
+        {
+            speed = Mathf.Clamp(value, 1.0f, 5.0f);
+        }
     }
 
-    public void Init(string musicRoute)
+    public Dictionary<string, Sheet> sheets = new Dictionary<string, Sheet>();
+
+    public void Init(string title)
     {
-        sourceFile = Resources.Load<TextAsset>($"Sheet/{musicRoute}/{musicRoute}");
+        sourceFile = Resources.Load<TextAsset>($"Sheet/{title}/{title}");
     }
 
     public TextAsset GetSourceFile()
     {
         return sourceFile;
+    }
+
+    public void AddSheet(string key, Sheet sheet)
+    {
+        sheets.Add(key, sheet);
     }
 }

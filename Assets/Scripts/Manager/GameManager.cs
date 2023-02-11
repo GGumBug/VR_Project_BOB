@@ -2,8 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GameState
+{
+    Game,
+    Edit,
+}
+
 public class GameManager : MonoBehaviour
 {
+    #region Singletone
+
+    private static GameManager instance = null;
+
+    public static GameManager GetInstance()
+    {
+        if (instance == null)
+        {
+            GameObject go = new GameObject("@GameManager");
+            instance = go.AddComponent<GameManager>();
+
+            DontDestroyOnLoad(go);
+        }
+        return instance;
+
+    }
+    #endregion
+
+    public GameState state = GameState.Game;
+
     // 타겟 점수 판정
     bool isPerfecthit;
     bool isGoodhit;
