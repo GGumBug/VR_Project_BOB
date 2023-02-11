@@ -41,13 +41,13 @@ public class NoteManager : MonoBehaviour
 
     private void Start()
     {
-        SetCreateTime(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic], next);
-        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f));
+        SetCreateTime(SheetManager.GetInstance().GetCurrentTitle(), next);
+        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
     }
 
     void SetCreateTime(string title, int a)
     {
-        if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].notes.Count)
+        if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
         {
             Debug.Log("노트 없음");
             return;
@@ -63,7 +63,7 @@ public class NoteManager : MonoBehaviour
             {
                 break;
             }
-            Gen(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]);
+            Gen(SheetManager.GetInstance().GetCurrentTitle());
             yield return new WaitForSeconds(interval / 64);
         }
     }
@@ -90,7 +90,7 @@ public class NoteManager : MonoBehaviour
         CreateGuide(note);
         StartCoroutine(GrowBigNote(note));
         prev = next;
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
         if (note != null)
         {
             note.life = false;

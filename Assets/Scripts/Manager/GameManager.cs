@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance = null;
 
+    PlayerUI playerUI = null;
+
     public static GameManager GetInstance()
     {
         if (instance == null)
@@ -30,40 +32,38 @@ public class GameManager : MonoBehaviour
 
     public GameState state = GameState.Game;
 
-    Player player = new Player(0, 100, 0);
+    public Player player = new Player(0, 100, 100, 0);
 
     public void CheckJugement(NoteObject note, float curtime)
     {
-        Debug.Log($"GetPerfectTiming(note) = {GetPerfectTiming(note)}");
-        Debug.Log($"curtime = {curtime}");
-        Debug.Log(GetPerfectTiming(note) - curtime);
         if (1500 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("BAD");
-            player.combo++;
-            Debug.Log($"COMBO {player.combo}");
-            PlusHP(1);
+            player.PlusHP(1);
+            player.PlusScore(20);
+            RefreshPlayerInfo();
         }
         else if (1200 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("GOOD");
-            player.combo++;
-            Debug.Log($"COMBO {player.combo}");
-            PlusHP(5);
+            player.PlusHP(5);
+            player.PlusScore(50);
+            RefreshPlayerInfo();
         }
         else if (800 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("PERFACT");
-            player.combo++;
-            Debug.Log($"COMBO {player.combo}");
-            PlusHP(10);
+            player.PlusHP(10);
+            player.PlusScore(100);
+            RefreshPlayerInfo();
         }
     }
 
     public void Miss()
     {
         Debug.Log("MISS");
-        MinusHP(10);
+        player.MinusHP(10);
+        RefreshPlayerInfo();
     }
 
     int GetPerfectTiming(NoteObject note)
@@ -71,23 +71,12 @@ public class GameManager : MonoBehaviour
         return note.note.time + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset;
     }
 
-    void PlusHP(int plusHp)
+    void RefreshPlayerInfo()
     {
-        player.hp += plusHp;
-        Mathf.Clamp(player.hp, 0, 100);
-    }
-
-    void MinusHP(int minusHp)
-    {
-        player.combo = 0;
-        player.hp -= minusHp;
-        Mathf.Clamp(player.hp, 0, 100);
-    }
-
-    void ResetPlayer()
-    {
-        player.score = 0;
-        player.hp = 100;
-        player.combo = 0;
+        if (playerUI == null)
+        {
+            playerUI = UIManager.GetInstance().GetUI("PlayerUI").GetComponent<PlayerUI>();
+        }
+        playerUI.SetPlayerInfo();
     }
 }
