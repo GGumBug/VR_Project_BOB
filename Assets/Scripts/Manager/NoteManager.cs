@@ -73,7 +73,8 @@ public class NoteManager : MonoBehaviour
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
             NoteObject note = ObjectPoolManager.GetInstance().GetNote();
-            note.SetPosition(linpos[SheetManager.GetInstance().sheets[title].notes[next].line]);
+            note.note = SheetManager.GetInstance().sheets[title].notes[next];
+            note.SetPosition(linpos[note.note.line]);
             note.transform.localScale = new Vector3(0f, 0f, 0f);
             note.life = true;
             notes.Add(note);
@@ -94,6 +95,7 @@ public class NoteManager : MonoBehaviour
         {
             note.life = false;
             ObjectPoolManager.GetInstance().ReturnObject(note);
+            GameManager.GetInstance().Miss(); // 미스 판정
         }
     }
 

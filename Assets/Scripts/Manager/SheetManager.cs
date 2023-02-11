@@ -57,4 +57,9 @@ public class SheetManager : MonoBehaviour
     {
         sheets.Add(key, sheet);
     }
+
+    public string GetCurrentTitle()
+    {
+        return title[curMusic];
+    }
 }

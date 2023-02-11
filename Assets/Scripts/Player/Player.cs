@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class Player
 {
-    int score;
-    int hp;
-    int combo;
+    public int score;
+    public int hp;
+    public int combo;
+
+    public Player(int score, int hp, int combo)
+    {
+        this.score = score;
+        this.hp = hp;
+        this.combo = combo;
+    }
 }

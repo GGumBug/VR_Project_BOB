@@ -30,82 +30,64 @@ public class GameManager : MonoBehaviour
 
     public GameState state = GameState.Game;
 
-    // 타겟 점수 판정
-    bool isPerfecthit;
-    bool isGoodhit;
-    bool isBadhit;
-    bool isMisshit;
-    bool isTargethit;
+    Player player = new Player(0, 100, 0);
 
-    // 점수 관련 변수
-    int curScore;
-    int bestScore;
-    float TimingLate;
-
-    int playerHP;
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void CheckJugement(NoteObject note, float curtime)
     {
-        CulculateScore();
-        CheckGameOver();
-        CheckTarget();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    void CheckTarget()
-    {
-        if (isTargethit)
+        Debug.Log($"GetPerfectTiming(note) = {GetPerfectTiming(note)}");
+        Debug.Log($"curtime = {curtime}");
+        Debug.Log(GetPerfectTiming(note) - curtime);
+        if (1500 < GetPerfectTiming(note) - curtime)
         {
-            if (TimingLate <= 90)
-                isPerfecthit = true;
-            if (TimingLate < 90 && TimingLate >= 50)
-                isGoodhit = true;
-            else if (TimingLate >= 10 && TimingLate < 50)
-                isBadhit = true;
-
+            Debug.Log("BAD");
+            player.combo++;
+            Debug.Log($"COMBO {player.combo}");
+            PlusHP(1);
         }
-        else
-            isMisshit = true;
-
-    }
-    void CulculateScore()
-    {
-        if (isPerfecthit)
+        else if (1200 < GetPerfectTiming(note) - curtime)
         {
-            curScore = curScore + 100;
+            Debug.Log("GOOD");
+            player.combo++;
+            Debug.Log($"COMBO {player.combo}");
+            PlusHP(5);
         }
-        if (isGoodhit)
+        else if (800 < GetPerfectTiming(note) - curtime)
         {
-            curScore = curScore + 50;
-        }
-        if (isBadhit)
-        {
-            curScore = curScore + 10;
-        }
-        if (isMisshit)
-        {
-            curScore = curScore - 10;
+            Debug.Log("PERFACT");
+            player.combo++;
+            Debug.Log($"COMBO {player.combo}");
+            PlusHP(10);
         }
     }
 
-
-    void CheckGameOver()
+    public void Miss()
     {
-        if (playerHP <= 0)
-        {
-            GameOver();
-        }
+        Debug.Log("MISS");
+        MinusHP(10);
     }
 
-    void GameOver()
+    int GetPerfectTiming(NoteObject note)
     {
+        return note.note.time + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset;
+    }
 
+    void PlusHP(int plusHp)
+    {
+        player.hp += plusHp;
+        Mathf.Clamp(player.hp, 0, 100);
+    }
+
+    void MinusHP(int minusHp)
+    {
+        player.combo = 0;
+        player.hp -= minusHp;
+        Mathf.Clamp(player.hp, 0, 100);
+    }
+
+    void ResetPlayer()
+    {
+        player.score = 0;
+        player.hp = 100;
+        player.combo = 0;
     }
 }
