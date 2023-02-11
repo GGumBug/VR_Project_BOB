@@ -23,9 +23,11 @@ public class NoteManager : MonoBehaviour
     #endregion
 
     int curNoteTime;
+    Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
     public List<GameObject> guides = new List<GameObject>();
+    public List<Coroutine> noteCoroutines = new List<Coroutine>();
 
     public readonly Vector3[] linpos =
     {
@@ -76,11 +78,13 @@ public class NoteManager : MonoBehaviour
             note.note = SheetManager.GetInstance().sheets[title].notes[next];
             note.SetPosition(linpos[note.note.line]);
             note.transform.localScale = new Vector3(0f, 0f, 0f);
+            note.noteNumber = next;
             note.life = true;
             notes.Add(note);
             next++;
             SetCreateTime(title, next);
-            StartCoroutine("Jugement");
+            coroutine = StartCoroutine("Jugement");
+            noteCoroutines.Add(coroutine);
         }
     }
 
@@ -97,6 +101,11 @@ public class NoteManager : MonoBehaviour
             ObjectPoolManager.GetInstance().ReturnObject(note);
             GameManager.GetInstance().Miss(); // 미스 판정
         }
+    }
+
+    public void StopNoteCoroutine(NoteObject note) // 특정 코루틴 찾아서 스톱하는 함수
+    {
+        StopCoroutine(noteCoroutines[note.noteNumber]);
     }
 
     IEnumerator GrowBigNote(NoteObject note)
