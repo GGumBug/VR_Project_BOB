@@ -7,13 +7,6 @@ using DG.Tweening;
 using TMPro;
 
 
-public enum Scenes
-{
-    TitleScene,
-    MenuScene,
-    GameScene,
-    EndingScene,
-}
 
 public class FadeSceneManager : MonoBehaviour
 {
