@@ -16,6 +16,6 @@ public class TitleUI : MonoBehaviour
     }
     void OnClickStart()
     {
-        SceneManager.LoadScene("MenuScene");
+        FadeSceneManager.Instance.ChangeScene("MenuScene");
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ResultUI : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class ResultUI : MonoBehaviour
     [SerializeField] TMP_Text Score;
     [SerializeField] TMP_Text Rank;
     [SerializeField] Image RankImg;
-
+    [SerializeField] Button OKBtn;
+    [SerializeField] GameObject resultUI;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +27,15 @@ public class ResultUI : MonoBehaviour
         MissCount.text = GameManager.GetInstance().player.missCount.ToString();
         Score.text = GameManager.GetInstance().player.score.ToString();
         RankImg = Resources.Load<Image>($"Image/Rank/{GameManager.GetInstance().player.rank}");
+        OKBtn.onClick.AddListener(ToMainMenu);
+
     }
 
-    // Update is called once per frame
-    
+    void ToMainMenu()
+    {
+        resultUI.gameObject.SetActive(false);
+        FadeSceneManager.Instance.ChangeScene("MenuScene");
+        
+    }
+
 }

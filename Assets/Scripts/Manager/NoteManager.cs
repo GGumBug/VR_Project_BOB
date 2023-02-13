@@ -52,9 +52,14 @@ public class NoteManager : MonoBehaviour
         if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
         {
             Debug.Log("노트 없음");
+            ResultOn();
             return;
         }
         curNoteTime = SheetManager.GetInstance().sheets[title].notes[a].time;
+    }
+    void ResultOn()
+    {
+        UIManager.GetInstance().OpenUI("ResultUI");
     }
 
     IEnumerator IEGenTimer(float interval)
