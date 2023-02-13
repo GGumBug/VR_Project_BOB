@@ -74,9 +74,13 @@ public class NoteManager : MonoBehaviour
     {
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
+            int ran = Random.Range(0, 2);
+
             NoteObject note = ObjectPoolManager.GetInstance().GetNote();
             note.note = SheetManager.GetInstance().sheets[title].notes[next];
             note.SetPosition(linpos[note.note.line]);
+            //CreateGuide(note);
+
             note.transform.localScale = new Vector3(0f, 0f, 0f);
             note.noteNumber = next;
             note.life = true;
@@ -91,7 +95,6 @@ public class NoteManager : MonoBehaviour
     IEnumerator Jugement()
     {
         NoteObject note = notes[prev];
-        CreateGuide(note);
         StartCoroutine(GrowBigNote(note));
         prev = next;
         yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
@@ -117,10 +120,10 @@ public class NoteManager : MonoBehaviour
         }
     }
 
-    void CreateGuide(NoteObject noteObject)
-    {
-        GameObject go = ObjectPoolManager.GetInstance().GetGuide();
-        go.transform.position = noteObject.transform.position;
-        guides.Add(go);
-    }
+    //void CreateGuide(NoteObject noteObject)
+    //{
+    //    GameObject go = ObjectPoolManager.GetInstance().GetGuide();
+    //    go.transform.position = noteObject.transform.position;
+    //    guides.Add(go);
+    //}
 }
