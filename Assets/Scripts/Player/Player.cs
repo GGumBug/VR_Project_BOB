@@ -8,13 +8,21 @@ public class Player
     public int maxHp {get; private set;}
     public int hp {get; private set;}
     public int combo {get; private set;}
+    public int perfectCount { get; private set; }
+    public int goodCount { get; private set; }
+    public int badCount { get; private set; }
+    public int missCount { get; private set; }
 
-    public Player(int score, int maxHp,int hp, int combo)
+    public Player(int score, int maxHp,int hp, int combo, int perfectCount, int goodCount, int badCount, int missCount)
     {
         this.score = score;
         this.maxHp = maxHp;
         this.hp = hp;
         this.combo = combo;
+        this.perfectCount = perfectCount;
+        this.goodCount = goodCount;
+        this.badCount = badCount;
+        this.missCount = missCount;
     }
 
     public void PlusHP(int plusHp)
@@ -41,5 +49,41 @@ public class Player
         score = 0;
         hp = 100;
         combo = 0;
+    }
+
+    public void CountCheck(int Count)
+    {
+        if (Count == 0)
+            perfectCount++;
+      
+        else if (Count == 1)
+            goodCount++;
+
+        else if (Count == 2)
+            badCount++;
+
+        else if(Count == 3)
+            missCount++;
+    }
+
+    public void ComboUse(int plusScore)
+    {
+
+        if (combo >= 100)
+        {
+            combo--;
+            FeverTime(plusScore);
+        }
+        else if (combo == 0)
+        { 
+        
+        }
+    }
+    IEnumerator FeverTime(int plusScore)
+    {
+        yield return combo == 0;
+        {
+            PlusScore(plusScore * 2);
+        }
     }
 }

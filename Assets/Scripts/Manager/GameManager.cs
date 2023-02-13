@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public GameState state = GameState.Game;
 
-    public Player player = new Player(0, 100, 100, 0);
+    public Player player = new Player(0, 100, 100, 0, 0, 0, 0, 0);
 
     public void CheckJugement(NoteObject note, float curtime)
     {
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
             player.PlusHP(1);
             player.PlusScore(20);
             RefreshPlayerInfo();
+            player.CountCheck(2);
         }
         else if (1200 < GetPerfectTiming(note) - curtime)
         {
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
             player.PlusHP(5);
             player.PlusScore(50);
             RefreshPlayerInfo();
+            player.CountCheck(1);
         }
         else
         {
@@ -56,6 +58,7 @@ public class GameManager : MonoBehaviour
             player.PlusHP(10);
             player.PlusScore(100);
             RefreshPlayerInfo();
+            player.CountCheck(0);
         }
     }
 
@@ -64,6 +67,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("MISS");
         player.MinusHP(10);
         RefreshPlayerInfo();
+        player.CountCheck(3);
     }
 
     int GetPerfectTiming(NoteObject note)
