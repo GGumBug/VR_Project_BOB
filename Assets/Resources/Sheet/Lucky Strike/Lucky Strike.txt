@@ -4,8 +4,8 @@ Artist: Maroon 5
 
 [Audio]
 BPM: 144
-Offset: 900
-Signature: 1/4
+Offset: 1100
+Signature: 4/4
 [Note]
 3456, 0, 0
 5248, 0, 2

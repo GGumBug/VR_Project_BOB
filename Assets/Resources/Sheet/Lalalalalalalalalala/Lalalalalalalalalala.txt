@@ -5,7 +5,7 @@ Artist: Mikolas Josef
 [Audio]
 BPM: 122
 Offset: 1000
-Signature: 2/4
+Signature: 4/4
 
 [Note]
 8127, 0, 0

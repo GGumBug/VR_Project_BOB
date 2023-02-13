@@ -2,24 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Count
+{
+    perfect,
+    good,
+    bad,
+    miss,
+}
 public class Player
 {
+    
     public int score {get; private set;}
     public int maxHp {get; private set;}
     public int hp {get; private set;}
     public int combo {get; private set;}
+    /*public int maxcombo { get; private set; }*/
     public int perfectCount { get; private set; }
     public int goodCount { get; private set; }
     public int badCount { get; private set; }
     public int missCount { get; private set; }
     public string rank { get; private set; }
 
-    public Player(int score, int maxHp,int hp, int combo, int perfectCount, int goodCount, int badCount, int missCount, string rank)
+    public Player(int score, int maxHp,int hp, int combo, /*int maxcombo,*/ int perfectCount, int goodCount, int badCount, int missCount, string rank)
     {
         this.score = score;
         this.maxHp = maxHp;
         this.hp = hp;
         this.combo = combo;
+    //    this.maxcombo = maxcombo;
         this.perfectCount = perfectCount;
         this.goodCount = goodCount;
         this.badCount = badCount;
@@ -80,7 +90,7 @@ public class Player
         }
     }
 
-/*    public void ComboUse(int plusScore)
+    public void ComboUse(int plusScore)
     {
 
         if (combo >= 100)
@@ -90,7 +100,7 @@ public class Player
         }
         else if (combo == 0)
         { 
-        
+            
         }
     }
     IEnumerator FeverTime(int plusScore)
@@ -99,5 +109,5 @@ public class Player
         {
             PlusScore(plusScore * 2);
         }
-    }*/
+    }
 }
