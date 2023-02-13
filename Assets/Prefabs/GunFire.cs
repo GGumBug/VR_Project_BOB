@@ -54,8 +54,8 @@ public class GunFire : MonoBehaviour
                 {
                     NoteObject note = hitTarget.GetComponent<NoteObject>();
                     ObjectPoolManager.GetInstance().ReturnObject(note);
-                    NoteManager.GetInstance().StopNoteCoroutine(note);
                     GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
+                    NoteManager.GetInstance().StopNoteCoroutine(note);
                 }
 
                 // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);

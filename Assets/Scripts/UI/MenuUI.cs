@@ -10,7 +10,7 @@ public class MenuUI : MonoBehaviour
 {
     [Header("Main")]
     [SerializeField] Button SelectMusicBtn;
-    [SerializeField] Camera MainCam;
+    [SerializeField] GameObject xrOrigin;
     [SerializeField] Button MainMenuZoomBtn;
     [SerializeField] Button OptionBtn;
 
@@ -50,7 +50,7 @@ public class MenuUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MainCam = Camera.main;
+        xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
         OnclickSetting();
         SetSheetList(SheetManager.GetInstance().curMusic);
     }
@@ -169,13 +169,13 @@ public class MenuUI : MonoBehaviour
 
     void CameraMove(Vector3 dest)
     {
-        MainCam.transform.DOMoveX(dest.x, 0.7f).SetEase(Ease.InOutQuad);
-        MainCam.transform.DOMoveY(dest.y, 1f).SetEase(Ease.InOutQuad);
-        MainCam.transform.DOMoveZ(dest.z, 0.5f).SetEase(Ease.InOutQuad);
+        xrOrigin.transform.DOMoveX(dest.x, 0.7f).SetEase(Ease.InOutQuad);
+        xrOrigin.transform.DOMoveY(dest.y, 1f).SetEase(Ease.InOutQuad);
+        xrOrigin.transform.DOMoveZ(dest.z, 0.5f).SetEase(Ease.InOutQuad);
     }
     void CameraRotate(Vector3 rot)
     {
-        MainCam.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);  
+        xrOrigin.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);  
     }
 
     void SetSheetList(int curMusic)
