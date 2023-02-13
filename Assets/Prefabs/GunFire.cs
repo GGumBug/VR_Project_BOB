@@ -42,6 +42,7 @@ public class GunFire : MonoBehaviour
 
     public void ShotRay()
      {
+        Debug.Log("ShotRay");
         RaycastHit hit;
         shootPS.Play();
 
