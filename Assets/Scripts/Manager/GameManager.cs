@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
             player.PlusScore(50);
             RefreshPlayerInfo();
         }
-        else if (800 < GetPerfectTiming(note) - curtime)
+        else
         {
             Debug.Log("PERFACT");
             player.PlusHP(10);
