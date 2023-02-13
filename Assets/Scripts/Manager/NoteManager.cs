@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class NoteManager : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class NoteManager : MonoBehaviour
     #endregion
 
     int curNoteTime;
-    bool controllSwich;
+    bool controllSwich=true;
     Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
@@ -100,8 +101,9 @@ public class NoteManager : MonoBehaviour
     {
         NoteObject note = notes[prev];
         Transform[] model = note.GetComponentsInChildren<Transform>();
-        model[1].localScale = new Vector3(0f, 0f, 0f);
-        StartCoroutine(GrowBigNote(model[1]));
+        //model[1].localScale = new Vector3(0f, 0f, 0f);
+        model[1].DOScale(0.8f, 1f);        
+        //StartCoroutine(GrowBigNote(model[1]));
         prev = next;
         yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
         if (note != null)
