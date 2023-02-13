@@ -23,6 +23,7 @@ public class NoteManager : MonoBehaviour
     #endregion
 
     int curNoteTime;
+    bool controllSwich;
     Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
@@ -79,13 +80,12 @@ public class NoteManager : MonoBehaviour
     {
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
-            int ran = Random.Range(0, 2);
-
-            NoteObject note = ObjectPoolManager.GetInstance().GetNote();
+            int controllType = SwichControllType();
+            NoteObject note = ObjectPoolManager.GetInstance().GetNote(controllType);
             note.note = SheetManager.GetInstance().sheets[title].notes[next];
             note.SetPosition(linpos[note.note.line]);
-            //CreateGuide(note);
 
+            note.SetControllerType(controllType);
             note.noteNumber = next;
             note.life = true;
             notes.Add(note);
@@ -126,10 +126,14 @@ public class NoteManager : MonoBehaviour
         }
     }
 
-    //void CreateGuide(NoteObject noteObject)
-    //{
-    //    GameObject go = ObjectPoolManager.GetInstance().GetGuide();
-    //    go.transform.position = noteObject.transform.position;
-    //    guides.Add(go);
-    //}
+    int SwichControllType()
+    {
+        if (!controllSwich)
+        {
+            controllSwich = true;
+            return 0;
+        }
+        controllSwich = false;
+        return 1;
+    }
 }
