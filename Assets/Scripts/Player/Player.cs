@@ -12,8 +12,9 @@ public class Player
     public int goodCount { get; private set; }
     public int badCount { get; private set; }
     public int missCount { get; private set; }
+    public string rank { get; private set; }
 
-    public Player(int score, int maxHp,int hp, int combo, int perfectCount, int goodCount, int badCount, int missCount)
+    public Player(int score, int maxHp,int hp, int combo, int perfectCount, int goodCount, int badCount, int missCount, string rank)
     {
         this.score = score;
         this.maxHp = maxHp;
@@ -23,6 +24,7 @@ public class Player
         this.goodCount = goodCount;
         this.badCount = badCount;
         this.missCount = missCount;
+        this.rank = rank;
     }
 
     public void PlusHP(int plusHp)
@@ -54,19 +56,31 @@ public class Player
     public void CountCheck(int Count)
     {
         if (Count == 0)
+        {
             perfectCount++;
-      
+            Debug.Log("퍼펙트 = " + perfectCount);
+        }
+
         else if (Count == 1)
+        {
             goodCount++;
+            Debug.Log("굿 = " + goodCount);
+        }
+
 
         else if (Count == 2)
+        {
             badCount++;
-
-        else if(Count == 3)
+            Debug.Log("배드 = " + badCount);
+        }
+        else if (Count == 3)        
+        {
             missCount++;
+            Debug.Log("미스 = " + missCount);
+        }
     }
 
-    public void ComboUse(int plusScore)
+/*    public void ComboUse(int plusScore)
     {
 
         if (combo >= 100)
@@ -85,5 +99,5 @@ public class Player
         {
             PlusScore(plusScore * 2);
         }
-    }
+    }*/
 }
