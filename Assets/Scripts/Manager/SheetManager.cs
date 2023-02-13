@@ -26,7 +26,7 @@ public class SheetManager : MonoBehaviour
 
     public int curMusic = 0;
 
-    public string[] title = {"Test", "Bones", "Welcome To Hell"};
+    public string[] title = {"Bones", "Welcome To Hell", "Lalalalalalalalalala", "Lucky Strike" };
 
     float speed = 1.0f;
     public float Speed
@@ -56,5 +56,10 @@ public class SheetManager : MonoBehaviour
     public void AddSheet(string key, Sheet sheet)
     {
         sheets.Add(key, sheet);
+    }
+
+    public string GetCurrentTitle()
+    {
+        return title[curMusic];
     }
 }

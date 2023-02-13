@@ -10,6 +10,8 @@ public class NoteObject : MonoBehaviour
 
     public float speed = 5f;
 
+    public int noteNumber;
+
     public void SetPosition(Vector3 pos)
     {
         transform.position = pos;

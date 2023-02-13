@@ -4,7 +4,7 @@ Artist: Imagine Dragons
 
 [Audio]
 BPM: 120
-Offset: 1500
+Offset: 2000
 Signature: 4/4
 
 [Note]

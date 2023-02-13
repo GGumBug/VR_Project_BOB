@@ -23,9 +23,11 @@ public class NoteManager : MonoBehaviour
     #endregion
 
     int curNoteTime;
+    Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
     public List<GameObject> guides = new List<GameObject>();
+    public List<Coroutine> noteCoroutines = new List<Coroutine>();
 
     public readonly Vector3[] linpos =
     {
@@ -41,13 +43,13 @@ public class NoteManager : MonoBehaviour
 
     private void Start()
     {
-        SetCreateTime(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic], next);
-        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f));
+        SetCreateTime(SheetManager.GetInstance().GetCurrentTitle(), next);
+        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
     }
 
     void SetCreateTime(string title, int a)
     {
-        if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].notes.Count)
+        if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
         {
             Debug.Log("노트 없음");
             return;
@@ -63,7 +65,7 @@ public class NoteManager : MonoBehaviour
             {
                 break;
             }
-            Gen(SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]);
+            Gen(SheetManager.GetInstance().GetCurrentTitle());
             yield return new WaitForSeconds(interval / 64);
         }
     }
@@ -73,12 +75,16 @@ public class NoteManager : MonoBehaviour
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
             NoteObject note = ObjectPoolManager.GetInstance().GetNote();
-            note.SetPosition(linpos[SheetManager.GetInstance().sheets[title].notes[next].line]);
+            note.note = SheetManager.GetInstance().sheets[title].notes[next];
+            note.SetPosition(linpos[note.note.line]);
+            note.transform.localScale = new Vector3(0f, 0f, 0f);
+            note.noteNumber = next;
             note.life = true;
             notes.Add(note);
             next++;
             SetCreateTime(title, next);
-            StartCoroutine("Jugement");
+            coroutine = StartCoroutine("Jugement");
+            noteCoroutines.Add(coroutine);
         }
     }
 
@@ -86,15 +92,28 @@ public class NoteManager : MonoBehaviour
     {
         NoteObject note = notes[prev];
         CreateGuide(note);
+        StartCoroutine(GrowBigNote(note));
         prev = next;
-        note.gameObject.SetActive(false);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
-        note.gameObject.SetActive(true);
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().title[SheetManager.GetInstance().curMusic]].BarPerMilliSec * 0.001f * 0.5f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
         if (note != null)
         {
             note.life = false;
             ObjectPoolManager.GetInstance().ReturnObject(note);
+            GameManager.GetInstance().Miss(); // 미스 판정
+        }
+    }
+
+    public void StopNoteCoroutine(NoteObject note) // 특정 코루틴 찾아서 스톱하는 함수
+    {
+        StopCoroutine(noteCoroutines[note.noteNumber]);
+    }
+
+    IEnumerator GrowBigNote(NoteObject note)
+    {
+        while (note.transform.lossyScale.x < 1)
+        {
+            note.transform.localScale += new Vector3(0.002f, 0.002f, 0.002f);
+            yield return null;
         }
     }
 

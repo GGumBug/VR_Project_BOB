@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance = null;
 
+    PlayerUI playerUI = null;
+
     public static GameManager GetInstance()
     {
         if (instance == null)
@@ -30,82 +32,51 @@ public class GameManager : MonoBehaviour
 
     public GameState state = GameState.Game;
 
-    // 타겟 점수 판정
-    bool isPerfecthit;
-    bool isGoodhit;
-    bool isBadhit;
-    bool isMisshit;
-    bool isTargethit;
+    public Player player = new Player(0, 100, 100, 0);
 
-    // 점수 관련 변수
-    int curScore;
-    int bestScore;
-    float TimingLate;
-
-    int playerHP;
-
-
-
-    // Start is called before the first frame update
-    void Start()
+    public void CheckJugement(NoteObject note, float curtime)
     {
-        CulculateScore();
-        CheckGameOver();
-        CheckTarget();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    void CheckTarget()
-    {
-        if (isTargethit)
+        if (1500 < GetPerfectTiming(note) - curtime)
         {
-            if (TimingLate <= 90)
-                isPerfecthit = true;
-            if (TimingLate < 90 && TimingLate >= 50)
-                isGoodhit = true;
-            else if (TimingLate >= 10 && TimingLate < 50)
-                isBadhit = true;
-
+            Debug.Log("BAD");
+            player.PlusHP(1);
+            player.PlusScore(20);
+            RefreshPlayerInfo();
         }
-        else
-            isMisshit = true;
-
-    }
-    void CulculateScore()
-    {
-        if (isPerfecthit)
+        else if (1200 < GetPerfectTiming(note) - curtime)
         {
-            curScore = curScore + 100;
+            Debug.Log("GOOD");
+            player.PlusHP(5);
+            player.PlusScore(50);
+            RefreshPlayerInfo();
         }
-        if (isGoodhit)
+        else if (800 < GetPerfectTiming(note) - curtime)
         {
-            curScore = curScore + 50;
-        }
-        if (isBadhit)
-        {
-            curScore = curScore + 10;
-        }
-        if (isMisshit)
-        {
-            curScore = curScore - 10;
+            Debug.Log("PERFACT");
+            player.PlusHP(10);
+            player.PlusScore(100);
+            RefreshPlayerInfo();
         }
     }
 
-
-    void CheckGameOver()
+    public void Miss()
     {
-        if (playerHP <= 0)
-        {
-            GameOver();
-        }
+        Debug.Log("MISS");
+        player.MinusHP(10);
+        RefreshPlayerInfo();
     }
 
-    void GameOver()
+    int GetPerfectTiming(NoteObject note)
     {
+        return note.note.time + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset;
+    }
 
+    void RefreshPlayerInfo()
+    {
+        if (playerUI == null)
+        {
+            playerUI = UIManager.GetInstance().GetUI("PlayerUI").GetComponent<PlayerUI>();
+        }
+        playerUI.SetPlayerInfo();
     }
 }
