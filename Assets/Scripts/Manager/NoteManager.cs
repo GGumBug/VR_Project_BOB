@@ -81,7 +81,6 @@ public class NoteManager : MonoBehaviour
             note.SetPosition(linpos[note.note.line]);
             //CreateGuide(note);
 
-            note.transform.localScale = new Vector3(0f, 0f, 0f);
             note.noteNumber = next;
             note.life = true;
             notes.Add(note);
@@ -95,7 +94,9 @@ public class NoteManager : MonoBehaviour
     IEnumerator Jugement()
     {
         NoteObject note = notes[prev];
-        StartCoroutine(GrowBigNote(note));
+        Transform[] model = note.GetComponentsInChildren<Transform>();
+        model[1].localScale = new Vector3(0f, 0f, 0f);
+        StartCoroutine(GrowBigNote(model[1]));
         prev = next;
         yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
         if (note != null)
@@ -111,11 +112,11 @@ public class NoteManager : MonoBehaviour
         StopCoroutine(noteCoroutines[note.noteNumber]);
     }
 
-    IEnumerator GrowBigNote(NoteObject note)
+    IEnumerator GrowBigNote(Transform model)
     {
-        while (note.transform.lossyScale.x < 1)
+        while (model.lossyScale.x < 0.8)
         {
-            note.transform.localScale += new Vector3(0.002f, 0.002f, 0.002f);
+            model.localScale += new Vector3(0.002f, 0.002f, 0.002f);
             yield return null;
         }
     }
