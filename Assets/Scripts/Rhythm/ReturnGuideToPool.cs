@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ReturnGuideToPool : MonoBehaviour
 {
-    private void OnParticleSystemStopped()
-    {
-        var guideObj = transform.parent.gameObject;
-        ObjectPoolManager.GetInstance().ReturnGuide(guideObj);
-    }
+    ////private void OnParticleSystemStopped()
+    ////{
+    ////    var guideObj = transform.parent.gameObject;
+    ////    ObjectPoolManager.GetInstance().ReturnGuide(guideObj);
+    ////}
 }

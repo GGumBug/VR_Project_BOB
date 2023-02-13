@@ -24,97 +24,81 @@ public class ObjectPoolManager : MonoBehaviour
 
     [SerializeField]
     private GameObject notePrefab;
-    private GameObject GuidePrefab;
 
-    Queue<NoteObject> PoolNoteObject = new Queue<NoteObject>();
-
-    Queue<GameObject> Guide = new Queue<GameObject>();
-
-    private void Awake()
-    {
-        InitializeNote(20);
-        InitializeGuide(10);
-    }
+    Queue<NoteObject> PoolNote_0Object = new Queue<NoteObject>();
+    Queue<NoteObject> PoolNote_1Object = new Queue<NoteObject>();
 
     private void InitializeNote(int initCount)
     {
         for (int i = 0; i < initCount; i++)
         {
-            PoolNoteObject.Enqueue(CreateNewObject());
+            PoolNote_0Object.Enqueue(CreateNewObject(0));
         }
     }
 
-    private void InitializeGuide(int initCount)
+    private NoteObject CreateNewObject(int a)
     {
-        for (int i = 0; i < initCount; i++)
-        {
-            Guide.Enqueue(CreateNewGuide());
-        }
-    }
-
-    private NoteObject CreateNewObject()
-    {
-        notePrefab = Resources.Load<GameObject>("Objects/Note");
+        notePrefab = Resources.Load<GameObject>($"Objects/Note_{a}");
         GameObject note = Instantiate(notePrefab);
         note.gameObject.SetActive(false);
         return note.GetComponent<NoteObject>();
     }
 
-    private GameObject CreateNewGuide()
+    public NoteObject GetNote(int a)
     {
-        GuidePrefab = Resources.Load<GameObject>("Particle/Guide");
-        GameObject guidePrefab = Instantiate(GuidePrefab);
-        guidePrefab.gameObject.SetActive(false);
-        return guidePrefab;
-    }
+        if (a == 0)
+        {
+            if (PoolNote_0Object.Count > 0)
+            {
+                var obj = PoolNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewObject(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+        if (a == 1)
+        {
+            if (PoolNote_1Object.Count > 0)
+            {
+                var obj = PoolNote_1Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewObject(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
 
-    public NoteObject GetNote()
-    {
-        if (PoolNoteObject.Count > 0)
-        {
-            var obj = PoolNoteObject.Dequeue();
-            obj.transform.SetParent(null);
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-        else
-        {
-            var newObj = CreateNewObject();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
-        }
-    }
+        return null;
 
-    public GameObject GetGuide()
-    {
-        if (Guide.Count > 0)
-        {
-            var obj = Guide.Dequeue();
-            obj.transform.SetParent(null);
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-        else
-        {
-            var newObj = CreateNewGuide();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
-        }
     }
 
     public void ReturnObject(NoteObject obj)
     {
-        obj.gameObject.SetActive(false);
-        obj.transform.SetParent(transform);
-        PoolNoteObject.Enqueue(obj);
-    }
+        if (obj.controllerType == 0)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolNote_0Object.Enqueue(obj);
+        }
+        if (obj.controllerType == 1)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolNote_1Object.Enqueue(obj);
+        }
 
-    public void ReturnGuide(GameObject obj)
-    {
-        obj.gameObject.SetActive(false);
-        obj.transform.SetParent(transform);
-        Guide.Enqueue(obj);
     }
 }

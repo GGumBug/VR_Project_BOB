@@ -11,6 +11,7 @@ public class NoteObject : MonoBehaviour
     public float speed = 5f;
 
     public int noteNumber;
+    public int controllerType { get; private set; }
 
     public void SetPosition(Vector3 pos)
     {
@@ -21,5 +22,10 @@ public class NoteObject : MonoBehaviour
     {
         life = false;
         ObjectPoolManager.GetInstance().ReturnObject(this);
+    }
+
+    public void SetControllerType(int a)
+    {
+        controllerType = a;
     }
 }
