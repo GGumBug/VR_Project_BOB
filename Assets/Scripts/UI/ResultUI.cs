@@ -34,7 +34,7 @@ public class ResultUI : MonoBehaviour
     void ToMainMenu()
     {
         resultUI.gameObject.SetActive(false);
-        FadeSceneManager.Instance.ChangeScene("MenuScene");
+        ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
         
     }
 

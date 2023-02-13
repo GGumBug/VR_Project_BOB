@@ -163,7 +163,7 @@ public class MenuUI : MonoBehaviour
 
     void GameStart()
     {
-        FadeSceneManager.Instance.ChangeScene("GameScene");
+        ScenesManager.GetInstance().ChangeScene(Scenes.GameScene);
     }
 
     void CameraMove(Vector3 dest)
