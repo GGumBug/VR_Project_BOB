@@ -31,11 +31,11 @@ public class NoteManager : MonoBehaviour
 
     public readonly Vector3[] linpos =
     {
-        new Vector3(-4f, 1f),
-        new Vector3(-1.5f, -1.5f),
-        new Vector3(0f, 1f),
-        new Vector3(1.5f, -1.5f),
-        new Vector3(4f, 1f),
+        new Vector3(-3f, .5f),
+        new Vector3(-1.2f, -.5f),
+        new Vector3(0f, .5f),
+        new Vector3(1.2f, -.5f),
+        new Vector3(3f, .5f),
     };
 
     int next = 0;
