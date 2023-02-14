@@ -1395,7 +1395,6 @@ GameObject:
   - component: {fileID: 290537289}
   - component: {fileID: 290537288}
   - component: {fileID: 290537287}
-  - component: {fileID: 290537291}
   - component: {fileID: 290537292}
   m_Layer: 5
   m_Name: RightUI
@@ -1494,40 +1493,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.0031738281, y: -0.013183594}
   m_SizeDelta: {x: 17.995, y: 18.838}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &290537291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 290537286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5437a05f13f19fa448f3ab86902d8dd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SelectMusicBtn: {fileID: 1381570201}
-  xrOrigin: {fileID: 0}
-  MainMenuZoomBtn: {fileID: 1898112116}
-  OptionBtn: {fileID: 1781190492}
-  ListUpBtn: {fileID: 1109430598}
-  ListDownBtn: {fileID: 2026649479}
-  StartBtn: {fileID: 2068307226}
-  BackBtn: {fileID: 702273308}
-  SoundPanel: {fileID: 0}
-  OptionPanel: {fileID: 1537693718}
-  ExitBtn: {fileID: 650074720}
-  SoundBtn: {fileID: 1047839491}
-  SoundBackBtn: {fileID: 0}
-  MainBackBtn: {fileID: 1485030904}
-  Bgm: {fileID: 0}
-  Sfx: {fileID: 0}
-  txtSongName: {fileID: 509976535}
-  txtSongArtist: {fileID: 1565360112}
-  txtBPM: {fileID: 1787230992}
-  ImgDisk: {fileID: 1683799294}
-  txtNoteCount: {fileID: 1276634798}
-  txtBestScore: {fileID: 381479009}
 --- !u!114 &290537292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7820,6 +7785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2032314920}
   - component: {fileID: 2032314919}
+  - component: {fileID: 2032314921}
   m_Layer: 0
   m_Name: MenuScene
   m_TagString: Untagged
@@ -7854,6 +7820,41 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032314921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032314918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5437a05f13f19fa448f3ab86902d8dd6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectMusicBtn: {fileID: 1381570201}
+  xrOrigin: {fileID: 1049361453395571584}
+  MainMenuZoomBtn: {fileID: 1898112116}
+  OptionBtn: {fileID: 1781190492}
+  ListUpBtn: {fileID: 1109430598}
+  ListDownBtn: {fileID: 2026649479}
+  StartBtn: {fileID: 2068307226}
+  BackBtn: {fileID: 702273308}
+  SoundPanel: {fileID: 1737280581}
+  OptionPanel: {fileID: 1537693718}
+  ExitBtn: {fileID: 650074720}
+  SoundBtn: {fileID: 1047839491}
+  SoundBackBtn: {fileID: 866409802}
+  MainBackBtn: {fileID: 1485030904}
+  Bgm: {fileID: 794778121}
+  Sfx: {fileID: 1698018653}
+  Cube2: {fileID: 856089038}
+  txtSongName: {fileID: 509976535}
+  txtSongArtist: {fileID: 1565360112}
+  txtBPM: {fileID: 1787230992}
+  ImgDisk: {fileID: 1683799294}
+  txtNoteCount: {fileID: 1276634798}
+  txtBestScore: {fileID: 381479009}
 --- !u!1 &2038821991
 GameObject:
   m_ObjectHideFlags: 0
@@ -8446,15 +8447,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049361453395571584}
-  m_LocalRotation: {x: -0, y: 0.0022290617, z: -0, w: 0.99999756}
-  m_LocalPosition: {x: -12, y: 8.1, z: 52.4}
+  m_LocalRotation: {x: 0, y: 0.39502442, z: 0, w: 0.9186706}
+  m_LocalPosition: {x: -22.7, y: 8.1, z: 49.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1049361454768278880}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0.255, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 46.535, z: 0}
 --- !u!114 &1049361453395571587
 MonoBehaviour:
   m_ObjectHideFlags: 0
