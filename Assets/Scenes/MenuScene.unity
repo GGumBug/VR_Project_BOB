@@ -1298,7 +1298,7 @@ GameObject:
   - component: {fileID: 282421758}
   - component: {fileID: 282421757}
   m_Layer: 0
-  m_Name: Cube1
+  m_Name: MainMenuObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2333,7 +2333,7 @@ RectTransform:
   - {fileID: 1340312019}
   - {fileID: 778206019}
   m_Father: {fileID: 1537693719}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -2981,7 +2981,7 @@ GameObject:
   - component: {fileID: 856089040}
   - component: {fileID: 856089039}
   m_Layer: 0
-  m_Name: Cube2
+  m_Name: SelectMusicObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3497,7 +3497,7 @@ RectTransform:
   - {fileID: 563873928}
   - {fileID: 1167846472}
   m_Father: {fileID: 1537693719}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4849,7 +4849,7 @@ GameObject:
   - component: {fileID: 1400597409}
   - component: {fileID: 1400597408}
   m_Layer: 0
-  m_Name: Cube3
+  m_Name: OptionObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5395,8 +5395,8 @@ RectTransform:
   m_LocalScale: {x: 0.010000001, y: 0.01, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1047839490}
   - {fileID: 650074719}
+  - {fileID: 1047839490}
   - {fileID: 1485030903}
   m_Father: {fileID: 278826420}
   m_RootOrder: 1
@@ -7855,6 +7855,9 @@ MonoBehaviour:
   ImgDisk: {fileID: 1683799294}
   txtNoteCount: {fileID: 1276634798}
   txtBestScore: {fileID: 381479009}
+  MenuObj: {fileID: 282421755}
+  SelectObj: {fileID: 856089038}
+  OptionObj: {fileID: 1400597407}
 --- !u!1 &2038821991
 GameObject:
   m_ObjectHideFlags: 0

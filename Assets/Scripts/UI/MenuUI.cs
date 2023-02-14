@@ -24,7 +24,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button StartBtn;
     [SerializeField] Button BackBtn;
 
-    [Header("옵션")]
+    [Header("Option")]
     [SerializeField] GameObject SoundPanel;
     [SerializeField] GameObject OptionPanel;
     [SerializeField] Button ExitBtn;
@@ -43,6 +43,9 @@ public class MenuUI : MonoBehaviour
     [SerializeField] TMP_Text txtNoteCount;
     [SerializeField] TMP_Text txtBestScore;
 
+    [SerializeField] GameObject MenuObj;
+    [SerializeField] GameObject SelectObj;
+    [SerializeField] GameObject OptionObj;
     public List<Sheet> sheetList = new List<Sheet>();
 
     Vector3 dest;
@@ -79,6 +82,9 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 86.986f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(true);
 
     }
     void MainBack()
@@ -87,6 +93,9 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
 
     void SoundOn()
@@ -123,6 +132,9 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
 
     void SelectMusic()
@@ -131,7 +143,9 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 271.021f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(true);
+        OptionObj.gameObject.SetActive(false);
     }
     void SelecttoMain()
     {
@@ -139,18 +153,19 @@ public class MenuUI : MonoBehaviour
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-    }
-    void ToStart()
-    {
-        dest = Vector3.zero;
-        CameraMove(dest);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
     void GameStartOn()
     {
-        dest = new Vector3(-3.1f, 17.9f, 15.1f);
-        rot = new Vector3(-40, 182.259f, 0);
+        dest = new Vector3(-3.1f, 27f, 15.1f);
+        rot = new Vector3(40, 362.259f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
@@ -160,8 +175,8 @@ public class MenuUI : MonoBehaviour
     IEnumerator StartMove()
     {
         yield return new WaitForSeconds(1);
-        dest = new Vector3(-2.52f, -1.17f, -0.26f);
-        rot = new Vector3(360, 182.259f, 0);
+        dest = new Vector3(-0.45f, 0.2f, -18.85f);
+        rot = new Vector3(0,0, 0);
         CameraMove(dest);
         CameraRotate(rot);
     }
