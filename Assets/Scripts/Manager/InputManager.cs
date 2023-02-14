@@ -30,7 +30,7 @@ public class InputManager : MonoBehaviour
     public bool boolRightTrigger;
     public bool boolLeftTrigger;
 
-    private void Start()
+    private void Update()
     {
         if (!_rightController.isValid || !_leftController.isValid || !_HMD.isValid)
             InitializeInputDevices();
