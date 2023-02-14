@@ -19,7 +19,7 @@ public class GunFire : MonoBehaviour
     AudioSource gunAudioSource;
     [SerializeField] AudioClip gunAudioClip;
 
-    float shotDleay = 1.5f;
+    float shotDleay = 0.5f;
     bool isLeftShot;
     bool isRightShot;
     Coroutine leftDleay;
@@ -56,6 +56,7 @@ public class GunFire : MonoBehaviour
         {
             if (isRightShot)
                 return;
+            isRightShot = true;
             ShotRayRight();
         }
 
@@ -78,12 +79,11 @@ public class GunFire : MonoBehaviour
         {
             StopCoroutine(leftDleay);
         }
-        leftDleay = StartCoroutine(ShotDleay(isLeftShot));
+        leftDleay = StartCoroutine("ShotDleayLeft");
      }
 
     public void ShotRayRight()
     {
-        isRightShot = true;
         RaycastHit hit;
         shootPS.Play();
 
@@ -96,9 +96,9 @@ public class GunFire : MonoBehaviour
 
         if (rightDelay != null)
         {
-            StopCoroutine(leftDleay);
+            StopCoroutine(rightDelay);
         }
-        rightDelay = StartCoroutine(ShotDleay(isRightShot));
+        rightDelay = StartCoroutine("ShotDleayRight");
     }
 
     void TargetCheck(RaycastHit hit)
@@ -124,9 +124,15 @@ public class GunFire : MonoBehaviour
 
     }
 
-    IEnumerator ShotDleay(bool swich)
+    IEnumerator ShotDleayLeft()
     {
         yield return new WaitForSeconds(shotDleay);
-        swich = false;
+        isLeftShot = false;
+    }
+
+    IEnumerator ShotDleayRight()
+    {
+        yield return new WaitForSeconds(shotDleay);
+        isRightShot = false;
     }
 }
