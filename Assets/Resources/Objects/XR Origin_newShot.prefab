@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_ControllerNode: 4
   m_SelectUsage: 0
   m_ActivateUsage: 3
-  m_UIPressUsage: 3
+  m_UIPressUsage: 2
   m_AxisToPressThreshold: 0.1
   m_RotateAnchorLeft: 16
   m_RotateAnchorRight: 17
@@ -5470,7 +5470,7 @@ MonoBehaviour:
   m_ControllerNode: 5
   m_SelectUsage: 0
   m_ActivateUsage: 3
-  m_UIPressUsage: 3
+  m_UIPressUsage: 2
   m_AxisToPressThreshold: 0.1
   m_RotateAnchorLeft: 16
   m_RotateAnchorRight: 17
@@ -27154,7 +27154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7044947707034850535}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00090003014, y: -0.051000237, z: -0.14260006}
+  m_LocalPosition: {x: -0.009, y: -0.018, z: 0.008}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -29153,7 +29153,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7044947707467616454}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00090003014, y: -0.051000237, z: -0.14260006}
+  m_LocalPosition: {x: -0.009, y: -0.018, z: 0.008}
   m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 1
   m_Children:
