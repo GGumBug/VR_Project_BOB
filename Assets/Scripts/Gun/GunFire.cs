@@ -9,7 +9,8 @@ using UnityEngine.XR;
 public class GunFire : MonoBehaviour
 {
     [Header("Raycast")]
-    [SerializeField] Transform gunraycastOrigin;
+    [SerializeField] Transform gunraycastOriginL;
+    [SerializeField] Transform gunraycastOriginR;
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem shootPS;
 
@@ -68,7 +69,7 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOriginL.position, gunraycastOriginL.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheck(hit);
         }
@@ -87,7 +88,7 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOriginR.position, gunraycastOriginR.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheck(hit);
         }
