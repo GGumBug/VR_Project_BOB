@@ -482,6 +482,7 @@ GameObject:
   - component: {fileID: 2082924609654230726}
   - component: {fileID: 4685447037941218241}
   - component: {fileID: 8807441960337907398}
+  - component: {fileID: 9428294954744965}
   m_Layer: 5
   m_Name: TitleUI
   m_TagString: Untagged
@@ -606,6 +607,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RaycastTriggerInteraction: 1
+--- !u!225 &9428294954744965
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8807441960337907417}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8833776346238937954
 GameObject:
   m_ObjectHideFlags: 0
