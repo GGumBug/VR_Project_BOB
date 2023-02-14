@@ -55,6 +55,8 @@ public class MenuUI : MonoBehaviour
     void Start()
     {
         xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
+        xrOrigin.transform.position = new Vector3(-22.7f, 8.1f, 49.7f);
+        xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
         OnclickSetting();
         SetSheetList(SheetManager.GetInstance().curMusic);
 
