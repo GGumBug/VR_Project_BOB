@@ -24,7 +24,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button StartBtn;
     [SerializeField] Button BackBtn;
 
-    [Header("옵션")]
+    [Header("Option")]
     [SerializeField] GameObject SoundPanel;
     [SerializeField] GameObject OptionPanel;
     [SerializeField] Button ExitBtn;
@@ -33,6 +33,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] Button MainBackBtn;
     [SerializeField] Slider Bgm;
     [SerializeField] Slider Sfx;
+    [SerializeField] GameObject Cube2;
 
     // 음악선택관련 버튼
     [SerializeField] TMP_Text txtSongName;
@@ -42,6 +43,9 @@ public class MenuUI : MonoBehaviour
     [SerializeField] TMP_Text txtNoteCount;
     [SerializeField] TMP_Text txtBestScore;
 
+    [SerializeField] GameObject MenuObj;
+    [SerializeField] GameObject SelectObj;
+    [SerializeField] GameObject OptionObj;
     public List<Sheet> sheetList = new List<Sheet>();
 
     Vector3 dest;
@@ -53,6 +57,7 @@ public class MenuUI : MonoBehaviour
         xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
         OnclickSetting();
         SetSheetList(SheetManager.GetInstance().curMusic);
+
     }
 
     void OnclickSetting()
@@ -70,20 +75,27 @@ public class MenuUI : MonoBehaviour
         ListDownBtn.onClick.AddListener(PriorSheet);
     }
 
+    
     void OptionOn()
     {
-        dest = new Vector3(-716, -2095, 705);
-        rot = new Vector3(0, 360, 0);
+        dest = new Vector3(-3.1f, 25.2f, 36.36f);
+        rot = new Vector3(0, 86.986f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(true);
 
     }
     void MainBack()
     {
-        dest = new Vector3(-19.7f, 8.4f, 50.5f);
-        rot = new Vector3(0, -80, 0);
+        dest = new Vector3(-12, 8.1f, 52.4f);
+        rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
 
     void SoundOn()
@@ -112,42 +124,48 @@ public class MenuUI : MonoBehaviour
         Application.Quit(); // 어플리케이션 종료
 #endif
     }
-
+    // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
     void MainMenuOn()
     {
         MainMenuZoomBtn.gameObject.SetActive(false);
-        dest = new Vector3(-19.7f, 8.4f, 50.5f);
-        rot = new Vector3(0, -80, 0);
+        dest = new Vector3(-12, 8.1f, 52.4f);
+        rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
 
     void SelectMusic()
     {
-        dest = new Vector3(41, -1176, 516);
-        rot = new Vector3(0, 450, 0);
+        dest = new Vector3(-7.2f, 17.9f, 42.7f);
+        rot = new Vector3(0, 271.021f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(true);
+        OptionObj.gameObject.SetActive(false);
     }
     void SelecttoMain()
     {
-        dest = new Vector3(-19.7f, 8.4f, 50.5f);
-        rot = new Vector3(0, -80, 0);
+        dest = new Vector3(-12, 8.1f, 52.4f);
+        rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
-    }
-    void ToStart()
-    {
-        dest = Vector3.zero;
-        CameraMove(dest);
+        MenuObj.gameObject.SetActive(true);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
     void GameStartOn()
     {
-        dest = new Vector3(0, -800, 0);
-        rot = Vector3.zero;
+        dest = new Vector3(-3.1f, 27f, 15.1f);
+        rot = new Vector3(40, 362.259f, 0);
         CameraMove(dest);
         CameraRotate(rot);
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
@@ -157,8 +175,10 @@ public class MenuUI : MonoBehaviour
     IEnumerator StartMove()
     {
         yield return new WaitForSeconds(1);
-        dest = new Vector3(0, -3110, 0);
+        dest = new Vector3(-0.45f, 0.2f, -18.85f);
+        rot = new Vector3(0,0, 0);
         CameraMove(dest);
+        CameraRotate(rot);
     }
 
     void GameStart()
