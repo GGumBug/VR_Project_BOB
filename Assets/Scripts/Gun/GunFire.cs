@@ -13,6 +13,7 @@ public class GunFire : MonoBehaviour
     [SerializeField] Transform gunraycastOriginR;
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem shootPS;
+    //[SerializeField] GameObject aimGO;
 
 
     [Space(10f)]
@@ -63,6 +64,18 @@ public class GunFire : MonoBehaviour
 
         Debug.Log("leftTriggerValue  = " +leftTriggerValue);
     }
+
+    //public void RayscastAimL()
+    //{
+    //    RaycastHit aimhit;
+
+    //    if (Physics.Raycast(gunraycastOriginL.position, gunraycastOriginL.TransformDirection(Vector3.forward), out aimhit, Mathf.Infinity, targetLayer))
+    //    {
+    //        aimhit.transform.GetComponent<Gunfire>();
+    //    }
+
+    //}
+
 
     public void ShotRayLeft()
      {

@@ -21,9 +21,8 @@ public class Player
     public int goodCount { get; private set; }
     public int badCount { get; private set; }
     public int missCount { get; private set; }
-    public string rank { get; private set; }
 
-    public Player(int score, int maxHp,int hp, int combo, /*int maxcombo,*/ int perfectCount, int goodCount, int badCount, int missCount, string rank)
+    public Player(int score, int maxHp,int hp, int combo, /*int maxcombo,*/ int perfectCount, int goodCount, int badCount, int missCount)
     {
         this.score = score;
         this.maxHp = maxHp;
@@ -34,7 +33,6 @@ public class Player
         this.goodCount = goodCount;
         this.badCount = badCount;
         this.missCount = missCount;
-        this.rank = rank;
     }
 
     public void PlusHP(int plusHp)

@@ -41,11 +41,18 @@ public class MenuUI : MonoBehaviour
     [SerializeField] TMP_Text txtBPM;
     [SerializeField] Image ImgDisk;
     [SerializeField] TMP_Text txtNoteCount;
-    [SerializeField] TMP_Text txtBestScore;
+    [SerializeField] Button RankingBtn;
 
     [SerializeField] GameObject MenuObj;
     [SerializeField] GameObject SelectObj;
     [SerializeField] GameObject OptionObj;
+
+    [Header("Ranking")]
+    [SerializeField] GameObject RankingPanel;
+    [SerializeField] Image[] RankImgs;
+    [SerializeField] TMP_Text[] txtRankScores;
+    [SerializeField] Button RankBackBtn;
+    string[] RankScores;
     public List<Sheet> sheetList = new List<Sheet>();
 
     Vector3 dest;
@@ -61,7 +68,7 @@ public class MenuUI : MonoBehaviour
         SetSheetList(SheetManager.GetInstance().curMusic);
 
     }
-
+    // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
     void OnclickSetting()
     {
         MainMenuZoomBtn.onClick.AddListener(MainMenuOn);
@@ -75,9 +82,25 @@ public class MenuUI : MonoBehaviour
         MainBackBtn.onClick.AddListener(MainBack);
         ListUpBtn.onClick.AddListener(NextSheet);
         ListDownBtn.onClick.AddListener(PriorSheet);
+        RankingBtn.onClick.AddListener(RankCheck);
+        RankBackBtn.onClick.AddListener(ExitRank);
+    }
+    void RankCheck()
+    {
+        /*       for (int i = 0; i < RankImgs.Length; i++)
+               {
+                   RankImgs[i].gameObject.SetActive(true);
+                   txtRankScores[i].text = $"{i}";
+               }*/
+        RankingPanel.gameObject.SetActive(true);
+
+    }
+    void ExitRank()
+    {
+        RankingPanel.gameObject.SetActive(false);
     }
 
-    
+
     void OptionOn()
     {
         dest = new Vector3(-3.1f, 25.2f, 36.36f);
@@ -126,7 +149,7 @@ public class MenuUI : MonoBehaviour
         Application.Quit(); // 어플리케이션 종료
 #endif
     }
-    // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
+
     void MainMenuOn()
     {
         MainMenuZoomBtn.gameObject.SetActive(false);
@@ -171,14 +194,14 @@ public class MenuUI : MonoBehaviour
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
-        
+
 
     }
     IEnumerator StartMove()
     {
         yield return new WaitForSeconds(1);
         dest = new Vector3(-0.45f, 0.2f, -18.85f);
-        rot = new Vector3(0,0, 0);
+        rot = new Vector3(0, 0, 0);
         CameraMove(dest);
         CameraRotate(rot);
     }
@@ -196,7 +219,7 @@ public class MenuUI : MonoBehaviour
     }
     void CameraRotate(Vector3 rot)
     {
-        xrOrigin.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);  
+        xrOrigin.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);
     }
 
     void SetSheetList(int curMusic)
@@ -204,15 +227,15 @@ public class MenuUI : MonoBehaviour
         string title = SheetManager.GetInstance().title[curMusic];
         txtSongName.text = SheetManager.GetInstance().sheets[title].title;
         txtSongArtist.text = SheetManager.GetInstance().sheets[title].artist;
-        txtBPM.text = SheetManager.GetInstance().sheets[title].bpm.ToString();
+        txtBPM.text = "BPM :" + SheetManager.GetInstance().sheets[title].bpm.ToString();
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
-        txtNoteCount.text = SheetManager.GetInstance().sheets[title].notes.Count.ToString();
+        txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
         /*txtBestScore.text = sheetList[curMusic].*/
     }
 
     void NextSheet()
     {
-        
+
         if (++SheetManager.GetInstance().curMusic > SheetManager.GetInstance().sheets.Count - 1)
             SheetManager.GetInstance().curMusic = 0;
         SetSheetList(SheetManager.GetInstance().curMusic);
@@ -222,10 +245,10 @@ public class MenuUI : MonoBehaviour
     void PriorSheet()
     {
         if (--SheetManager.GetInstance().curMusic < 0)
-            SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count- 1;
+            SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count - 1;
         SetSheetList(SheetManager.GetInstance().curMusic);
     }
 
-    
+
 
 }

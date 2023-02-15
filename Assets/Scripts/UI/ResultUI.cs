@@ -26,7 +26,7 @@ public class ResultUI : MonoBehaviour
         BadCount.text = GameManager.GetInstance().player.badCount.ToString();
         MissCount.text = GameManager.GetInstance().player.missCount.ToString();
         Score.text = GameManager.GetInstance().player.score.ToString();
-        RankImg = Resources.Load<Image>($"Image/Rank/{GameManager.GetInstance().player.rank}");
+        /*RankImg = Resources.Load<Image>($"Image/Rank/{GameManager.GetInstance().player.rank}");*/
         OKBtn.onClick.AddListener(ToMainMenu);
 
     }
@@ -35,7 +35,7 @@ public class ResultUI : MonoBehaviour
     {
         resultUI.gameObject.SetActive(false);
         ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
-        
+
     }
 
 }
