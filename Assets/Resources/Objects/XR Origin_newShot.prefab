@@ -27180,7 +27180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d8ac91f5952c40ac89ff4dbd055ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 0
+  controller: 1
   gunraycastOrigin: {fileID: 7044947707486778656}
   targetLayer:
     serializedVersion: 2
