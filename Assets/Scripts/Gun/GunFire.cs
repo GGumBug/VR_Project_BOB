@@ -5,12 +5,18 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR;
 
+public enum Controller
+{
+    Left,
+    Right
+}
 
 public class GunFire : MonoBehaviour
 {
+    [SerializeField] Controller controller;
+
     [Header("Raycast")]
-    [SerializeField] Transform gunraycastOriginL;
-    [SerializeField] Transform gunraycastOriginR;
+    [SerializeField] Transform gunraycastOrigin;
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem shootPS;
     //[SerializeField] GameObject aimGO;
@@ -46,23 +52,30 @@ public class GunFire : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(isLeftShot);
-        if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTriggerValue) && leftTriggerValue && !isLeftShot)
+        switch (controller)
         {
-            if (isLeftShot)
-                return;
-            isLeftShot = true;
-            ShotRayLeft();
+            case Controller.Left:
+                Debug.Log(isLeftShot);
+                if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTriggerValue) && leftTriggerValue && !isLeftShot)
+                {
+                    if (isLeftShot)
+                        return;
+                    isLeftShot = true;
+                    ShotRayLeft();
+                }
+                break;
+            case Controller.Right:
+                if (InputManager.GetInstance()._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue && !isRightShot)
+                {
+                    if (isRightShot)
+                        return;
+                    isRightShot = true;
+                    ShotRayRight();
+                }
+                break;
+            default:
+                break;
         }
-        if (InputManager.GetInstance()._rightController.TryGetFeatureValue(CommonUsages.triggerButton, out bool rightTriggerValue) && rightTriggerValue && !isRightShot)
-        {
-            if (isRightShot)
-                return;
-            isRightShot = true;
-            ShotRayRight();
-        }
-
-        Debug.Log("leftTriggerValue  = " +leftTriggerValue);
     }
 
     //public void RayscastAimL()
@@ -82,7 +95,7 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOriginL.position, gunraycastOriginL.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheck(hit);
         }
@@ -101,7 +114,7 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOriginR.position, gunraycastOriginR.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheck(hit);
         }
