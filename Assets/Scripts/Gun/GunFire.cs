@@ -97,7 +97,7 @@ public class GunFire : MonoBehaviour
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
-            TargetCheck(hit);
+            TargetCheckLeft(hit);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -116,7 +116,7 @@ public class GunFire : MonoBehaviour
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
-            TargetCheck(hit);
+            TargetCheckRight(hit);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -128,7 +128,7 @@ public class GunFire : MonoBehaviour
         rightDelay = StartCoroutine("ShotDleayRight");
     }
 
-    void TargetCheck(RaycastHit hit)
+    void TargetCheckLeft(RaycastHit hit)
     {
         if (hit.transform.GetComponent<ITargetInteface>() != null)
         {
@@ -139,6 +139,33 @@ public class GunFire : MonoBehaviour
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
+                if (note.controllerType == 1)
+                    return;
+                ObjectPoolManager.GetInstance().ReturnObject(note);
+                GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
+                NoteManager.GetInstance().StopNoteCoroutine(note);
+            }
+
+            // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
+        }
+        else
+        { Debug.Log("NOPE"); }
+
+    }
+
+    void TargetCheckRight(RaycastHit hit)
+    {
+        if (hit.transform.GetComponent<ITargetInteface>() != null)
+        {
+            hit.transform.GetComponent<ITargetInteface>().TargetShot();
+
+            GameObject hitTarget = hit.collider.gameObject;
+
+            if (hitTarget.gameObject.layer == 6)
+            {
+                NoteObject note = hitTarget.GetComponent<NoteObject>();
+                if (note.controllerType == 0)
+                    return;
                 ObjectPoolManager.GetInstance().ReturnObject(note);
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
