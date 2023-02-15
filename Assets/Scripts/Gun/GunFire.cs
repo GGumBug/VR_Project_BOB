@@ -77,6 +77,32 @@ public class GunFire : MonoBehaviour
             default:
                 break;
         }
+        //PC 디버그 로직
+        switch (controller)
+        {
+            case Controller.Left:
+                if (Input.GetMouseButtonDown(0) && !isLeftShot)
+                {
+                    if (isLeftShot)
+                        return;
+                    isLeftShot = true;
+                    InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
+                    ShotRayLeft();
+                }
+                break;
+            case Controller.Right:
+                if (Input.GetMouseButtonDown(1) && !isRightShot)
+                {
+                    if (isRightShot)
+                        return;
+                    isRightShot = true;
+                    InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
+                    ShotRayRight();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
     public void ShotRayLeft()
