@@ -139,7 +139,8 @@ public class GunFire : MonoBehaviour
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
-                if (note.controllerType == 1)
+                Debug.Log($"note.controllerType = {note.controllerType}");
+                if (note.controllerType == 0)
                     return;
                 ObjectPoolManager.GetInstance().ReturnObject(note);
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
@@ -164,7 +165,8 @@ public class GunFire : MonoBehaviour
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
-                if (note.controllerType == 0)
+                Debug.Log($"note.controllerType = {note.controllerType}");
+                if (note.controllerType == 1)
                     return;
                 ObjectPoolManager.GetInstance().ReturnObject(note);
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템

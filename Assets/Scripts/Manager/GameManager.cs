@@ -83,4 +83,9 @@ public class GameManager : MonoBehaviour
         }
         playerUI.SetPlayerInfo();
     }
+    public void GameOver()
+    {
+
+            UIManager.GetInstance().OpenUI("ResultUI");
+    }
 }
