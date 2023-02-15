@@ -54,9 +54,10 @@ public class RankSystem : MonoBehaviour
     {
         for (int i = 0; i < maxRankCount; ++i)
         {
+            rankDataArray[i].PlayerName = PlayerPrefs.GetString("PlayerName" + i);
             rankDataArray[i].score = PlayerPrefs.GetInt("RankScore" + i);
             rankDataArray[i].maxCombo = PlayerPrefs.GetInt("RankMaxCombo" + i);
-            rankDataArray[i].PlayerName = PlayerPrefs.GetString("PlayerName" + i);
+            
         }
         Debug.Log("Load");
     }
@@ -83,9 +84,10 @@ public class RankSystem : MonoBehaviour
     {
         //현재 스테이지에서 달성한 정보
         RankData currentData = new RankData();
+        currentData.PlayerName = PlayerPrefs.GetString("CurrentPlayerName");
         currentData.score = PlayerPrefs.GetInt("CurrentScore");
         currentData.maxCombo = PlayerPrefs.GetInt("CurrentMaxCombo");
-        currentData.PlayerName = PlayerPrefs.GetString("PlayerName");
+        
 
         //1 ~ 10 등의 점수와 현재 스테이지에서 달성한 점수 비교
         for (int i = 0; i < maxRankCount; ++i)
@@ -124,9 +126,10 @@ public class RankSystem : MonoBehaviour
 
             //Text - TextMeshPro 생성 및 원하는 데이터 출력
             SpawnText((i + 1).ToString(), color);
+            SpawnText(rankDataArray[i].PlayerName, color);
             SpawnText(rankDataArray[i].score.ToString(), color);
             SpawnText(rankDataArray[i].maxCombo.ToString(), color);
-            SpawnText(rankDataArray[i].PlayerName, color);
+            
 
         }
     }
@@ -135,9 +138,10 @@ public class RankSystem : MonoBehaviour
     {
         for (int i = 0; i < maxRankCount; ++i)
         {
+            PlayerPrefs.SetString("PlayerName" + i, rankDataArray[i].PlayerName);
             PlayerPrefs.SetInt("RankScore" + i, rankDataArray[i].score);
             PlayerPrefs.SetInt("RankMaxCombo" + i, rankDataArray[i].maxCombo);
-            PlayerPrefs.SetString("PlayerName" + i, rankDataArray[i].PlayerName);
+            
         }
         Debug.Log("Save");
     }

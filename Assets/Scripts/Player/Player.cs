@@ -11,28 +11,30 @@ public enum Count
 }
 public class Player
 {
-    
+    public string playerName { get; private set; }
     public int score {get; private set;}
     public int maxHp {get; private set;}
     public int hp {get; private set;}
     public int combo {get; private set;}
-    /*public int maxcombo { get; private set; }*/
+    public int maxcombo { get; private set; }
     public int perfectCount { get; private set; }
     public int goodCount { get; private set; }
     public int badCount { get; private set; }
     public int missCount { get; private set; }
 
-    public Player(int score, int maxHp,int hp, int combo, /*int maxcombo,*/ int perfectCount, int goodCount, int badCount, int missCount)
+    public Player(string playerName, int score, int maxHp,int hp, int combo, int maxcombo, int perfectCount, int goodCount, int badCount, int missCount)
     {
+        this.playerName = playerName;
         this.score = score;
         this.maxHp = maxHp;
         this.hp = hp;
         this.combo = combo;
-    //    this.maxcombo = maxcombo;
+        this.maxcombo = maxcombo;
         this.perfectCount = perfectCount;
         this.goodCount = goodCount;
         this.badCount = badCount;
         this.missCount = missCount;
+        
     }
 
     public void PlusHP(int plusHp)

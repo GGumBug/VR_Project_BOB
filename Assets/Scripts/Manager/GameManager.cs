@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public GameState state = GameState.Game;
 
-    public Player player = new Player(0, 100, 100, 0, 0, 0, 0, 0);
+    public Player player = new Player("", 0, 100, 100, 0, 0, 0, 0, 0, 0);
 
     public void CheckJugement(NoteObject note, float curtime)
     {
