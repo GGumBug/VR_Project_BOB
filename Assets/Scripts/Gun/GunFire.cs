@@ -54,7 +54,6 @@ public class GunFire : MonoBehaviour
         switch (controller)
         {
             case Controller.Left:
-                Debug.Log(isLeftShot);
                 if (InputManager.GetInstance()._leftController.TryGetFeatureValue(CommonUsages.triggerButton, out bool leftTriggerValue) && leftTriggerValue && !isLeftShot)
                 {
                     if (isLeftShot)
@@ -164,7 +163,6 @@ public class GunFire : MonoBehaviour
 
             }
 
-            // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
         }
         else
         { Debug.Log("NOPE"); }
@@ -191,7 +189,6 @@ public class GunFire : MonoBehaviour
                 NoteManager.GetInstance().StopNoteCoroutine(note);
             }
 
-            // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
         }
         else
         { Debug.Log("NOPE"); }

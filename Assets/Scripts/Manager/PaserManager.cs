@@ -89,12 +89,14 @@ public class PaserManager : MonoBehaviour
                             break;
 
                         string[] s = readLine.Split(',');
-                        int time = int.Parse(s[0].Trim()) - sheet.offset;
+                        int time = int.Parse(s[0].Trim());
                         int type = int.Parse(s[1].Trim());
                         int line = int.Parse(s[2].Trim());
                         int tail = -1;
                         if (s.Length > 3)
                             tail = int.Parse(readLine.Split(',')[3].Trim());
+                        if (type == 0)
+                            time -= sheet.offset;
                         sheet.notes.Add(new Note(time, type, line, tail));
                         break;
                 }

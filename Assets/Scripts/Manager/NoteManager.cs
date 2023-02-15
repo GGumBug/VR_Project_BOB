@@ -23,7 +23,10 @@ public class NoteManager : MonoBehaviour
     }
     #endregion
 
+    Note curNote;
     int curNoteTime;
+    int prevControllType;
+    bool isLongNote;
     bool controllSwich=true;
     Coroutine coroutine;
 
@@ -49,6 +52,14 @@ public class NoteManager : MonoBehaviour
         StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
     }
 
+    private void Update()
+    {
+        if (GameObject.FindGameObjectWithTag("LongNote") == null)
+        {
+            isLongNote = false;
+        }
+    }
+
     void SetCreateTime(string title, int a)
     {
         if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
@@ -57,7 +68,8 @@ public class NoteManager : MonoBehaviour
             GameManager.GetInstance().GameOver();
             return;
         }
-        curNoteTime = SheetManager.GetInstance().sheets[title].notes[a].time;
+        curNote = SheetManager.GetInstance().sheets[title].notes[a];
+        curNoteTime = curNote.time;
     }
 
     IEnumerator IEGenTimer(float interval)
@@ -77,19 +89,46 @@ public class NoteManager : MonoBehaviour
     {
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
-            int controllType = SwichControllType();
-            NoteObject note = ObjectPoolManager.GetInstance().GetNote(controllType);
-            note.note = SheetManager.GetInstance().sheets[title].notes[next];
-            note.SetPosition(linpos[note.note.line]);
+            switch (curNote.type)
+            {
+                case 0:
+                    if (!isLongNote)
+                    {
+                        int controllType = SwichControllType();
+                        prevControllType = controllType;
+                    }
+                    NoteObject note = ObjectPoolManager.GetInstance().GetNote(prevControllType);
+                    note.note = SheetManager.GetInstance().sheets[title].notes[next];
+                    note.SetPosition(linpos[note.note.line]);
 
-            note.SetControllerType(controllType);
-            note.noteNumber = next;
-            note.life = true;
-            notes.Add(note);
-            next++;
-            SetCreateTime(title, next);
-            coroutine = StartCoroutine("Jugement");
-            noteCoroutines.Add(coroutine);
+                    note.SetControllerType(prevControllType);
+                    note.noteNumber = next;
+                    note.life = true;
+                    notes.Add(note);
+                    next++;
+                    SetCreateTime(title, next);
+                    coroutine = StartCoroutine("Jugement");
+                    noteCoroutines.Add(coroutine);
+                    break;
+                case 1:
+                    isLongNote = true;
+                    int _controllType = SwichControllType();
+                    prevControllType = _controllType;
+                    NoteObject _note = ObjectPoolManager.GetInstance().GetLongNote(_controllType);
+                    _note.note = SheetManager.GetInstance().sheets[title].notes[next];
+                    _note.SetPosition(linpos[_note.note.line]);
+
+                    _note.SetControllerType(_controllType);
+                    _note.noteNumber = next;
+                    _note.life = true;
+                    notes.Add(_note);
+                    Debug.Log("롱노트");
+                    next++;
+                    SetCreateTime(title, next);
+                    coroutine = StartCoroutine("LongNoteJugement");
+                    noteCoroutines.Add(coroutine);
+                    break;
+            }
         }
     }
 
@@ -107,6 +146,22 @@ public class NoteManager : MonoBehaviour
         {
             note.life = false;
             ObjectPoolManager.GetInstance().ReturnObject(note);
+            GameManager.GetInstance().Miss(); // 미스 판정
+        }
+    }
+
+    IEnumerator LongNoteJugement()
+    {
+        NoteObject note = notes[prev];
+
+        prev = next;
+
+        yield return new WaitForSeconds((note.note.tail - note.note.time) * 0.001f);
+        if (note != null)
+        {
+            Debug.Log("파괴");
+            note.life = false;
+            ObjectPoolManager.GetInstance().ReturnLongNote(note);
             GameManager.GetInstance().Miss(); // 미스 판정
         }
     }
