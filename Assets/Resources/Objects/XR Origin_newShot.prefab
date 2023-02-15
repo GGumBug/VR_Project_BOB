@@ -4894,7 +4894,7 @@ GameObject:
   - component: {fileID: 4488439630056332145}
   m_Layer: 0
   m_Name: XR Origin_newShot
-  m_TagString: Untagged
+  m_TagString: XROrigin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4991,7 +4991,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 61.7
+  field of view: 97.48452
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -5094,7 +5094,7 @@ MonoBehaviour:
   m_ModelDeSelectTransition: 
   m_ControllerNode: 4
   m_SelectUsage: 0
-  m_ActivateUsage: 3
+  m_ActivateUsage: 2
   m_UIPressUsage: 2
   m_AxisToPressThreshold: 0.1
   m_RotateAnchorLeft: 16
@@ -5182,7 +5182,7 @@ MonoBehaviour:
   m_HapticHoverCancelDuration: 0
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 30
+  m_MaxRaycastDistance: 100
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -5255,7 +5255,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.005
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5266,8 +5266,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5321,7 +5330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.02
-  m_OverrideInteractorLineLength: 1
+  m_OverrideInteractorLineLength: 0
   m_LineLength: 500
   m_WidthCurve:
     serializedVersion: 2
@@ -5405,10 +5414,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_SmoothMovement: 0
-  m_FollowTightness: 10
+  m_SmoothMovement: 1
+  m_FollowTightness: 30
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 4283961115815101587, guid: 64b1cb755e06ecd48bdbc5375d846522, type: 3}
+  m_Reticle: {fileID: 5743363288122589220, guid: 090dc709432e26d49ad094d884f398b0, type: 3}
   m_StopLineAtFirstRaycastHit: 1
 --- !u!1 &4488439631894169333
 GameObject:
@@ -5469,7 +5478,7 @@ MonoBehaviour:
   m_ModelDeSelectTransition: 
   m_ControllerNode: 5
   m_SelectUsage: 0
-  m_ActivateUsage: 3
+  m_ActivateUsage: 2
   m_UIPressUsage: 2
   m_AxisToPressThreshold: 0.1
   m_RotateAnchorLeft: 16
@@ -5557,7 +5566,7 @@ MonoBehaviour:
   m_HapticHoverCancelDuration: 0
   m_LineType: 0
   m_BlendVisualLinePoints: 1
-  m_MaxRaycastDistance: 30
+  m_MaxRaycastDistance: 100
   m_RayOriginTransform: {fileID: 0}
   m_ReferenceFrame: {fileID: 0}
   m_Velocity: 16
@@ -5630,7 +5639,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.005
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5641,8 +5650,17 @@ LineRenderer:
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -5696,7 +5714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.02
-  m_OverrideInteractorLineLength: 1
+  m_OverrideInteractorLineLength: 0
   m_LineLength: 500
   m_WidthCurve:
     serializedVersion: 2
@@ -5780,10 +5798,10 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_SmoothMovement: 0
-  m_FollowTightness: 10
+  m_SmoothMovement: 1
+  m_FollowTightness: 30
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 4283961115815101587, guid: 64b1cb755e06ecd48bdbc5375d846522, type: 3}
+  m_Reticle: {fileID: 5743363288122589220, guid: 090dc709432e26d49ad094d884f398b0, type: 3}
   m_StopLineAtFirstRaycastHit: 1
 --- !u!1 &4488439631906940307
 GameObject:
@@ -27180,8 +27198,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d8ac91f5952c40ac89ff4dbd055ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunraycastOriginL: {fileID: 0}
-  gunraycastOriginR: {fileID: 7044947707486778656}
+  controller: 1
+  gunraycastOrigin: {fileID: 7044947707486778656}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -29179,8 +29197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d8ac91f5952c40ac89ff4dbd055ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunraycastOriginL: {fileID: 7044947707021963521}
-  gunraycastOriginR: {fileID: 0}
+  controller: 0
+  gunraycastOrigin: {fileID: 7044947707021963521}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
