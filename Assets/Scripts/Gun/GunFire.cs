@@ -60,7 +60,7 @@ public class GunFire : MonoBehaviour
                     if (isLeftShot)
                         return;
                     isLeftShot = true;
-                    InputManager.GetInstance()._leftController.SendHapticImpulse(1, 0.2f, 0.5f);
+                    InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayLeft();
                 }
                 break;
@@ -70,7 +70,7 @@ public class GunFire : MonoBehaviour
                     if (isRightShot)
                         return;
                     isRightShot = true;
-                    InputManager.GetInstance()._leftController.SendHapticImpulse(2, 0.2f, 0.5f);
+                    InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayRight();
                 }
                 break;
