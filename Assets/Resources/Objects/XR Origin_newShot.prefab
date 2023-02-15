@@ -27180,8 +27180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d8ac91f5952c40ac89ff4dbd055ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunraycastOriginL: {fileID: 0}
-  gunraycastOriginR: {fileID: 7044947707486778656}
+  controller: 0
+  gunraycastOrigin: {fileID: 7044947707486778656}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -29179,8 +29179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435d8ac91f5952c40ac89ff4dbd055ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunraycastOriginL: {fileID: 7044947707021963521}
-  gunraycastOriginR: {fileID: 0}
+  controller: 0
+  gunraycastOrigin: {fileID: 7044947707021963521}
   targetLayer:
     serializedVersion: 2
     m_Bits: 64
