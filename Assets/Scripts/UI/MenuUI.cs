@@ -152,6 +152,7 @@ public class MenuUI : MonoBehaviour
 
     void MainMenuOn()
     {
+        Debug.Log("MainMenuOn");
         MainMenuZoomBtn.gameObject.SetActive(false);
         dest = new Vector3(-12, 8.1f, 52.4f);
         rot = new Vector3(0, 0.255f, 0);
