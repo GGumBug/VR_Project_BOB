@@ -18,14 +18,17 @@ public class ResultUI : MonoBehaviour
     [SerializeField] Button OKBtn;
     [SerializeField] GameObject resultUI;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        
         PerfectCount.text = GameManager.GetInstance().player.perfectCount.ToString();
         GoodCount.text = GameManager.GetInstance().player.goodCount.ToString();
         BadCount.text = GameManager.GetInstance().player.badCount.ToString();
         MissCount.text = GameManager.GetInstance().player.missCount.ToString();
         Score.text = GameManager.GetInstance().player.score.ToString();
+        RankSystem.GetInstance().SaveRankData();
         /*RankImg = Resources.Load<Image>($"Image/Rank/{GameManager.GetInstance().player.rank}");*/
         OKBtn.onClick.AddListener(ToMainMenu);
 
