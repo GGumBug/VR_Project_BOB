@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, ITargetInteface
 {
+    [SerializeField] ParticleSystem targetBoomPS;
+
+    void Awake()
+    { targetBoomPS.Stop(); }
 
     public void TargetShot()
     {
-        PlayAnimation();
+        TargetShotPS();
       
     }
 
-    public void PlayAnimation()
+    public void TargetShotPS()
     {
-        // 애니메이션으로 넣어야 하나아~ 파티클 넣어야지
+        targetBoomPS.Play();
     }
 
 

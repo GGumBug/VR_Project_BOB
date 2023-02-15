@@ -18,8 +18,7 @@ public class GunFire : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] Transform gunraycastOrigin;
     [SerializeField] LayerMask targetLayer;
-    [SerializeField] ParticleSystem shootPS;
-    //[SerializeField] GameObject aimGO;
+    [SerializeField] ParticleSystem shootPS;    
 
 
     [Space(10f)]
@@ -80,18 +79,6 @@ public class GunFire : MonoBehaviour
         }
     }
 
-    //public void RayscastAimL()
-    //{
-    //    RaycastHit aimhit;
-
-    //    if (Physics.Raycast(gunraycastOriginL.position, gunraycastOriginL.TransformDirection(Vector3.forward), out aimhit, Mathf.Infinity, targetLayer))
-    //    {
-    //        aimhit.transform.GetComponent<Gunfire>();
-    //    }
-
-    //}
-
-
     public void ShotRayLeft()
      {
         RaycastHit hit;
@@ -99,7 +86,7 @@ public class GunFire : MonoBehaviour
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
-            TargetCheckLeft(hit);
+            TargetCheckLeft(hit);            
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -147,6 +134,7 @@ public class GunFire : MonoBehaviour
                 ObjectPoolManager.GetInstance().ReturnObject(note);
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
+
             }
 
             // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);

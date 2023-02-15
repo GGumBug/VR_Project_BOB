@@ -78,6 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 420a96bac3d07a5479132d3f05ff046c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetBoomPS: {fileID: 524362925323473336, guid: f23ca344d22b7d84b848fb882e92bf51, type: 3}
 --- !u!54 &-7225131878445452411
 Rigidbody:
   m_ObjectHideFlags: 0
