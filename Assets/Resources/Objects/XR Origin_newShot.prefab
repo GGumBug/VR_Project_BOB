@@ -4928,7 +4928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Camera: {fileID: 4488439630265093345}
-  m_OriginBaseGameObject: {fileID: 4488439630056332146}
+  m_OriginBaseGameObject: {fileID: 7044947707021963520}
   m_CameraFloorOffsetObject: {fileID: 4488439631906940307}
   m_RequestedTrackingOriginMode: 0
   m_CameraYOffset: 1.1176
@@ -5321,8 +5321,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.02
-  m_OverrideInteractorLineLength: 1
-  m_LineLength: 10
+  m_OverrideInteractorLineLength: 0
+  m_LineLength: 100
   m_WidthCurve:
     serializedVersion: 2
     m_Curve:
@@ -5349,8 +5349,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ValidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.4198847, b: 0.2235294, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 0.39215687}
+    key0: {r: 1, g: 0.4198847, b: 0.2235294, a: 0}
+    key1: {r: 1, g: 1, b: 1, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5378,8 +5378,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0.285713, b: 0, a: 1}
-    key1: {r: 1, g: 0.76640606, b: 0, a: 0.39215687}
+    key0: {r: 1, g: 0.285713, b: 0, a: 0}
+    key1: {r: 1, g: 0.76640606, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5405,11 +5405,11 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_SmoothMovement: 0
+  m_SmoothMovement: 1
   m_FollowTightness: 10
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 0}
-  m_StopLineAtFirstRaycastHit: 1
+  m_Reticle: {fileID: 7594740363046217066, guid: 40abb868f182aa3448cec5196d29197c, type: 3}
+  m_StopLineAtFirstRaycastHit: 0
 --- !u!1 &4488439631894169333
 GameObject:
   m_ObjectHideFlags: 0
@@ -5696,8 +5696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LineWidth: 0.02
-  m_OverrideInteractorLineLength: 1
-  m_LineLength: 10
+  m_OverrideInteractorLineLength: 0
+  m_LineLength: 100
   m_WidthCurve:
     serializedVersion: 2
     m_Curve:
@@ -5724,8 +5724,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_ValidColorGradient:
     serializedVersion: 2
-    key0: {r: 0.2216981, g: 0.79133594, b: 1, a: 1}
-    key1: {r: 1, g: 1, b: 1, a: 0.39215687}
+    key0: {r: 1, g: 0.4198847, b: 0.2235294, a: 0}
+    key1: {r: 1, g: 1, b: 1, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5753,8 +5753,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   m_InvalidColorGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0.5777621, b: 1, a: 1}
-    key1: {r: 0, g: 0.9379053, b: 1, a: 0.39215687}
+    key0: {r: 1, g: 0.285713, b: 0, a: 0}
+    key1: {r: 1, g: 0.76640606, b: 0, a: 0}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5780,11 +5780,11 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  m_SmoothMovement: 0
+  m_SmoothMovement: 1
   m_FollowTightness: 10
   m_SnapThresholdDistance: 10
-  m_Reticle: {fileID: 0}
-  m_StopLineAtFirstRaycastHit: 1
+  m_Reticle: {fileID: 7594740363046217066, guid: 40abb868f182aa3448cec5196d29197c, type: 3}
+  m_StopLineAtFirstRaycastHit: 0
 --- !u!1 &4488439631906940307
 GameObject:
   m_ObjectHideFlags: 0
@@ -10873,7 +10873,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 25
-      minScalar: 16
+      minScalar: 23.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13386,11 +13386,11 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0
+    dampen: 0.001
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.001
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -20658,7 +20658,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 25
-      minScalar: 16
+      minScalar: 23.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -23171,11 +23171,11 @@ ParticleSystem:
     inWorldSpace: 0
     multiplyDragByParticleSize: 1
     multiplyDragByParticleVelocity: 1
-    dampen: 0
+    dampen: 0.001
     drag:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.001
       minScalar: 0
       maxCurve:
         serializedVersion: 2
