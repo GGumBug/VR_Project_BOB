@@ -22,11 +22,13 @@ public class ObjectPoolManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField]
-    private GameObject notePrefab;
+
+    [SerializeField] private GameObject notePrefab;
+    [SerializeField] private GameObject LongnotePrefab;
 
     Queue<NoteObject> PoolNote_0Object = new Queue<NoteObject>();
     Queue<NoteObject> PoolNote_1Object = new Queue<NoteObject>();
+    Queue<NoteObject> PoolLongNote_0Object = new Queue<NoteObject>();
 
     private void InitializeNote(int initCount)
     {
@@ -36,10 +38,26 @@ public class ObjectPoolManager : MonoBehaviour
         }
     }
 
+    private void InitializeLongNote(int initCount)
+    {
+        for (int i = 0; i < initCount; i++)
+        {
+            PoolLongNote_0Object.Enqueue(CreateNewLongNote(0));
+        }
+    }
+
     private NoteObject CreateNewObject(int a)
     {
         notePrefab = Resources.Load<GameObject>($"Objects/Note_{a}");
         GameObject note = Instantiate(notePrefab);
+        note.gameObject.SetActive(false);
+        return note.GetComponent<NoteObject>();
+    }
+
+    private NoteObject CreateNewLongNote(int a)
+    {
+        LongnotePrefab = Resources.Load<GameObject>($"Objects/LongNote");
+        GameObject note = Instantiate(LongnotePrefab);
         note.gameObject.SetActive(false);
         return note.GetComponent<NoteObject>();
     }
@@ -85,6 +103,47 @@ public class ObjectPoolManager : MonoBehaviour
 
     }
 
+    public NoteObject GetLongNote(int a)
+    {
+        if (a == 0)
+        {
+            if (PoolLongNote_0Object.Count > 0)
+            {
+                var obj = PoolLongNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewLongNote(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+        if (a == 1)
+        {
+            if (PoolLongNote_0Object.Count > 0)
+            {
+                var obj = PoolLongNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewLongNote(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+
+        return null;
+
+    }
+
     public void ReturnObject(NoteObject obj)
     {
         if (obj.controllerType == 0)
@@ -98,6 +157,23 @@ public class ObjectPoolManager : MonoBehaviour
             obj.gameObject.SetActive(false);
             obj.transform.SetParent(transform);
             PoolNote_1Object.Enqueue(obj);
+        }
+
+    }
+
+    public void ReturnLongNote(NoteObject obj)
+    {
+        if (obj.controllerType == 0)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolLongNote_0Object.Enqueue(obj);
+        }
+        if (obj.controllerType == 1)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolLongNote_0Object.Enqueue(obj);
         }
 
     }
