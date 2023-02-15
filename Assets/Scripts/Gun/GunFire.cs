@@ -13,6 +13,7 @@ public class GunFire : MonoBehaviour
     [SerializeField] Transform gunraycastOriginR;
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem shootPS;
+    //[SerializeField] GameObject aimGO;
 
 
     [Space(10f)]
@@ -28,8 +29,6 @@ public class GunFire : MonoBehaviour
 
     private void Awake()
     {
-        shootPS.Stop();
-
         if (TryGetComponent(out AudioSource audio))
         {
             gunAudioSource = audio;
@@ -42,7 +41,7 @@ public class GunFire : MonoBehaviour
 
     void Start()
     {
-        
+        shootPS.Stop();
     }
 
     private void Update()
@@ -64,17 +63,17 @@ public class GunFire : MonoBehaviour
         }
 
         Debug.Log("leftTriggerValue  = " +leftTriggerValue);
-
     }
 
-    //public void RayAim()
+    //public void RayscastAimL()
     //{
     //    RaycastHit aimhit;
+
     //    if (Physics.Raycast(gunraycastOriginL.position, gunraycastOriginL.TransformDirection(Vector3.forward), out aimhit, Mathf.Infinity, targetLayer))
     //    {
-    //        aimhit.point= Vector3.zero;
-    //            // Debug.Log("hit point : " + hit.point + ", distance : " + hit.distance + ", name : " + hit.collider.name);
+    //        aimhit.transform.GetComponent<Gunfire>();
     //    }
+
     //}
 
 
