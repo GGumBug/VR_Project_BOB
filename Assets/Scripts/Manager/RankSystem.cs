@@ -6,9 +6,10 @@ using UnityEngine;
 [System.Serializable]
 public struct RankData
 {
+    public string PlayerName;
     public int score;
     public int maxCombo;
-    public string PlayerName;
+
 }
 
 public class RankSystem : MonoBehaviour
@@ -39,7 +40,7 @@ public class RankSystem : MonoBehaviour
     private void Awake()
     {
         rankDataArray = new RankData[maxRankCount];
-
+        
         //1. 기존의 랭크 정보 불러오기
         LoadRankData();
         //2. 1등부터 차례로 현재 스테이지에서 획득한 점수와 비교
@@ -54,7 +55,7 @@ public class RankSystem : MonoBehaviour
     {
         for (int i = 0; i < maxRankCount; ++i)
         {
-            rankDataArray[i].PlayerName = PlayerPrefs.GetString("PlayerName" + i);
+            rankDataArray[i].PlayerName = PlayerPrefs.GetString("RankPlayerName" + i);
             rankDataArray[i].score = PlayerPrefs.GetInt("RankScore" + i);
             rankDataArray[i].maxCombo = PlayerPrefs.GetInt("RankMaxCombo" + i);
             
@@ -73,6 +74,7 @@ public class RankSystem : MonoBehaviour
         clone.transform.SetParent(panelRankInfo);
         //자식으로 등록되면서 크기가 변환될 수 있기 때문에 크기를 1로 설정
         clone.transform.localScale = Vector3.one;
+        // 캔버스가 이미 각도가 틀어져 있어서 각도 맞춰주는 작업
         clone.transform.rotation = Quaternion.Euler(0, -109.98f, 0);
         //Text UI에 출력할 내용과 폰트 색상 설정
         text.text = print;
@@ -126,7 +128,7 @@ public class RankSystem : MonoBehaviour
 
             //Text - TextMeshPro 생성 및 원하는 데이터 출력
             SpawnText((i + 1).ToString(), color);
-            SpawnText(rankDataArray[i].PlayerName, color);
+            SpawnText(rankDataArray[i].PlayerName.ToString(), color);
             SpawnText(rankDataArray[i].score.ToString(), color);
             SpawnText(rankDataArray[i].maxCombo.ToString(), color);
             
@@ -138,7 +140,7 @@ public class RankSystem : MonoBehaviour
     {
         for (int i = 0; i < maxRankCount; ++i)
         {
-            PlayerPrefs.SetString("PlayerName" + i, rankDataArray[i].PlayerName);
+            PlayerPrefs.SetString("RankPlayerName" + i, rankDataArray[i].PlayerName);
             PlayerPrefs.SetInt("RankScore" + i, rankDataArray[i].score);
             PlayerPrefs.SetInt("RankMaxCombo" + i, rankDataArray[i].maxCombo);
             

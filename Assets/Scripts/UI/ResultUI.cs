@@ -31,6 +31,7 @@ public class ResultUI : MonoBehaviour
         PlayerPrefs.SetInt("CurrentScore" , GameManager.GetInstance().player.score);
         PlayerPrefs.SetInt("CurrentMaxCombo" , GameManager.GetInstance().player.combo);
         PlayerPrefs.SetString("CurrentPlayerName", GameManager.GetInstance().player.playerName);
+        
         Debug.Log("현재 곡 결과 저장");
         /*RankImg = Resources.Load<Image>($"Image/Rank/{GameManager.GetInstance().player.rank}");*/
         OKBtn.onClick.AddListener(ToMainMenu);

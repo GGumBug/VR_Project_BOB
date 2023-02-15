@@ -79,7 +79,7 @@ public class MenuUI : MonoBehaviour
         StartBtn.onClick.AddListener(GameStartOn);
         OptionBtn.onClick.AddListener(OptionOn);
         MainExitBtn.onClick.AddListener(Exit);
-        OptionExitBtn.onClick.AddListener(Exit);
+        OptionExitBtn.onClick.AddListener(RemoveRank);
         SoundBtn.onClick.AddListener(SoundOn);
         SoundBackBtn.onClick.AddListener(SoundBack);
         MainBackBtn.onClick.AddListener(MainBack);
@@ -261,6 +261,10 @@ public class MenuUI : MonoBehaviour
     void ExitRank()
     {
         RankingPanel.SetActive(false);
+    }
+    void RemoveRank()
+    {
+        PlayerPrefs.DeleteAll();
     }
 
 }
