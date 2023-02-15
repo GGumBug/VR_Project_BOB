@@ -13,6 +13,7 @@ public class MenuUI : MonoBehaviour
     [SerializeField] GameObject xrOrigin;
     [SerializeField] Button MainMenuZoomBtn;
     [SerializeField] Button OptionBtn;
+    [SerializeField] Button MainExitBtn;
 
     [Header("MusicSelect")]
 
@@ -27,7 +28,7 @@ public class MenuUI : MonoBehaviour
     [Header("Option")]
     [SerializeField] GameObject SoundPanel;
     [SerializeField] GameObject OptionPanel;
-    [SerializeField] Button ExitBtn;
+    [SerializeField] Button OptionExitBtn;
     [SerializeField] Button SoundBtn;
     [SerializeField] Button SoundBackBtn;
     [SerializeField] Button MainBackBtn;
@@ -49,10 +50,9 @@ public class MenuUI : MonoBehaviour
 
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
-    [SerializeField] Image[] RankImgs;
-    [SerializeField] TMP_Text[] txtRankScores;
     [SerializeField] Button RankBackBtn;
-    string[] RankScores;
+
+
     public List<Sheet> sheetList = new List<Sheet>();
 
     Vector3 dest;
@@ -61,11 +61,13 @@ public class MenuUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetSheetList(SheetManager.GetInstance().curMusic);
         xrOrigin = GameObject.FindGameObjectWithTag("XROrigin");
         xrOrigin.transform.position = new Vector3(-22.7f, 8.1f, 49.7f);
         xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
         OnclickSetting();
-        SetSheetList(SheetManager.GetInstance().curMusic);
+        RankingPanel.SetActive(false);
+        
 
     }
     // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
@@ -76,31 +78,18 @@ public class MenuUI : MonoBehaviour
         BackBtn.onClick.AddListener(SelecttoMain);
         StartBtn.onClick.AddListener(GameStartOn);
         OptionBtn.onClick.AddListener(OptionOn);
-        ExitBtn.onClick.AddListener(Exit);
+        MainExitBtn.onClick.AddListener(Exit);
+        OptionExitBtn.onClick.AddListener(Exit);
         SoundBtn.onClick.AddListener(SoundOn);
         SoundBackBtn.onClick.AddListener(SoundBack);
         MainBackBtn.onClick.AddListener(MainBack);
         ListUpBtn.onClick.AddListener(NextSheet);
         ListDownBtn.onClick.AddListener(PriorSheet);
-        RankingBtn.onClick.AddListener(RankCheck);
+        RankingBtn.onClick.AddListener(RankOn);
         RankBackBtn.onClick.AddListener(ExitRank);
-    }
-    void RankCheck()
-    {
-        /*       for (int i = 0; i < RankImgs.Length; i++)
-               {
-                   RankImgs[i].gameObject.SetActive(true);
-                   txtRankScores[i].text = $"{i}";
-               }*/
-        RankingPanel.gameObject.SetActive(true);
 
     }
-    void ExitRank()
-    {
-        RankingPanel.gameObject.SetActive(false);
-    }
-
-
+    // 옵션과 메인메뉴 연결 버튼////
     void OptionOn()
     {
         dest = new Vector3(-3.1f, 25.2f, 36.36f);
@@ -123,6 +112,9 @@ public class MenuUI : MonoBehaviour
         OptionObj.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// 옵션 사운드 패널 온오프버튼///
+    /// </summary>
     void SoundOn()
     {
         SoundPanel.gameObject.SetActive(true);
@@ -135,12 +127,13 @@ public class MenuUI : MonoBehaviour
         OptionPanel.gameObject.SetActive(true);
     }
 
+    // 사운드패널 볼륨 조절 함수
     void SetVolume()
     {
         /*audioManager.BgmPlayer.volume = Bgm.value;
         audioManager.SfxPlayer.volume = SFX.value;*/
     }
-
+    // 종료버튼
     void Exit()
     {
 #if UNITY_EDITOR
@@ -149,7 +142,7 @@ public class MenuUI : MonoBehaviour
         Application.Quit(); // 어플리케이션 종료
 #endif
     }
-
+    // 메인메뉴로 갈 수 있게 눌러주는 버튼
     void MainMenuOn()
     {
         MainMenuZoomBtn.gameObject.SetActive(false);
@@ -161,7 +154,7 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
     }
-
+    // ///////////메인 메뉴 패널과 음악 선택창 연결 /////////
     void SelectMusic()
     {
         dest = new Vector3(-7.2f, 17.9f, 42.7f);
@@ -182,6 +175,9 @@ public class MenuUI : MonoBehaviour
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
     }
+    /// <summary>
+    /// 게임시작 함수
+    /// </summary>
     void GameStartOn()
     {
         dest = new Vector3(-3.1f, 27f, 15.1f);
@@ -210,7 +206,10 @@ public class MenuUI : MonoBehaviour
     {
         ScenesManager.GetInstance().ChangeScene(Scenes.GameScene);
     }
-
+    /// <summary>
+    /// 카메라 움직이는 함수
+    /// </summary>
+    /// <param name="dest"></param>
     void CameraMove(Vector3 dest)
     {
         xrOrigin.transform.DOMoveX(dest.x, 0.7f).SetEase(Ease.InOutQuad);
@@ -222,6 +221,7 @@ public class MenuUI : MonoBehaviour
         xrOrigin.transform.DORotate(rot, 1f, RotateMode.FastBeyond360);
     }
 
+    /////////////// 음악선택 창////////////////////
     void SetSheetList(int curMusic)
     {
         string title = SheetManager.GetInstance().title[curMusic];
@@ -231,6 +231,7 @@ public class MenuUI : MonoBehaviour
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
         txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
         /*txtBestScore.text = sheetList[curMusic].*/
+        Debug.Log(title);
     }
 
     void NextSheet()
@@ -249,6 +250,16 @@ public class MenuUI : MonoBehaviour
         SetSheetList(SheetManager.GetInstance().curMusic);
     }
 
+    /////////////////////랭크시스템////////////////////////////////////////
+    
+    void RankOn()
+    {
+        RankingPanel.SetActive(true);
 
+    }
+    void ExitRank()
+    {
+        RankingPanel.SetActive(false);
+    }
 
 }
