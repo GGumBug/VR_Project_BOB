@@ -36,7 +36,7 @@ public class TitleUI : MonoBehaviour
             PlayerPrefs.SetString("PlayerName", playerName);
             ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
         }
-        else
+        else if(inputField.text == null)
         { 
             Warningtxt.gameObject.SetActive(true); 
         }

@@ -58,6 +58,7 @@ public class RankSystem : MonoBehaviour
             rankDataArray[i].maxCombo = PlayerPrefs.GetInt("RankMaxCombo" + i);
             rankDataArray[i].PlayerName = PlayerPrefs.GetString("PlayerName" + i);
         }
+        Debug.Log("Load");
     }
 
     private void SpawnText(string print, Color color)
@@ -138,5 +139,6 @@ public class RankSystem : MonoBehaviour
             PlayerPrefs.SetInt("RankMaxCombo" + i, rankDataArray[i].maxCombo);
             PlayerPrefs.SetString("PlayerName" + i, rankDataArray[i].PlayerName);
         }
+        Debug.Log("Save");
     }
 }
