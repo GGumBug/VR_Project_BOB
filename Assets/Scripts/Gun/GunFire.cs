@@ -156,8 +156,9 @@ public class GunFire : MonoBehaviour
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
                 Debug.Log($"note.controllerType = {note.controllerType}");
                 if (note.controllerType == 0)
-                    return;
+                    return;                              
                 ObjectPoolManager.GetInstance().ReturnObject(note);
+                // 타겟 맞았을 때 파티클 시스템
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
 
@@ -185,6 +186,7 @@ public class GunFire : MonoBehaviour
                 if (note.controllerType == 1)
                     return;
                 ObjectPoolManager.GetInstance().ReturnObject(note);
+                // 타겟 맞았을 때 파티클 시스템
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
             }
