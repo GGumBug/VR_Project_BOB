@@ -3147,7 +3147,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   shootPS: {fileID: 5916130601465103302}
-  noteBoomGO: {fileID: 0}
+  noteBoomGO: {fileID: 8027415405667703878, guid: 3c2f49acd9115854aa935a80077fabeb, type: 3}
   aimGO: {fileID: 5743363288122589220, guid: 70bfe395af2ce4345a7834d1a9554ec1, type: 3}
   gunAudioClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
 --- !u!82 &5986218891931140043
@@ -4394,7 +4394,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   shootPS: {fileID: 832119686282433503}
-  noteBoomGO: {fileID: 0}
+  noteBoomGO: {fileID: 8027415405667703878, guid: 3c2f49acd9115854aa935a80077fabeb, type: 3}
   aimGO: {fileID: 5743363288122589220, guid: 090dc709432e26d49ad094d884f398b0, type: 3}
   gunAudioClip: {fileID: 8300000, guid: 08f78eba48bb21c44ac5a74ca84efc83, type: 3}
 --- !u!82 &5986218892153142250
