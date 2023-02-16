@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6178592767857562210}
   - component: {fileID: 7108872192428705905}
   - component: {fileID: 6537148781093267999}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Halo_High
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1817,7 +1817,7 @@ GameObject:
   - component: {fileID: 7298181042815766379}
   - component: {fileID: 5671892908262638349}
   - component: {fileID: 1257782301592969158}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star_High
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1900,7 +1900,7 @@ GameObject:
   - component: {fileID: 5908311614205561068}
   - component: {fileID: 5774999538688754471}
   - component: {fileID: 87871564091062593}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Text_High
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1982,7 +1982,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8652831429145981791}
   - component: {fileID: 2803815130289907897}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Logo2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2032,7 +2032,7 @@ GameObject:
   - component: {fileID: 4375473217869313611}
   - component: {fileID: 3631879934616475379}
   - component: {fileID: 4880619604949871638}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Star_High.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}

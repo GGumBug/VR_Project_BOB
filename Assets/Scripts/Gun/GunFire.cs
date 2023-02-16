@@ -188,10 +188,6 @@ public class GunFire : MonoBehaviour
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheckLeft(hit);
-           
-            // 타겟 맞았을 때 파티클 시스템
-            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(noteBoomGOclone, 2f);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -232,11 +228,8 @@ public class GunFire : MonoBehaviour
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheckRight(hit);
-
-            // 타겟 맞았을 때 파티클 시스템
-            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(noteBoomGOclone, 2f);
         }
+
         if (rightDelay != null)
         {
             StopCoroutine(rightDelay);
@@ -271,6 +264,12 @@ public class GunFire : MonoBehaviour
 
             GameObject hitTarget = hit.collider.gameObject;
 
+            if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
+            {
+                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(noteBoomGOclone, 2f);
+            }
+
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
@@ -279,8 +278,7 @@ public class GunFire : MonoBehaviour
                     return;
                 if (note.note.type == 1)
                     return;
-                ObjectPoolManager.GetInstance().ReturnObject(note);
-                // 타겟 맞았을 때 파티클 시스템
+                ObjectPoolManager.GetInstance().ReturnObject(note);               
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
 
@@ -299,6 +297,13 @@ public class GunFire : MonoBehaviour
             hit.transform.GetComponent<ITargetInteface>().TargetShot();
 
             GameObject hitTarget = hit.collider.gameObject;
+            
+            if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
+            {
+                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(noteBoomGOclone, 2f);
+            }
+            
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
@@ -332,6 +337,12 @@ public class GunFire : MonoBehaviour
 
             GameObject hitTarget = hit.collider.gameObject;
 
+            if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
+            {
+                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(noteBoomGOclone, 2f);
+            }
+
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
@@ -340,8 +351,7 @@ public class GunFire : MonoBehaviour
                     return;
                 if (note.note.type == 1)
                     return;
-                ObjectPoolManager.GetInstance().ReturnObject(note);
-                // 타겟 맞았을 때 파티클 시스템
+                ObjectPoolManager.GetInstance().ReturnObject(note);                
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
             }
@@ -359,6 +369,12 @@ public class GunFire : MonoBehaviour
             hit.transform.GetComponent<ITargetInteface>().TargetShot();
 
             GameObject hitTarget = hit.collider.gameObject;
+
+            if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
+            {
+                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(noteBoomGOclone, 2f);
+            }
 
             if (hitTarget.gameObject.layer == 6)
             {
