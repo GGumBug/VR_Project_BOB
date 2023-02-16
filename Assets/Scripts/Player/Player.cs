@@ -61,6 +61,12 @@ public class Player
         score = 0;
         hp = 100;
         combo = 0;
+        combo = 0;
+        maxcombo = 0;
+        perfectCount = 0;
+        goodCount = 0;
+        badCount = 0;
+        missCount = 0;
     }
 
     public void CountCheck(int Count)
