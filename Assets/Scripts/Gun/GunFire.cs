@@ -18,8 +18,8 @@ public class GunFire : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] Transform gunraycastOrigin;
     [SerializeField] LayerMask targetLayer;
-    [SerializeField] ParticleSystem shootPS;    
-
+    [SerializeField] ParticleSystem shootPS;
+    [SerializeField] GameObject noteBoomGO;
 
     [Space(10f)]
     [Header("Audio")]
@@ -109,9 +109,12 @@ public class GunFire : MonoBehaviour
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            TargetCheckLeft(hit);            
+            TargetCheckLeft(hit);
+            //
+            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(noteBoomGOclone, 1f);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -121,16 +124,20 @@ public class GunFire : MonoBehaviour
             StopCoroutine(leftDleay);
         }
         leftDleay = StartCoroutine("ShotDleayLeft");
-     }
+
+    }
 
     public void ShotRayRight()
     {
         RaycastHit hit;
         shootPS.Play();
 
-        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
             TargetCheckRight(hit);
+            //
+            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(noteBoomGOclone, 1f);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -140,6 +147,7 @@ public class GunFire : MonoBehaviour
             StopCoroutine(rightDelay);
         }
         rightDelay = StartCoroutine("ShotDleayRight");
+      
     }
 
     void TargetCheckLeft(RaycastHit hit)
@@ -149,7 +157,7 @@ public class GunFire : MonoBehaviour
             hit.transform.GetComponent<ITargetInteface>().TargetShot();
 
             GameObject hitTarget = hit.collider.gameObject;
-
+           
             if (hitTarget.gameObject.layer == 6)
             {
                 NoteObject note = hitTarget.GetComponent<NoteObject>();
@@ -157,7 +165,7 @@ public class GunFire : MonoBehaviour
                 if (note.controllerType == 0)
                     return;                              
                 ObjectPoolManager.GetInstance().ReturnObject(note);
-                // 타겟 맞았을 때 파티클 시스템
+                // 타겟 맞았을 때 파티클 시스템               
                 GameManager.GetInstance().CheckJugement(note, AudioManager.GetInstance().GetMilliSec()); //판정 시스템
                 NoteManager.GetInstance().StopNoteCoroutine(note);
 
