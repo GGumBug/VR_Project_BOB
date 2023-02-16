@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.InputSystem.HID;
 using UnityEngine.XR;
 
 public enum Controller
@@ -20,6 +21,9 @@ public class GunFire : MonoBehaviour
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem shootPS;
 
+    //피격, 에임
+    [SerializeField] GameObject noteBoomGO;
+    [SerializeField] GameObject aimGO;
 
     [Space(10f)]
     [Header("Audio")]
@@ -162,6 +166,20 @@ public class GunFire : MonoBehaviour
         }
     }
 
+
+    // 피격 효과
+    public void RaycastAimPs()
+    {
+       RaycastHit hit;
+
+        if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+        {
+            Vector3 aimPos = hit.point;
+            aimGO.transform.position = aimPos;
+        }
+
+    }
+
     public void ShotRayLeft()
     {
         RaycastHit hit;
@@ -170,6 +188,10 @@ public class GunFire : MonoBehaviour
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheckLeft(hit);
+           
+            // 타겟 맞았을 때 파티클 시스템
+            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(noteBoomGOclone, 2f);
         }
 
         gunAudioSource.PlayOneShot(gunAudioClip);
@@ -191,6 +213,7 @@ public class GunFire : MonoBehaviour
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             M_TargetCheckLeft(hit);
+
         }
 
         if (m_leftDleay != null)
@@ -209,6 +232,10 @@ public class GunFire : MonoBehaviour
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheckRight(hit);
+
+            // 타겟 맞았을 때 파티클 시스템
+            GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(noteBoomGOclone, 2f);
         }
         if (rightDelay != null)
         {
