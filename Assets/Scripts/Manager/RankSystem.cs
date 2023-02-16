@@ -92,8 +92,9 @@ public class RankSystem : MonoBehaviour
         clone.transform.SetParent(panelRankInfo);
         //자식으로 등록되면서 크기가 변환될 수 있기 때문에 크기를 1로 설정
         clone.transform.localScale = Vector3.one;
+        clone.transform.position = new Vector3(-0.36f, -0.43f, 8.37f);
         // 캔버스가 이미 각도가 틀어져 있어서 각도 맞춰주는 작업
-        clone.transform.rotation = Quaternion.Euler(0, -109.98f, 0);
+        clone.transform.rotation = Quaternion.Euler(0, 85.189f, 0);
         //Text UI에 출력할 내용과 폰트 색상 설정
         text.text = print;
         text.color = color;
@@ -158,12 +159,12 @@ public class RankSystem : MonoBehaviour
 
     private void PrintRankData()
     {
-        Color color = Color.white;
+        Color color = new Color32(0,243,144,255);
 
         for (int i = 0; i < maxRankCount; ++i)
         {
             //방금 플레이의 점수가 랭크에 등록되면 색상을 노란색으로 표시
-            color = currentIndex != i ? Color.white : Color.white;
+            /*color = currentIndex != i ? Color.white : Color.white;*/
 
             //Text - TextMeshPro 생성 및 원하는 데이터 출력
             SpawnText((i + 1).ToString(), color);

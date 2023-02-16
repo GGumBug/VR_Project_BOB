@@ -51,6 +51,9 @@ public class MenuUI : MonoBehaviour
     [Header("Ranking")]
     [SerializeField] GameObject RankingPanel;
     [SerializeField] Button RankBackBtn;
+    [SerializeField] Button RankUpBtn;
+    [SerializeField] Button RankDownBtn;
+    [SerializeField] TMP_Text txtRankSongName;
 
 
     public List<Sheet> sheetList = new List<Sheet>();
@@ -87,12 +90,13 @@ public class MenuUI : MonoBehaviour
         ListDownBtn.onClick.AddListener(PriorSheet);
         RankingBtn.onClick.AddListener(RankOn);
         RankBackBtn.onClick.AddListener(ExitRank);
-
+        RankUpBtn.onClick.AddListener(NextSheet);
+        RankDownBtn.onClick.AddListener(PriorSheet);
     }
     // 옵션과 메인메뉴 연결 버튼////
     void OptionOn()
     {
-        dest = new Vector3(-3.1f, 25.2f, 36.36f);
+        dest = new Vector3(1.8f, 30, 23.7f);
         rot = new Vector3(0, 86.986f, 0);
         CameraMove(dest);
         CameraRotate(rot);
@@ -103,7 +107,7 @@ public class MenuUI : MonoBehaviour
     }
     void MainBack()
     {
-        dest = new Vector3(-12, 8.1f, 52.4f);
+        dest = new Vector3(-12, 11, 52.4f);
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
@@ -147,34 +151,38 @@ public class MenuUI : MonoBehaviour
     {
         Debug.Log("MainMenuOn");
         MainMenuZoomBtn.gameObject.SetActive(false);
-        dest = new Vector3(-12, 8.1f, 52.4f);
+        dest = new Vector3(-12, 11, 52.4f);
         rot = new Vector3(0, 0.255f, 0);
         CameraMove(dest);
         CameraRotate(rot);
         MenuObj.gameObject.SetActive(true);
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
+        RankingPanel.gameObject.SetActive(false);
     }
     // ///////////메인 메뉴 패널과 음악 선택창 연결 /////////
     void SelectMusic()
     {
-        dest = new Vector3(-7.2f, 17.9f, 42.7f);
-        rot = new Vector3(0, 271.021f, 0);
+        dest = new Vector3(-10.2f, 20.3f, 39.59f);
+        rot = new Vector3(0, -55.8f, 0);
         CameraMove(dest);
         CameraRotate(rot);
         MenuObj.gameObject.SetActive(false);
         SelectObj.gameObject.SetActive(true);
         OptionObj.gameObject.SetActive(false);
+        RankingPanel.gameObject.SetActive(false);
+
     }
     void SelecttoMain()
     {
-        dest = new Vector3(-12, 8.1f, 52.4f);
-        rot = new Vector3(0, 0.255f, 0);
+        dest = new Vector3(-12, 11, 52.4f);
+        rot = new Vector3(0, 357.45f, 0);
         CameraMove(dest);
         CameraRotate(rot);
         MenuObj.gameObject.SetActive(true);
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
+        RankingPanel.gameObject.SetActive(false);
     }
     /// <summary>
     /// 게임시작 함수
@@ -188,6 +196,7 @@ public class MenuUI : MonoBehaviour
         MenuObj.gameObject.SetActive(false);
         SelectObj.gameObject.SetActive(false);
         OptionObj.gameObject.SetActive(false);
+        RankingPanel.gameObject.SetActive(false);
 
         Invoke("GameStart", 2);
         StartCoroutine(StartMove());
@@ -227,6 +236,7 @@ public class MenuUI : MonoBehaviour
     {
         string title = SheetManager.GetInstance().title[curMusic];
         txtSongName.text = SheetManager.GetInstance().sheets[title].title;
+        txtRankSongName.text = SheetManager.GetInstance().sheets[title].title;
         txtSongArtist.text = SheetManager.GetInstance().sheets[title].artist;
         txtBPM.text = "BPM :" + SheetManager.GetInstance().sheets[title].bpm.ToString();
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
@@ -256,13 +266,27 @@ public class MenuUI : MonoBehaviour
     
     void RankOn()
     {
+        dest = new Vector3(-13.6f, 29.2f, 40.3f);
+        rot = new Vector3(0, 87, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
         RankingPanel.SetActive(true);
-
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(false);
+        OptionObj.gameObject.SetActive(false);
     }
     void ExitRank()
     {
+        dest = new Vector3(-10.2f, 20.3f, 39.59f);
+        rot = new Vector3(0, -55.8f, 0);
+        CameraMove(dest);
+        CameraRotate(rot);
         RankingPanel.SetActive(false);
+        MenuObj.gameObject.SetActive(false);
+        SelectObj.gameObject.SetActive(true);
+        OptionObj.gameObject.SetActive(false);
     }
+
     // 개발용 랭킹 지우기 버튼(옵션 - 나가기)
     void RemoveRank()
     {
