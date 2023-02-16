@@ -262,6 +262,7 @@ public class MenuUI : MonoBehaviour
     {
         RankingPanel.SetActive(false);
     }
+    // 개발용 랭킹 지우기 버튼(옵션 - 나가기)
     void RemoveRank()
     {
         PlayerPrefs.DeleteAll();
