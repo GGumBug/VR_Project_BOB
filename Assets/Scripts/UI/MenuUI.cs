@@ -232,7 +232,6 @@ public class MenuUI : MonoBehaviour
         ImgDisk.sprite = SheetManager.GetInstance().sheets[title].img;
         txtNoteCount.text = "Note :" + SheetManager.GetInstance().sheets[title].notes.Count.ToString();
         /*txtBestScore.text = sheetList[curMusic].*/
-        Debug.Log(title);
     }
 
     void NextSheet()
