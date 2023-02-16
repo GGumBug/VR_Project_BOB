@@ -14,8 +14,8 @@ public class PlayerUI : MonoBehaviour
 
     public void SetPlayerInfo()
     {
-        score.text = $"SCORE : {GameManager.GetInstance().player.score.ToString()}";
-        combo.text = $"COMBO : {GameManager.GetInstance().player.combo.ToString()}";
+        score.text = $"{GameManager.GetInstance().player.score.ToString()}";
+        combo.text = $"{GameManager.GetInstance().player.combo.ToString()}";
         hp.maxValue = GameManager.GetInstance().player.maxHp;
         hp.value = GameManager.GetInstance().player.hp;
         //combogauge.value = GameManager.GetInstance().player.combo;
