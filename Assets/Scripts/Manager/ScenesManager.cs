@@ -78,6 +78,7 @@ public class ScenesManager : MonoBehaviour
             StartCoroutine(LoadScene(scene.ToString())); /// 씬 로드 코루틴 실행 ///
         });
         UIManager.GetInstance().ClearList(); // 씬이 바뀔때마다 UI매니저를 클리어해주겠다.
+        RankSystem.GetInstance().CloneListClear();
                                              // PrevScene = currentScene;
     }
     IEnumerator LoadScene(string sceneName)

@@ -240,6 +240,7 @@ public class MenuUI : MonoBehaviour
         if (++SheetManager.GetInstance().curMusic > SheetManager.GetInstance().sheets.Count - 1)
             SheetManager.GetInstance().curMusic = 0;
         SetSheetList(SheetManager.GetInstance().curMusic);
+        RankSystem.GetInstance().ChangeRankTab();
 
     }
 
@@ -248,6 +249,7 @@ public class MenuUI : MonoBehaviour
         if (--SheetManager.GetInstance().curMusic < 0)
             SheetManager.GetInstance().curMusic = SheetManager.GetInstance().sheets.Count - 1;
         SetSheetList(SheetManager.GetInstance().curMusic);
+        RankSystem.GetInstance().ChangeRankTab();
     }
 
     /////////////////////랭크시스템////////////////////////////////////////

@@ -25,10 +25,12 @@ public class ObjectPoolManager : MonoBehaviour
 
     [SerializeField] private GameObject notePrefab;
     [SerializeField] private GameObject LongnotePrefab;
+    [SerializeField] private GameObject rankPrefab;
 
     Queue<NoteObject> PoolNote_0Object = new Queue<NoteObject>();
     Queue<NoteObject> PoolNote_1Object = new Queue<NoteObject>();
     Queue<NoteObject> PoolLongNote_0Object = new Queue<NoteObject>();
+    Queue<GameObject> rankPrefabObject = new Queue<GameObject>();
 
     private void InitializeNote(int initCount)
     {
@@ -60,6 +62,14 @@ public class ObjectPoolManager : MonoBehaviour
         GameObject note = Instantiate(LongnotePrefab);
         note.gameObject.SetActive(false);
         return note.GetComponent<NoteObject>();
+    }
+
+    private GameObject CreateRankPrefab()
+    {
+        rankPrefab = Resources.Load<GameObject>($"UI/TextRankData");
+        GameObject rank = Instantiate(rankPrefab);
+        rank.gameObject.SetActive(false);
+        return rank;
     }
 
     public NoteObject GetNote(int a)
@@ -144,6 +154,24 @@ public class ObjectPoolManager : MonoBehaviour
 
     }
 
+    public GameObject GetRankPrefab()
+    {
+        if (rankPrefabObject.Count > 0)
+        {
+            var obj = rankPrefabObject.Dequeue();
+            obj.transform.SetParent(null);
+            obj.gameObject.SetActive(true);
+            return obj;
+        }
+        else
+        {
+            var newObj = CreateRankPrefab();
+            newObj.gameObject.SetActive(true);
+            newObj.transform.SetParent(null);
+            return newObj;
+        }
+    }
+
     public void ReturnObject(NoteObject obj)
     {
         if (obj.controllerType == 0)
@@ -176,5 +204,12 @@ public class ObjectPoolManager : MonoBehaviour
             PoolLongNote_0Object.Enqueue(obj);
         }
 
+    }
+
+    public void ReturnRankPrefab(GameObject obj)
+    {
+        obj.gameObject.SetActive(false);
+        obj.transform.SetParent(transform);
+        rankPrefabObject.Enqueue(obj);
     }
 }
