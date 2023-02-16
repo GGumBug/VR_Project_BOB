@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Target : MonoBehaviour, ITargetInteface
 {
-    [SerializeField] ParticleSystem targetBoomPS;
-
-    void Awake()
-    { targetBoomPS.Stop(); }
-
     public void TargetShot()
     {
         TargetShotPS();
@@ -17,7 +12,7 @@ public class Target : MonoBehaviour, ITargetInteface
 
     public void TargetShotPS()
     {
-        targetBoomPS.Play();
+      
     }
 
 
