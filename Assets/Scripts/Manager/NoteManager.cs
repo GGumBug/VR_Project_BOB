@@ -122,7 +122,6 @@ public class NoteManager : MonoBehaviour
                     _note.noteNumber = next;
                     _note.life = true;
                     notes.Add(_note);
-                    Debug.Log("롱노트");
                     next++;
                     SetCreateTime(title, next);
                     coroutine = StartCoroutine("LongNoteJugement");
@@ -155,14 +154,14 @@ public class NoteManager : MonoBehaviour
         NoteObject note = notes[prev];
 
         prev = next;
-
+        float a = Mathf.Round((note.note.tail - note.note.time) * 0.001f);
+        note.SetLongNoteCount(a);
         yield return new WaitForSeconds((note.note.tail - note.note.time) * 0.001f);
         if (note != null)
         {
-            Debug.Log("파괴");
             note.life = false;
+            GameManager.GetInstance().CheckLongJugement(note);
             ObjectPoolManager.GetInstance().ReturnLongNote(note);
-            GameManager.GetInstance().Miss(); // 미스 판정
         }
     }
 

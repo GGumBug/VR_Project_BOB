@@ -7,10 +7,16 @@ using TMPro;
 
 public class LongNoteUI : MonoBehaviour
 {
-    [SerializeField] TMP_Text lifeCount;
+    [SerializeField] Slider slider;
 
-    public void MinusCount(int a)
+    public void RefreshValue(float a)
     {
-        lifeCount.text = a.ToString();
+        slider.maxValue = a;
+        slider.value = a;
+    }
+
+    public void SetValue(float a)
+    {
+        slider.value = a;
     }
 }
