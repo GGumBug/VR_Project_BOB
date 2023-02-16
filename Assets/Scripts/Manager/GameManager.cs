@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
 
     public void CheckJugement(NoteObject note, float curtime)
     {
-        if (1500 < GetPerfectTiming(note) - curtime)
+        if (1000 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("BAD");
             player.PlusHP(1);
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
             RefreshPlayerInfo();
             player.CountCheck(2);
         }
-        else if (1200 < GetPerfectTiming(note) - curtime)
+        else if (500 < GetPerfectTiming(note) - curtime)
         {
             Debug.Log("GOOD");
             player.PlusHP(5);
@@ -60,6 +60,50 @@ public class GameManager : MonoBehaviour
             RefreshPlayerInfo();
             player.CountCheck(0);
         }
+    }
+
+    public void CheckLongJugement(NoteObject note)
+    {
+        if (note.longNoteCount == note.maxLongNoteCount)
+        {
+            Debug.Log("MISS");
+            player.MinusHP(10);
+            RefreshPlayerInfo();
+            player.CountCheck(3);
+        }
+        else if (note.longNoteCount > note.maxLongNoteCount * 0.7)
+        {
+            Debug.Log("BAD");
+            player.PlusHP(1);
+            player.PlusScore(20);
+            RefreshPlayerInfo();
+            player.CountCheck(2);
+        }
+        else if (note.longNoteCount > note.maxLongNoteCount * 0.2)
+        {
+            Debug.Log("GOOD");
+            player.PlusHP(5);
+            player.PlusScore(50);
+            RefreshPlayerInfo();
+            player.CountCheck(1);
+        }
+        else
+        {
+            Debug.Log("PERFACT");
+            player.PlusHP(10);
+            player.PlusScore(100);
+            RefreshPlayerInfo();
+            player.CountCheck(0);
+        }
+    }
+
+    public void CheckLongPerfactJugement()
+    {
+        Debug.Log("PERFACT");
+        player.PlusHP(10);
+        player.PlusScore(100);
+        RefreshPlayerInfo();
+        player.CountCheck(0);
     }
 
     public void Miss()
