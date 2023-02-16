@@ -65,7 +65,8 @@ public class NoteManager : MonoBehaviour
         if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
         {
             Debug.Log("노트 없음");
-            GameManager.GetInstance().GameOver();
+            AudioManager.GetInstance().FadeOutBGM();
+            GameManager.GetInstance().GameOver(next);
             return;
         }
         curNote = SheetManager.GetInstance().sheets[title].notes[a];
