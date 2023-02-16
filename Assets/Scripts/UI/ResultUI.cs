@@ -41,6 +41,7 @@ public class ResultUI : MonoBehaviour
     void ToMainMenu()
     {
         resultUI.gameObject.SetActive(false);
+        NoteManager.GetInstance().ResetNoteCount();
         ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
 
     }

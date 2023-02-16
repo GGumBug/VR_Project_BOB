@@ -28,6 +28,7 @@ public class NoteManager : MonoBehaviour
     int prevControllType;
     bool isLongNote;
     bool controllSwich=true;
+    Coroutine startCoroutine;
     Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
@@ -46,18 +47,18 @@ public class NoteManager : MonoBehaviour
     int next = 0;
     int prev = 0;
 
-    private void Start()
-    {
-        SetCreateTime(SheetManager.GetInstance().GetCurrentTitle(), next);
-        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
-    }
-
     private void Update()
     {
         if (GameObject.FindGameObjectWithTag("LongNote") == null)
         {
             isLongNote = false;
         }
+    }
+
+    public void StartGame()
+    {
+        SetCreateTime(SheetManager.GetInstance().GetCurrentTitle(), next);
+        startCoroutine = StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
     }
 
     void SetCreateTime(string title, int a)
@@ -67,6 +68,7 @@ public class NoteManager : MonoBehaviour
             Debug.Log("노트 없음");
             AudioManager.GetInstance().FadeOutBGM();
             GameManager.GetInstance().GameOver(next);
+            StopCoroutine(startCoroutine);
             return;
         }
         curNote = SheetManager.GetInstance().sheets[title].notes[a];
@@ -189,5 +191,14 @@ public class NoteManager : MonoBehaviour
         }
         controllSwich = false;
         return 1;
+    }
+
+    public void ResetNoteCount()
+    {
+        next = 0;
+        prev = 0;
+        notes.Clear();
+        guides.Clear();
+        noteCoroutines.Clear();
     }
 }
