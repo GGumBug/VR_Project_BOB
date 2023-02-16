@@ -43,6 +43,7 @@ public class AudioManager : MonoBehaviour
     public void Play()
     {
         state = State.Playing;
+        BgmPlayer.volume = 1;
         BgmPlayer.Play();
     }
 
@@ -65,5 +66,25 @@ public class AudioManager : MonoBehaviour
     public float GetMilliSec()
     {
         return BgmPlayer.time * 1000;
+    }
+
+    public void FadeOutBGM()
+    {
+        StartCoroutine("IEFadeOutBGM");
+    }
+
+    IEnumerator IEFadeOutBGM()
+    {
+        while(BgmPlayer.volume >0)
+        {
+            BgmPlayer.volume -= 0.001f;
+            yield return null;
+        }
+
+        if (BgmPlayer.volume == 0)
+        {
+            BgmPlayer.Stop();
+        }
+
     }
 }

@@ -127,9 +127,25 @@ public class GameManager : MonoBehaviour
         }
         playerUI.SetPlayerInfo();
     }
-    public void GameOver()
+    public void GameOver(int next)
     {
+        StartCoroutine(IEGameOver(next));
+    }
 
+    IEnumerator IEGameOver(int next)
+    {
+        if (SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].type == 0)
+        {
+            float noteDleay = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset;
+            yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f);
             UIManager.GetInstance().OpenUI("ResultUI");
+        }
+        else
+        {
+            float duration = SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].tail - SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes[next - 1].time;
+            Debug.Log(duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset);
+            yield return new WaitForSeconds((duration + SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset)*0.001f);
+            UIManager.GetInstance().OpenUI("ResultUI");
+        }
     }
 }
