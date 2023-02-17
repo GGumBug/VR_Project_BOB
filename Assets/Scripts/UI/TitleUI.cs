@@ -9,10 +9,11 @@ public class TitleUI : MonoBehaviour
 {
     public Button NextBtn;
     ScenesManager sM;
-    public TMP_InputField inputField;
+    public InputField inputField;
     string playerName;
     public GameObject inputFieldPanel;
     public Button StartBtn;
+    public TMP_Text Nametxt;
     public TMP_Text Warningtxt;
     void Start()
     {
@@ -30,8 +31,20 @@ public class TitleUI : MonoBehaviour
     }
     void OnClickStart()
     {
-
+        if (inputField.text.Length >= 1)
+        {
+            playerName = inputField.text;
+            PlayerPrefs.SetString("CurrentPlayerName", playerName);   
+            Nametxt.text = $"{inputField.text}님, 환영합니다.";
+            
             ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
+        }
+        else
+        {
+            Nametxt.gameObject.SetActive(false);
+            Warningtxt.text = "이름이 입력되지 않았습니다.";
+            Warningtxt.gameObject.SetActive(true);
+        }
 
     }
     private TouchScreenKeyboard keyboard;
