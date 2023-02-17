@@ -3,7 +3,22 @@ guid: 2100992cddc0f304096e2c452369737e
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Baige Metal.001
+    second: {fileID: 2100000, guid: 3f097505d5cc3f84ab6a2ef3c847cb57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black Metal.001
+    second: {fileID: 2100000, guid: 3d3c2be551ac9694ca450848f108c21a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Can.001
+    second: {fileID: 2100000, guid: 5e8219fd1bfef5d448984d70ec866580, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
