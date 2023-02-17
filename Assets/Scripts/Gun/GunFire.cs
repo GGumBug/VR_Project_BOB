@@ -19,7 +19,8 @@ public class GunFire : MonoBehaviour
     [Header("Raycast")]
     [SerializeField] Transform gunraycastOrigin;
     [SerializeField] LayerMask targetLayer;
-    [SerializeField] ParticleSystem shootPS;
+    [SerializeField] ParticleSystem gunFirePS;
+    [SerializeField] ParticleSystem mGunFirePS;
 
     //피격, 에임
     [SerializeField] GameObject noteBoomGO;
@@ -29,6 +30,7 @@ public class GunFire : MonoBehaviour
     [Header("Audio")]
     AudioSource gunAudioSource;
     [SerializeField] AudioClip gunAudioClip;
+    [SerializeField] AudioClip mGunAudioClip;
 
     [Header("GunModel")]
     [SerializeField] GameObject pistolLeft;
@@ -62,7 +64,8 @@ public class GunFire : MonoBehaviour
 
     void Start()
     {
-        shootPS.Stop();
+        gunFirePS.Stop();
+        mGunFirePS.Stop();
     }
 
     private void Update()
@@ -197,7 +200,7 @@ public class GunFire : MonoBehaviour
     public void ShotRayLeft()
     {
         RaycastHit hit;
-        shootPS.Play();
+        gunFirePS.Play();
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
@@ -217,8 +220,8 @@ public class GunFire : MonoBehaviour
     public void M_ShotRayLeft()
     {
         RaycastHit hit;
-        shootPS.Play();
-        gunAudioSource.PlayOneShot(gunAudioClip);
+        mGunFirePS.Play();
+        gunAudioSource.PlayOneShot(mGunAudioClip);
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
@@ -236,7 +239,7 @@ public class GunFire : MonoBehaviour
     public void ShotRayRight()
     {
         RaycastHit hit;
-        shootPS.Play();
+        gunFirePS.Play();
         gunAudioSource.PlayOneShot(gunAudioClip);
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
@@ -254,8 +257,8 @@ public class GunFire : MonoBehaviour
     public void M_ShotRayRight()
     {
         RaycastHit hit;
-        shootPS.Play();
-        gunAudioSource.PlayOneShot(gunAudioClip);
+        mGunFirePS.Play();
+        gunAudioSource.PlayOneShot(mGunAudioClip);
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
@@ -423,6 +426,7 @@ public class GunFire : MonoBehaviour
                 if (isM_LeftShot)
                 {
                     m_GunLeft.SetActive(true);
+
                     pistolLeft.SetActive(false);
                 }
                 else if (isLeftShot)
@@ -431,6 +435,7 @@ public class GunFire : MonoBehaviour
                     pistolLeft.SetActive(true);
                 }
                 break;
+           
             case Controller.Right:
                 if (isM_RightShot)
                 {
