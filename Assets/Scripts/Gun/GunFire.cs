@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,10 +22,12 @@ public class GunFire : MonoBehaviour
     [SerializeField] LayerMask targetLayer;
     [SerializeField] ParticleSystem gunFirePS;
     [SerializeField] ParticleSystem mGunFirePS;
+    [SerializeField] ParticleSystem gunSwapPS;
 
     //피격, 에임
-    [SerializeField] GameObject noteBoomGO;
+    [SerializeField] GameObject targetPS;
     [SerializeField] GameObject aimGO;
+
 
     [Space(10f)]
     [Header("Audio")]
@@ -66,6 +69,10 @@ public class GunFire : MonoBehaviour
     {
         gunFirePS.Stop();
         mGunFirePS.Stop();
+        gunSwapPS.Stop();
+
+        Instantiate(aimGO, new Vector3 (0,0,-5), Quaternion.identity);
+
     }
 
     private void Update()
@@ -181,18 +188,18 @@ public class GunFire : MonoBehaviour
             default:
                 break;
         }
+
+        RaycastAim();
     }
-
-
+    
     // 피격 효과
-    public void RaycastAimPs()
+    public void RaycastAim()
     {
        RaycastHit hit;
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
         {
-            Vector3 aimPos = hit.point;
-            aimGO.transform.position = aimPos;
+            aimGO.transform.position = hit.point;
         }
 
     }
@@ -201,13 +208,12 @@ public class GunFire : MonoBehaviour
     {
         RaycastHit hit;
         gunFirePS.Play();
+        gunAudioSource.PlayOneShot(gunAudioClip);
 
         if (Physics.Raycast(gunraycastOrigin.position, gunraycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, targetLayer))
         {
             TargetCheckLeft(hit);
         }
-
-        gunAudioSource.PlayOneShot(gunAudioClip);
 
         if (leftDleay != null)
         {
@@ -283,7 +289,7 @@ public class GunFire : MonoBehaviour
 
             if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
             {
-                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                GameObject noteBoomGOclone = Instantiate(targetPS, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(noteBoomGOclone, 2f);
             }
 
@@ -317,7 +323,7 @@ public class GunFire : MonoBehaviour
             
             if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
             {
-                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                GameObject noteBoomGOclone = Instantiate(targetPS, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(noteBoomGOclone, 2f);
             }
             
@@ -356,7 +362,7 @@ public class GunFire : MonoBehaviour
 
             if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
             {
-                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                GameObject noteBoomGOclone = Instantiate(targetPS, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(noteBoomGOclone, 2f);
             }
 
@@ -389,7 +395,7 @@ public class GunFire : MonoBehaviour
 
             if (hitTarget.gameObject.layer == 5 || hitTarget.gameObject.layer == 6)
             {
-                GameObject noteBoomGOclone = Instantiate(noteBoomGO, hit.point, Quaternion.LookRotation(hit.normal));
+                GameObject noteBoomGOclone = Instantiate(targetPS, hit.point, Quaternion.LookRotation(hit.normal));
                 Destroy(noteBoomGOclone, 2f);
             }
 
@@ -426,12 +432,15 @@ public class GunFire : MonoBehaviour
                 if (isM_LeftShot)
                 {
                     m_GunLeft.SetActive(true);
-
+                   // gunSwapPS.Play(); //스왚 효과
+                    
                     pistolLeft.SetActive(false);
+                   // gunSwapPS.Play(); //스왚 효과
                 }
                 else if (isLeftShot)
                 {
                     m_GunLeft.SetActive(false);
+                   // gunSwapPS.Play(); //스왚 효과
                     pistolLeft.SetActive(true);
                 }
                 break;
