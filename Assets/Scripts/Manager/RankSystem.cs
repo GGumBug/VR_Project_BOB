@@ -38,6 +38,7 @@ public class RankSystem : MonoBehaviour
     private RankData[] rankDataArray;                   //랭크 정보를 저장하는 RankData 타입의 배열
     List<GameObject> cloneList = new List<GameObject>();
     private int currentIndex = 0;
+    public string playerName;
 
     public void StartRankSystem()
     {
