@@ -26,18 +26,18 @@ public class TitleUI : MonoBehaviour
     {
         NextBtn.gameObject.SetActive(false);
         inputFieldPanel.SetActive(true);
+        ShowKeyboard();
     }
     void OnClickStart()
     {
-        if (inputField.text != null)
-        {
-            Warningtxt.gameObject.SetActive(false);
-            inputField.text = GameManager.GetInstance().player.playerName;
+
             ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);
-        }
-        else if(inputField.text == null)
-        { 
-            Warningtxt.gameObject.SetActive(true); 
-        }
+
+    }
+    private TouchScreenKeyboard keyboard;
+
+    public void ShowKeyboard()
+    {
+        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
     }
 }
