@@ -70459,6 +70459,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: M_Gun
       objectReference: {fileID: 0}
+    - target: {fileID: 8634569253360343908, guid: 057fbf1e96d85a14b84a178f9133e392, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057fbf1e96d85a14b84a178f9133e392, type: 3}
 --- !u!4 &5081953538651610755 stripped
@@ -70587,6 +70591,10 @@ PrefabInstance:
     - target: {fileID: 8634569253360343908, guid: 057fbf1e96d85a14b84a178f9133e392, type: 3}
       propertyPath: m_Name
       value: M_Gun
+      objectReference: {fileID: 0}
+    - target: {fileID: 8634569253360343908, guid: 057fbf1e96d85a14b84a178f9133e392, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 057fbf1e96d85a14b84a178f9133e392, type: 3}
