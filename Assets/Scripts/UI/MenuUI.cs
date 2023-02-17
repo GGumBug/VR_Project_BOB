@@ -70,7 +70,7 @@ public class MenuUI : MonoBehaviour
         xrOrigin.transform.localEulerAngles = new Vector3(0, 46.535f, 0);
         OnclickSetting();
         RankingPanel.SetActive(false);
-        Debug.Log($"Player : {PlayerPrefs.GetString("CurrentPlayerName")}");
+        Debug.Log($"Player : {GameManager.GetInstance().player.playerName}");
 
     }
     // Start XRorigin p(-22.7, 8.1, 49.7)/ R y :46.535
