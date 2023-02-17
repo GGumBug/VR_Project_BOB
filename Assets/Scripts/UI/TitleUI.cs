@@ -10,7 +10,7 @@ public class TitleUI : MonoBehaviour
     public Button NextBtn;
     ScenesManager sM;
     public InputField inputField;
-    string playerName;
+    public string playerName;
     public GameObject inputFieldPanel;
     public Button StartBtn;
     public TMP_Text Nametxt;
@@ -34,7 +34,8 @@ public class TitleUI : MonoBehaviour
         if (inputField.text.Length >= 1)
         {
             playerName = inputField.text;
-            PlayerPrefs.SetString("CurrentPlayerName", playerName);   
+            PlayerPrefs.SetString("CurrentPlayerName", playerName);
+            GameManager.GetInstance().player.SetPlayerName();
             Nametxt.text = $"{inputField.text}님, 환영합니다.";
             
             ScenesManager.GetInstance().ChangeScene(Scenes.MenuScene);

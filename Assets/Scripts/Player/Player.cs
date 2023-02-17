@@ -12,17 +12,18 @@ public enum Count
 public class Player
 {
     public string playerName { get; private set; }
-    public int score {get; private set;}
-    public int maxHp {get; private set;}
-    public int hp {get; private set;}
-    public int combo {get; private set;}
+    public int score { get; private set; }
+    public int maxHp { get; private set; }
+    public int hp { get; private set; }
+    public int combo { get; private set; }
     public int maxcombo { get; private set; }
     public int perfectCount { get; private set; }
     public int goodCount { get; private set; }
     public int badCount { get; private set; }
     public int missCount { get; private set; }
 
-    public Player(string playerName, int score, int maxHp,int hp, int combo, int maxcombo, int perfectCount, int goodCount, int badCount, int missCount)
+    TitleUI titleUI;
+    public Player(string playerName, int score, int maxHp, int hp, int combo, int maxcombo, int perfectCount, int goodCount, int badCount, int missCount)
     {
         this.playerName = playerName;
         this.score = score;
@@ -34,7 +35,7 @@ public class Player
         this.goodCount = goodCount;
         this.badCount = badCount;
         this.missCount = missCount;
-        
+
     }
 
     public void PlusHP(int plusHp)
@@ -89,7 +90,7 @@ public class Player
             badCount++;
             Debug.Log("배드 = " + badCount);
         }
-        else if (Count == 3)        
+        else if (Count == 3)
         {
             missCount++;
             Debug.Log("미스 = " + missCount);
@@ -105,8 +106,8 @@ public class Player
             FeverTime(plusScore);
         }
         else if (combo == 0)
-        { 
-            
+        {
+
         }
     }
     IEnumerator FeverTime(int plusScore)
@@ -115,5 +116,9 @@ public class Player
         {
             PlusScore(plusScore * 2);
         }
+    }
+    public void SetPlayerName()
+    {
+        playerName = PlayerPrefs.GetString("CurrentPlayerName");
     }
 }
