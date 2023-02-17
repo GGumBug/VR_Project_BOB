@@ -11384,7 +11384,7 @@ GameObject:
   - component: {fileID: 1199911201170171866}
   m_Layer: 0
   m_Name: XR Origin_PC
-  m_TagString: Untagged
+  m_TagString: XROrigin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
