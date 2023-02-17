@@ -77,7 +77,7 @@ public class AudioManager : MonoBehaviour
     {
         while(BgmPlayer.volume >0)
         {
-            BgmPlayer.volume -= 0.001f;
+            BgmPlayer.volume -= 0.003f;
             yield return null;
         }
 
