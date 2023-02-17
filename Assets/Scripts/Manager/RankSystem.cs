@@ -86,13 +86,12 @@ public class RankSystem : MonoBehaviour
         //Instatiate()로 textPrefab 복사체를 생성하고, clone 변수에 저장
         GameObject clone = ObjectPoolManager.GetInstance().GetRankPrefab();
         //clone의 TextMeshProUGUI 컴포넌트 정보를 얻어와 text변수에 저장
-        TextMeshProUGUI text = clone.GetComponent<TextMeshProUGUI>();
+        TMP_Text text = clone.GetComponent<TMP_Text>();
 
         //생성한 Text UI 오브젝트의 부모를 panelRankInfo 오브젝트로 설정
         clone.transform.SetParent(panelRankInfo);
         //자식으로 등록되면서 크기가 변환될 수 있기 때문에 크기를 1로 설정
         clone.transform.localScale = Vector3.one;
-        clone.transform.position = new Vector3(-0.36f, -0.43f, 8.37f);
         // 캔버스가 이미 각도가 틀어져 있어서 각도 맞춰주는 작업
         clone.transform.rotation = Quaternion.Euler(0, 85.189f, 0);
         //Text UI에 출력할 내용과 폰트 색상 설정
@@ -161,6 +160,8 @@ public class RankSystem : MonoBehaviour
     {
         Color color = new Color32(0,243,144,255);
 
+        panelRankInfo.transform.localScale = new Vector3(1f, 1f, 1f);
+
         for (int i = 0; i < maxRankCount; ++i)
         {
             //방금 플레이의 점수가 랭크에 등록되면 색상을 노란색으로 표시
@@ -172,6 +173,8 @@ public class RankSystem : MonoBehaviour
             SpawnText(rankDataArray[i].score.ToString(), color);
             SpawnText(rankDataArray[i].maxCombo.ToString(), color);
         }
+
+        panelRankInfo.transform.localScale = new Vector3(0.01f,0.01f,0.01f);
     }
 
     public void SaveRankData()
