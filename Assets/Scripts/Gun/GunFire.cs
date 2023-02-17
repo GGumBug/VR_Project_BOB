@@ -30,6 +30,12 @@ public class GunFire : MonoBehaviour
     AudioSource gunAudioSource;
     [SerializeField] AudioClip gunAudioClip;
 
+    [Header("GunModel")]
+    [SerializeField] GameObject pistolLeft;
+    [SerializeField] GameObject pistolRight;
+    [SerializeField] GameObject m_GunLeft;
+    [SerializeField] GameObject m_GunRight;
+
     float pistolshotDleay = 0.5f;
     float m_GunDleay = 0.15f;
     float m_GunDamege = 0.2f;
@@ -69,6 +75,7 @@ public class GunFire : MonoBehaviour
                     if (isM_LeftShot)
                         return;
                     isM_LeftShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
                     M_ShotRayLeft();
                 }
@@ -79,6 +86,7 @@ public class GunFire : MonoBehaviour
                     if (isM_RightShot)
                         return;
                     isM_RightShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
                     M_ShotRayRight();
                 }
@@ -95,6 +103,7 @@ public class GunFire : MonoBehaviour
                     if (isLeftShot)
                         return;
                     isLeftShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayLeft();
                 }
@@ -105,6 +114,7 @@ public class GunFire : MonoBehaviour
                     if (isRightShot)
                         return;
                     isRightShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayRight();
                 }
@@ -121,6 +131,7 @@ public class GunFire : MonoBehaviour
                     if (isLeftShot)
                         return;
                     isLeftShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayLeft();
                 }
@@ -131,6 +142,7 @@ public class GunFire : MonoBehaviour
                     if (isRightShot)
                         return;
                     isRightShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
                     ShotRayRight();
                 }
@@ -147,6 +159,7 @@ public class GunFire : MonoBehaviour
                     if (isM_LeftShot)
                         return;
                     isM_LeftShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._leftController.SendHapticImpulse(0, 0.8f, 0.2f);
                     M_ShotRayLeft();
                 }
@@ -157,6 +170,7 @@ public class GunFire : MonoBehaviour
                     if (isM_RightShot)
                         return;
                     isM_RightShot = true;
+                    ChangeGun();
                     InputManager.GetInstance()._rightController.SendHapticImpulse(0, 0.8f, 0.2f);
                     M_ShotRayRight();
                 }
@@ -398,6 +412,39 @@ public class GunFire : MonoBehaviour
             else
             { Debug.Log("NOPE"); }
 
+        }
+    }
+
+    public void ChangeGun()
+    {
+        switch (controller)
+        {
+            case Controller.Left:
+                if (isM_LeftShot)
+                {
+                    m_GunLeft.SetActive(true);
+                    pistolLeft.SetActive(false);
+                }
+                else if (isLeftShot)
+                {
+                    m_GunLeft.SetActive(false);
+                    pistolLeft.SetActive(true);
+                }
+                break;
+            case Controller.Right:
+                if (isM_RightShot)
+                {
+                    m_GunRight.SetActive(true);
+                    pistolRight.SetActive(false);
+                }
+                else if (isRightShot)
+                {
+                    m_GunRight.SetActive(false);
+                    pistolRight.SetActive(true);
+                }
+                break;
+            default:
+                break;
         }
     }
 
