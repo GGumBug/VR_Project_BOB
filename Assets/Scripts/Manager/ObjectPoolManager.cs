@@ -22,82 +22,150 @@ public class ObjectPoolManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField]
-    private GameObject notePrefab;
-    private GameObject GuidePrefab;
 
-    Queue<NoteObject> PoolNoteObject = new Queue<NoteObject>();
+    [SerializeField] private GameObject notePrefab;
+    [SerializeField] private GameObject LongnotePrefab;
+    [SerializeField] private GameObject rankPrefab;
 
-    Queue<GameObject> Guide = new Queue<GameObject>();
-
-    private void Awake()
-    {
-        InitializeNote(20);
-        InitializeGuide(10);
-    }
+    Queue<NoteObject> PoolNote_0Object = new Queue<NoteObject>();
+    Queue<NoteObject> PoolNote_1Object = new Queue<NoteObject>();
+    Queue<NoteObject> PoolLongNote_0Object = new Queue<NoteObject>();
+    Queue<GameObject> rankPrefabObject = new Queue<GameObject>();
 
     private void InitializeNote(int initCount)
     {
         for (int i = 0; i < initCount; i++)
         {
-            PoolNoteObject.Enqueue(CreateNewObject());
+            PoolNote_0Object.Enqueue(CreateNewObject(0));
         }
     }
 
-    private void InitializeGuide(int initCount)
+    private void InitializeLongNote(int initCount)
     {
         for (int i = 0; i < initCount; i++)
         {
-            Guide.Enqueue(CreateNewGuide());
+            PoolLongNote_0Object.Enqueue(CreateNewLongNote(0));
         }
     }
 
-    private NoteObject CreateNewObject()
+    private NoteObject CreateNewObject(int a)
     {
-        notePrefab = Resources.Load<GameObject>("Objects/Note");
+        notePrefab = Resources.Load<GameObject>($"Objects/Note_{a}");
         GameObject note = Instantiate(notePrefab);
         note.gameObject.SetActive(false);
         return note.GetComponent<NoteObject>();
     }
 
-    private GameObject CreateNewGuide()
+    private NoteObject CreateNewLongNote(int a)
     {
-        GuidePrefab = Resources.Load<GameObject>("Particle/Guide");
-        GameObject guidePrefab = Instantiate(GuidePrefab);
-        guidePrefab.gameObject.SetActive(false);
-        return guidePrefab;
+        LongnotePrefab = Resources.Load<GameObject>($"Objects/LongNote");
+        GameObject note = Instantiate(LongnotePrefab);
+        note.gameObject.SetActive(false);
+        return note.GetComponent<NoteObject>();
     }
 
-    public NoteObject GetNote()
+    private GameObject CreateRankPrefab()
     {
-        if (PoolNoteObject.Count > 0)
+        rankPrefab = Resources.Load<GameObject>($"UI/TextRankData");
+        GameObject rank = Instantiate(rankPrefab);
+        rank.gameObject.SetActive(false);
+        return rank;
+    }
+
+    public NoteObject GetNote(int a)
+    {
+        if (a == 0)
         {
-            var obj = PoolNoteObject.Dequeue();
+            if (PoolNote_0Object.Count > 0)
+            {
+                var obj = PoolNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewObject(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+        if (a == 1)
+        {
+            if (PoolNote_1Object.Count > 0)
+            {
+                var obj = PoolNote_1Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewObject(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+
+        return null;
+
+    }
+
+    public NoteObject GetLongNote(int a)
+    {
+        if (a == 0)
+        {
+            if (PoolLongNote_0Object.Count > 0)
+            {
+                var obj = PoolLongNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewLongNote(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+        if (a == 1)
+        {
+            if (PoolLongNote_0Object.Count > 0)
+            {
+                var obj = PoolLongNote_0Object.Dequeue();
+                obj.transform.SetParent(null);
+                obj.gameObject.SetActive(true);
+                return obj;
+            }
+            else
+            {
+                var newObj = CreateNewLongNote(a);
+                newObj.gameObject.SetActive(true);
+                newObj.transform.SetParent(null);
+                return newObj;
+            }
+        }
+
+        return null;
+
+    }
+
+    public GameObject GetRankPrefab()
+    {
+        if (rankPrefabObject.Count > 0)
+        {
+            var obj = rankPrefabObject.Dequeue();
             obj.transform.SetParent(null);
             obj.gameObject.SetActive(true);
             return obj;
         }
         else
         {
-            var newObj = CreateNewObject();
-            newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
-            return newObj;
-        }
-    }
-
-    public GameObject GetGuide()
-    {
-        if (Guide.Count > 0)
-        {
-            var obj = Guide.Dequeue();
-            obj.transform.SetParent(null);
-            obj.gameObject.SetActive(true);
-            return obj;
-        }
-        else
-        {
-            var newObj = CreateNewGuide();
+            var newObj = CreateRankPrefab();
             newObj.gameObject.SetActive(true);
             newObj.transform.SetParent(null);
             return newObj;
@@ -106,15 +174,42 @@ public class ObjectPoolManager : MonoBehaviour
 
     public void ReturnObject(NoteObject obj)
     {
-        obj.gameObject.SetActive(false);
-        obj.transform.SetParent(transform);
-        PoolNoteObject.Enqueue(obj);
+        if (obj.controllerType == 0)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolNote_0Object.Enqueue(obj);
+        }
+        if (obj.controllerType == 1)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolNote_1Object.Enqueue(obj);
+        }
+
     }
 
-    public void ReturnGuide(GameObject obj)
+    public void ReturnLongNote(NoteObject obj)
+    {
+        if (obj.controllerType == 0)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolLongNote_0Object.Enqueue(obj);
+        }
+        if (obj.controllerType == 1)
+        {
+            obj.gameObject.SetActive(false);
+            obj.transform.SetParent(transform);
+            PoolLongNote_0Object.Enqueue(obj);
+        }
+
+    }
+
+    public void ReturnRankPrefab(GameObject obj)
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(transform);
-        Guide.Enqueue(obj);
+        rankPrefabObject.Enqueue(obj);
     }
 }

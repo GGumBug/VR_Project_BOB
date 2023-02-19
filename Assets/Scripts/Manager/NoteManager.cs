@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class NoteManager : MonoBehaviour
 {
@@ -22,7 +23,12 @@ public class NoteManager : MonoBehaviour
     }
     #endregion
 
+    Note curNote;
     int curNoteTime;
+    int prevControllType;
+    bool isLongNote;
+    bool controllSwich=true;
+    Coroutine startCoroutine;
     Coroutine coroutine;
 
     public List<NoteObject> notes = new List<NoteObject>();
@@ -31,20 +37,28 @@ public class NoteManager : MonoBehaviour
 
     public readonly Vector3[] linpos =
     {
-        new Vector3(-4f, 1f),
-        new Vector3(-1.5f, -1.5f),
-        new Vector3(0f, 1f),
-        new Vector3(1.5f, -1.5f),
-        new Vector3(4f, 1f),
+        new Vector3(-3f, .5f),
+        new Vector3(-1.2f, -.5f),
+        new Vector3(0f, .5f),
+        new Vector3(1.2f, -.5f),
+        new Vector3(3f, .5f),
     };
 
     int next = 0;
     int prev = 0;
 
-    private void Start()
+    private void Update()
+    {
+        if (GameObject.FindGameObjectWithTag("LongNote") == null)
+        {
+            isLongNote = false;
+        }
+    }
+
+    public void StartGame()
     {
         SetCreateTime(SheetManager.GetInstance().GetCurrentTitle(), next);
-        StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
+        startCoroutine = StartCoroutine(IEGenTimer(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f));
     }
 
     void SetCreateTime(string title, int a)
@@ -52,9 +66,13 @@ public class NoteManager : MonoBehaviour
         if (next == SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].notes.Count)
         {
             Debug.Log("노트 없음");
+            AudioManager.GetInstance().FadeOutBGM();
+            GameManager.GetInstance().GameOver(next);
+            StopCoroutine(startCoroutine);
             return;
         }
-        curNoteTime = SheetManager.GetInstance().sheets[title].notes[a].time;
+        curNote = SheetManager.GetInstance().sheets[title].notes[a];
+        curNoteTime = curNote.time;
     }
 
     IEnumerator IEGenTimer(float interval)
@@ -74,27 +92,58 @@ public class NoteManager : MonoBehaviour
     {
         if (curNoteTime < AudioManager.GetInstance().GetMilliSec())
         {
-            NoteObject note = ObjectPoolManager.GetInstance().GetNote();
-            note.note = SheetManager.GetInstance().sheets[title].notes[next];
-            note.SetPosition(linpos[note.note.line]);
-            note.transform.localScale = new Vector3(0f, 0f, 0f);
-            note.noteNumber = next;
-            note.life = true;
-            notes.Add(note);
-            next++;
-            SetCreateTime(title, next);
-            coroutine = StartCoroutine("Jugement");
-            noteCoroutines.Add(coroutine);
+            switch (curNote.type)
+            {
+                case 0:
+                    if (!isLongNote)
+                    {
+                        int controllType = SwichControllType();
+                        prevControllType = controllType;
+                    }
+                    NoteObject note = ObjectPoolManager.GetInstance().GetNote(prevControllType);
+                    note.note = SheetManager.GetInstance().sheets[title].notes[next];
+                    note.SetPosition(linpos[note.note.line]);
+
+                    note.SetControllerType(prevControllType);
+                    note.noteNumber = next;
+                    note.life = true;
+                    notes.Add(note);
+                    next++;
+                    SetCreateTime(title, next);
+                    coroutine = StartCoroutine("Jugement");
+                    noteCoroutines.Add(coroutine);
+                    break;
+                case 1:
+                    isLongNote = true;
+                    int _controllType = SwichControllType();
+                    prevControllType = _controllType;
+                    NoteObject _note = ObjectPoolManager.GetInstance().GetLongNote(_controllType);
+                    _note.note = SheetManager.GetInstance().sheets[title].notes[next];
+                    _note.SetPosition(linpos[_note.note.line]);
+
+                    _note.SetControllerType(_controllType);
+                    _note.noteNumber = next;
+                    _note.life = true;
+                    notes.Add(_note);
+                    next++;
+                    SetCreateTime(title, next);
+                    coroutine = StartCoroutine("LongNoteJugement");
+                    noteCoroutines.Add(coroutine);
+                    break;
+            }
         }
     }
 
     IEnumerator Jugement()
     {
         NoteObject note = notes[prev];
-        CreateGuide(note);
-        StartCoroutine(GrowBigNote(note));
+        Transform[] model = note.GetComponentsInChildren<Transform>();
+        model[1].localScale = new Vector3(0f, 0f, 0f);
         prev = next;
-        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f);
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f * 0.5f);
+        model[1].DOScale(0.7f, SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].offset * 0.001f * 0.5f);
+        //StartCoroutine(GrowBigNote(model[1]));
+        yield return new WaitForSeconds(SheetManager.GetInstance().sheets[SheetManager.GetInstance().GetCurrentTitle()].BarPerMilliSec * 0.001f * 0.5f);
         if (note != null)
         {
             note.life = false;
@@ -103,24 +152,53 @@ public class NoteManager : MonoBehaviour
         }
     }
 
+    IEnumerator LongNoteJugement()
+    {
+        NoteObject note = notes[prev];
+
+        prev = next;
+        float a = Mathf.Round((note.note.tail - note.note.time) * 0.001f);
+        note.SetLongNoteCount(a);
+        yield return new WaitForSeconds((note.note.tail - note.note.time) * 0.001f);
+        if (note != null)
+        {
+            note.life = false;
+            GameManager.GetInstance().CheckLongJugement(note);
+            ObjectPoolManager.GetInstance().ReturnLongNote(note);
+        }
+    }
+
     public void StopNoteCoroutine(NoteObject note) // 특정 코루틴 찾아서 스톱하는 함수
     {
         StopCoroutine(noteCoroutines[note.noteNumber]);
     }
 
-    IEnumerator GrowBigNote(NoteObject note)
+    IEnumerator GrowBigNote(Transform model)
     {
-        while (note.transform.lossyScale.x < 1)
+        while (model.lossyScale.x < 0.8)
         {
-            note.transform.localScale += new Vector3(0.002f, 0.002f, 0.002f);
+            model.localScale += new Vector3(0.002f, 0.002f, 0.002f);
             yield return null;
         }
     }
 
-    void CreateGuide(NoteObject noteObject)
+    int SwichControllType()
     {
-        GameObject go = ObjectPoolManager.GetInstance().GetGuide();
-        go.transform.position = noteObject.transform.position;
-        guides.Add(go);
+        if (!controllSwich)
+        {
+            controllSwich = true;
+            return 0;
+        }
+        controllSwich = false;
+        return 1;
+    }
+
+    public void ResetNoteCount()
+    {
+        next = 0;
+        prev = 0;
+        notes.Clear();
+        guides.Clear();
+        noteCoroutines.Clear();
     }
 }

@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class TitleScene : MonoBehaviour
 {
-    Camera VRCam;
-
     void Awake()
     {
-        UIManager uimanager = UIManager.GetInstance();
-        
-        VRCam = Camera.main;        
-        uimanager.OpenUI("TitleUI");
-        TitleUI titleUI = uimanager.GetUI("TitleUI").GetComponent<TitleUI>();
-        titleUI.transform.SetParent(VRCam.transform);
-        titleUI.name = "TitleUI";
-        AudioManager soudnplayer = AudioManager.GetInstance();
-        // soudnplayer.PlayBgm("Start");
+        for (int i = 0; i < SheetManager.GetInstance().title.Length; i++)
+        {
+            SheetManager.GetInstance().Init(SheetManager.GetInstance().title[i]);
+            PaserManager.GetInstance().Paser(SheetManager.GetInstance().title[i]);
+        }
+
+        UIManager.GetInstance().OpenUI("TitleUI");
+        UIManager.GetInstance().OpenUI("FadeUI");
+        TitleUI titleUI = UIManager.GetInstance().GetUI("TitleUI").GetComponent<TitleUI>();
     }
 }
