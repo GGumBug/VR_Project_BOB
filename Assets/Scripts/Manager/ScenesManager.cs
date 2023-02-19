@@ -58,6 +58,7 @@ public class ScenesManager : MonoBehaviour
         Fade_img.DOFade(0, fadeDuration)
         .OnStart(() =>
         {
+            Debug.Log("OnSceneLoaded");
             Loading.SetActive(false);
         })
         .OnComplete(() =>

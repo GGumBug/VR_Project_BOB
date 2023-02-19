@@ -1,14 +1,12 @@
 using System;
 using System.Collections;
 using System.Text;
-using HangulVirtualKeynoard;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class OnScreenKeyboard : MonoBehaviour
 {
     public enum CurLang {
-        KR,
         EN,
     }
     public enum Caps {
@@ -32,10 +30,11 @@ public class OnScreenKeyboard : MonoBehaviour
     [SerializeField]
     private Text showTextField;
     [SerializeField]
-    private GameObject KrNormal,KrNormalCpas,EnNormal,EnNormalCpas;
+    private GameObject EnNormalCpas;
     [SerializeField]
-    private Button exitBtn, korBtn, engBtn, capsBtn;
-
+    private Button exitBtn, capsBtn;
+    Button engBtn;
+    GameObject EnNormal;
     Event fakeEvent;
 
     void Awake()
@@ -43,9 +42,9 @@ public class OnScreenKeyboard : MonoBehaviour
         AddListenerToButtons();
 
         
-        curLang = CurLang.KR;
-        beforeLang = CurLang.KR;
-        curCaps = Caps.Uncaps;
+        curLang = CurLang.EN;
+        beforeLang = CurLang.EN;
+        curCaps = Caps.Caps;
         ClearAllStrValue();
         CloseKeyboard();
     }
@@ -77,7 +76,6 @@ public class OnScreenKeyboard : MonoBehaviour
     {
         bgCloseBtn.onClick.AddListener(CloseKeyboard);
         exitBtn.onClick.AddListener(CloseKeyboard);
-        korBtn.onClick.AddListener(() => { curLang = CurLang.KR; });
         engBtn.onClick.AddListener(() => { curLang = CurLang.EN; });
         capsBtn.onClick.AddListener(() => {
             switch (curCaps) {
@@ -96,14 +94,11 @@ public class OnScreenKeyboard : MonoBehaviour
             case "backspace":
             value = "";
             inputtedString = inputtedString.Length > 1 ? inputtedString.Substring(0, inputtedString.Length - 1) : "";
-            if (curLang == CurLang.KR)
-                fakeEvent = null;
-            else
-            {
+
                 currentString = currentString.Length > 1 ? currentString.Substring(0, currentString.Length - 1) : "";
                 fakeEvent = Event.KeyboardEvent("backspace");
                 fakeEvent.keyCode = KeyCode.Backspace;
-            }
+            
             break;
             case "space":
             fakeEvent = Event.KeyboardEvent(value);
@@ -171,16 +166,10 @@ public class OnScreenKeyboard : MonoBehaviour
     {
         InputFieldProcessUpdate(fakeEvent);
 
-        if (curLang == CurLang.KR)
-        {
-            StartCoroutine(HangulDelayUpdate());
-        }
-        else
-        {
             targetInputField.text = currentString;
             currentString = GetInputFieldText();
             showTextField.text =  GetInputFieldText();
-        }
+        
     }
     
     private void Initialize(InputField inputField, OnScreenKeyboardInputfield oskInputField)
@@ -194,7 +183,6 @@ public class OnScreenKeyboard : MonoBehaviour
         {
             //Do check your language
             curCaps = Caps.Uncaps;
-            curLang = CurLang.KR;
         }
         
         ChangeKeyboardType(curLang, curCaps);
@@ -202,8 +190,6 @@ public class OnScreenKeyboard : MonoBehaviour
     }
     
     void ChangeKeyboardType(CurLang curLang, Caps caps) {
-        KrNormal.gameObject.SetActive(false);
-        KrNormalCpas.gameObject.SetActive(false);
         EnNormal.gameObject.SetActive(false);
         EnNormalCpas.gameObject.SetActive(false);
 
@@ -211,20 +197,7 @@ public class OnScreenKeyboard : MonoBehaviour
         this.curCaps = caps;
         
         switch (curLang) {
-            case CurLang.KR:
-                korBtn.gameObject.SetActive(false);
-                engBtn.gameObject.SetActive(true);
-                switch (caps) {
-                    case Caps.Caps:
-                        KrNormalCpas.gameObject.SetActive(true);
-                        break;
-                    case Caps.Uncaps:
-                        KrNormal.gameObject.SetActive(true);
-                        break;
-                }
-                break;
             case CurLang.EN:
-                korBtn.gameObject.SetActive(true);
                 engBtn.gameObject.SetActive(false);
                 switch (caps) {
                     case Caps.Caps:
@@ -262,23 +235,6 @@ public class OnScreenKeyboard : MonoBehaviour
         }
     }
 
-    IEnumerator HangulDelayUpdate()
-    {
-        HangulHelper helper = new HangulHelper();
-        StringBuilder stringBuilder = new StringBuilder();
-
-        //한글 완성을 위한 한글조합 넣기
-        for (int i = 0; i < inputtedString.Length; i++) {
-            helper.Input(stringBuilder, inputtedString[i]); // ㅎ
-        }
-
-        SetInputFieldText(stringBuilder.ToString());
-        
-        yield return null;
-        currentString = GetInputFieldText();
-        showTextField.text =  GetInputFieldText();
-    }
-    
     private void ForceToCloseMobileKeyboard()
     {
         if (targetInputField == null) return;
