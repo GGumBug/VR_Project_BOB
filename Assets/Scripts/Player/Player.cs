@@ -39,6 +39,7 @@ public class Player
     public void ResetPlayer()
     {
         score = 0;
+        maxHp = 100;
         hp = 100;
         combo = 0;
     }
