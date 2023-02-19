@@ -33,8 +33,6 @@ public class OnScreenKeyboard : MonoBehaviour
     private GameObject EnNormalCpas;
     [SerializeField]
     private Button exitBtn, capsBtn;
-    Button engBtn;
-    GameObject EnNormal;
     Event fakeEvent;
 
     void Awake()
@@ -76,7 +74,6 @@ public class OnScreenKeyboard : MonoBehaviour
     {
         bgCloseBtn.onClick.AddListener(CloseKeyboard);
         exitBtn.onClick.AddListener(CloseKeyboard);
-        engBtn.onClick.AddListener(() => { curLang = CurLang.EN; });
         capsBtn.onClick.AddListener(() => {
             switch (curCaps) {
                 case Caps.Caps:
@@ -190,21 +187,17 @@ public class OnScreenKeyboard : MonoBehaviour
     }
     
     void ChangeKeyboardType(CurLang curLang, Caps caps) {
-        EnNormal.gameObject.SetActive(false);
-        EnNormalCpas.gameObject.SetActive(false);
 
         this.curLang = curLang;
         this.curCaps = caps;
         
         switch (curLang) {
             case CurLang.EN:
-                engBtn.gameObject.SetActive(false);
                 switch (caps) {
                     case Caps.Caps:
                         EnNormalCpas.gameObject.SetActive(true);
                         break;
                     case Caps.Uncaps:
-                        EnNormal.gameObject.SetActive(true);
                         break;
                 }
                 break;
